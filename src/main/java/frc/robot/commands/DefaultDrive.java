@@ -4,14 +4,23 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.DriveTrain;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class DefaultDrive extends Command {
   
+  Joystick LeftJoystick;
+
+  DriveTrain drivetrain;
+
   /** Creates a new DefaultDrive. */
-  public DefaultDrive() {
+  public DefaultDrive(Joystick leftJoystick, DriveTrain driveTrain) {
+    this.LeftJoystick = leftJoystick;
+    this.drivetrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.
