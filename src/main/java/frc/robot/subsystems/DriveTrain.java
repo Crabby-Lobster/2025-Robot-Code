@@ -14,6 +14,8 @@ import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.OperatorConstants.DrivetrainConstants;
 
@@ -28,6 +30,12 @@ public class DriveTrain extends SubsystemBase {
   SparkMaxConfig FRConfig = new SparkMaxConfig();
   SparkMaxConfig BLConfig = new SparkMaxConfig();
   SparkMaxConfig BRConfig = new SparkMaxConfig();
+
+  MotorControllerGroup LeftMotors = new MotorControllerGroup(FLMotor, BLMotor);
+  MotorControllerGroup RightMotors = new MotorControllerGroup(FRMotor, BRMotor);
+
+  DifferentialDrive tankDrive = new DifferentialDrive(LeftMotors, RightMotors);
+
 
   /** Creates a new DriveTrain. */
   public DriveTrain() {
@@ -47,6 +55,10 @@ public class DriveTrain extends SubsystemBase {
     BRConfig.inverted(DrivetrainConstants.BRInvert).idleMode(IdleMode.kBrake);
     BRConfig.encoder.positionConversionFactor(0).velocityConversionFactor(0);
     BRMotor.configure(BRConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+  }
+
+  public void TankDrive(double leftSpeed, double rightSpeed){
+    tankDrive.tankDrive(leftSpeed, rightSpeed, true);
   }
 
   @Override
