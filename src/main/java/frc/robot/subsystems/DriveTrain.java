@@ -4,13 +4,10 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.signals.FrcLockValue;
-import com.ctre.phoenix6.signals.InvertedValue;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
@@ -31,13 +28,14 @@ public class DriveTrain extends SubsystemBase {
   SparkMaxConfig BLConfig = new SparkMaxConfig();
   SparkMaxConfig BRConfig = new SparkMaxConfig();
 
+  @SuppressWarnings("removal")
   MotorControllerGroup LeftMotors = new MotorControllerGroup(FLMotor, BLMotor);
+  @SuppressWarnings("removal")
   MotorControllerGroup RightMotors = new MotorControllerGroup(FRMotor, BRMotor);
 
   DifferentialDrive tankDrive = new DifferentialDrive(LeftMotors, RightMotors);
 
-
-  /** Creates a new DriveTrain. */
+  /** Creates a new DriveTrain.*/
   public DriveTrain() {
 
     FLConfig.inverted(DrivetrainConstants.FLInvert).idleMode(IdleMode.kBrake);

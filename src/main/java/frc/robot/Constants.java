@@ -27,6 +27,8 @@ public final class Constants {
       public static final boolean FRInvert = false;
       public static final boolean BLInvert = false;
       public static final boolean BRInvert = false;
+
+      public static final double DriveSpeed = 0.5;
     }
   }
 }

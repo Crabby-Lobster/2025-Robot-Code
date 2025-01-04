@@ -26,13 +26,14 @@ public class RobotContainer {
 
   private final Joystick leftStick = new Joystick(0);
   private final Joystick rightStick = new Joystick(1);
+  @SuppressWarnings("unused")
   private final XboxController controller = new XboxController(2);
 
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_driveTrain = new DriveTrain();
 
-  private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, m_driveTrain);
+  private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
