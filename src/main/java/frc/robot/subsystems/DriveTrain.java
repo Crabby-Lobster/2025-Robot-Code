@@ -14,14 +14,15 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.OperatorConstants.DrivetrainConstants;
+
+import static frc.robot.Constants.OperatorConstants.DrivetrainConstants.*;
 
 public class DriveTrain extends SubsystemBase {
 
-  SparkMax FLMotor = new SparkMax(DrivetrainConstants.FLMotorID, MotorType.kBrushless);
-  SparkMax FRMotor = new SparkMax(DrivetrainConstants.FRMotorID, MotorType.kBrushless);
-  SparkMax BLMotor = new SparkMax(DrivetrainConstants.BLMotorID, MotorType.kBrushless);
-  SparkMax BRMotor = new SparkMax(DrivetrainConstants.BRMotorID, MotorType.kBrushless);
+  SparkMax FLMotor = new SparkMax(FLMotorID, MotorType.kBrushless);
+  SparkMax FRMotor = new SparkMax(FRMotorID, MotorType.kBrushless);
+  SparkMax BLMotor = new SparkMax(BLMotorID, MotorType.kBrushless);
+  SparkMax BRMotor = new SparkMax(BRMotorID, MotorType.kBrushless);
 
   SparkMaxConfig FLConfig = new SparkMaxConfig();
   SparkMaxConfig FRConfig = new SparkMaxConfig();
@@ -38,19 +39,19 @@ public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain.*/
   public DriveTrain() {
 
-    FLConfig.inverted(DrivetrainConstants.FLInvert).idleMode(IdleMode.kBrake);
+    FLConfig.inverted(FLInvert).idleMode(IdleMode.kBrake);
     FLConfig.encoder.positionConversionFactor(0).velocityConversionFactor(0);
     FLMotor.configure(FLConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
-    FRConfig.inverted(DrivetrainConstants.FRInvert).idleMode(IdleMode.kBrake);
+    FRConfig.inverted(FRInvert).idleMode(IdleMode.kBrake);
     FRConfig.encoder.positionConversionFactor(0).velocityConversionFactor(0);
     FRMotor.configure(FRConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
-    BLConfig.inverted(DrivetrainConstants.BLInvert).idleMode(IdleMode.kBrake);
+    BLConfig.inverted(BLInvert).idleMode(IdleMode.kBrake);
     BLConfig.encoder.positionConversionFactor(0).velocityConversionFactor(0);
     BLMotor.configure(BLConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
-    BRConfig.inverted(DrivetrainConstants.BRInvert).idleMode(IdleMode.kBrake);
+    BRConfig.inverted(BRInvert).idleMode(IdleMode.kBrake);
     BRConfig.encoder.positionConversionFactor(0).velocityConversionFactor(0);
     BRMotor.configure(BRConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
   }

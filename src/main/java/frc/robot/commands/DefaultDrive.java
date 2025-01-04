@@ -6,8 +6,9 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.OperatorConstants.DrivetrainConstants;
 import frc.robot.subsystems.DriveTrain;
+
+import static frc.robot.Constants.OperatorConstants.DrivetrainConstants.*;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class DefaultDrive extends Command {
@@ -32,8 +33,8 @@ public class DefaultDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double left_speed = LeftJoystick.getY() * DrivetrainConstants.DriveSpeed;
-    double right_speed = rightJoystick.getY() * DrivetrainConstants.DriveSpeed;
+    double left_speed = LeftJoystick.getY() * DriveSpeed;
+    double right_speed = rightJoystick.getY() * DriveSpeed;
     drivetrain.TankDrive(left_speed, right_speed);
   }
 
