@@ -18,16 +18,23 @@ public final class Constants {
 
     public static final class DrivetrainConstants {
       
+      //Motor Can Ids
       public static final int FLMotorID = 1;
       public static final int FRMotorID = 2;
       public static final int BLMotorID = 3;
       public static final int BRMotorID = 4;
 
+      // if the motors are inverted
       public static final boolean FLInvert = false;
       public static final boolean FRInvert = false;
       public static final boolean BLInvert = false;
       public static final boolean BRInvert = false;
 
+      // current limit for motors
+      public static final int stallCurrentLimit = 60;
+      public static final int freeCurrentLimit = 40;
+
+      // the throttle multiplier for manual driving
       public static final double DriveSpeed = 0.5;
     }
   }

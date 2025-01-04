@@ -19,43 +19,53 @@ import static frc.robot.Constants.OperatorConstants.DrivetrainConstants.*;
 
 public class DriveTrain extends SubsystemBase {
 
+  // creates the motors
   SparkMax FLMotor = new SparkMax(FLMotorID, MotorType.kBrushless);
   SparkMax FRMotor = new SparkMax(FRMotorID, MotorType.kBrushless);
   SparkMax BLMotor = new SparkMax(BLMotorID, MotorType.kBrushless);
   SparkMax BRMotor = new SparkMax(BRMotorID, MotorType.kBrushless);
 
+  // creates the configurations for the motors
   SparkMaxConfig FLConfig = new SparkMaxConfig();
   SparkMaxConfig FRConfig = new SparkMaxConfig();
   SparkMaxConfig BLConfig = new SparkMaxConfig();
   SparkMaxConfig BRConfig = new SparkMaxConfig();
 
+  // creates the groups of motors
   @SuppressWarnings("removal")
   MotorControllerGroup LeftMotors = new MotorControllerGroup(FLMotor, BLMotor);
   @SuppressWarnings("removal")
   MotorControllerGroup RightMotors = new MotorControllerGroup(FRMotor, BRMotor);
 
+  // creates the diff drive
   DifferentialDrive tankDrive = new DifferentialDrive(LeftMotors, RightMotors);
 
   /** Creates a new DriveTrain.*/
   public DriveTrain() {
 
-    FLConfig.inverted(FLInvert).idleMode(IdleMode.kBrake);
+    // applies the configs to the motors
+    FLConfig.inverted(FLInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     FLConfig.encoder.positionConversionFactor(0).velocityConversionFactor(0);
     FLMotor.configure(FLConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
-    FRConfig.inverted(FRInvert).idleMode(IdleMode.kBrake);
+    FRConfig.inverted(FRInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     FRConfig.encoder.positionConversionFactor(0).velocityConversionFactor(0);
     FRMotor.configure(FRConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
-    BLConfig.inverted(BLInvert).idleMode(IdleMode.kBrake);
+    BLConfig.inverted(BLInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     BLConfig.encoder.positionConversionFactor(0).velocityConversionFactor(0);
     BLMotor.configure(BLConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
-    BRConfig.inverted(BRInvert).idleMode(IdleMode.kBrake);
+    BRConfig.inverted(BRInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     BRConfig.encoder.positionConversionFactor(0).velocityConversionFactor(0);
     BRMotor.configure(BRConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
   }
 
+
+  /**
+   * @param leftSpeed The left motor throttle
+   * @param rightSpeed The right motor throttle
+   */
   public void TankDrive(double leftSpeed, double rightSpeed){
     tankDrive.tankDrive(leftSpeed, rightSpeed, true);
   }
