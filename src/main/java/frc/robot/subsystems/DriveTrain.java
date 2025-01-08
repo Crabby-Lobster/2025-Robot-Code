@@ -70,6 +70,46 @@ public class DriveTrain extends SubsystemBase {
     tankDrive.tankDrive(leftSpeed, rightSpeed, true);
   }
 
+  enum EncoderRetriaval {
+    GetSpeed,
+    GetDistance,
+    GetLeftSpeed,
+    GetRightSpeed,
+    GetLeftDistance,
+    GetRightDistance
+  }
+
+  /**
+   * @param returnType the type of data to be returned when the function is called
+   * @return the desired encoder reading
+   */
+  public double getEncoderValues(EncoderRetriaval returnType) {
+    switch (returnType) {
+      case GetDistance:
+        return null;
+        break;
+      case GetLeftDistance:
+        return null;
+        break;
+      case GetLeftSpeed:
+        return null;
+        break;
+      case GetRightDistance:
+        return null;
+        break;
+      case GetRightSpeed:
+        return null;
+        break;
+      case GetSpeed:
+        return null;
+        break;
+
+      default:
+        return 0;
+        break;
+    }
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
