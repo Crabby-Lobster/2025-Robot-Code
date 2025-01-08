@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -11,6 +12,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,6 +26,12 @@ public class DriveTrain extends SubsystemBase {
   SparkMax FRMotor = new SparkMax(FRMotorID, MotorType.kBrushless);
   SparkMax BLMotor = new SparkMax(BLMotorID, MotorType.kBrushless);
   SparkMax BRMotor = new SparkMax(BRMotorID, MotorType.kBrushless);
+
+  // creates the encoders
+  RelativeEncoder FLEncoder;
+  RelativeEncoder FREncoder;
+  RelativeEncoder BLEncoder;
+  RelativeEncoder BREncoder;
 
   // creates the configurations for the motors
   SparkMaxConfig FLConfig = new SparkMaxConfig();
@@ -59,6 +67,12 @@ public class DriveTrain extends SubsystemBase {
     BRConfig.inverted(BRInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     BRConfig.encoder.positionConversionFactor(0).velocityConversionFactor(0);
     BRMotor.configure(BRConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+
+    // retrieves encoders from speed controllers
+    FLEncoder = FLMotor.getEncoder();
+    FREncoder = FLMotor.getEncoder();
+    BLEncoder = FLMotor.getEncoder();
+    BREncoder = FLMotor.getEncoder();
   }
 
 
