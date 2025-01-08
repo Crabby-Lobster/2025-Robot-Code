@@ -15,6 +15,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.OperatorConstants.DrivetrainConstants.*;
@@ -82,7 +83,11 @@ public class DriveTrain extends SubsystemBase {
    */
   public void TankDrive(double leftSpeed, double rightSpeed){
     tankDrive.tankDrive(leftSpeed, rightSpeed, true);
+
+    SmartDashboard.putNumber("Drivetrain LeftWheelThrottle", leftSpeed);
+    SmartDashboard.putNumber("Drivetrain RightWheelThrottle", rightSpeed);
   }
+
 
   enum EncoderRetriaval {
     GetSpeed,
@@ -131,5 +136,15 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    // posts drivetrain encoder data to driverstation
+    SmartDashboard.putNumber("DriveTrain Speed", getEncoderValues(EncoderRetriaval.GetSpeed));
+    SmartDashboard.putNumber("DriveTrain Distance", getEncoderValues(EncoderRetriaval.GetDistance));
+
+    SmartDashboard.putNumber("DriveTrain LeftSpeed", getEncoderValues(EncoderRetriaval.GetLeftSpeed));
+    SmartDashboard.putNumber("DriveTrain LeftDistance", getEncoderValues(EncoderRetriaval.GetLeftDistance));
+
+    SmartDashboard.putNumber("DriveTrain RightSpeed", getEncoderValues(EncoderRetriaval.GetRightSpeed));
+    SmartDashboard.putNumber("DriveTrain RightDistance", getEncoderValues(EncoderRetriaval.GetRightDistance));
   }
 }
