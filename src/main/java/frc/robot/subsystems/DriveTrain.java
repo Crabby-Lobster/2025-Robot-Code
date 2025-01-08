@@ -99,28 +99,32 @@ public class DriveTrain extends SubsystemBase {
    */
   public double getEncoderValues(EncoderRetriaval returnType) {
     switch (returnType) {
-      case GetDistance:
-        return null;
-        break;
-      case GetLeftDistance:
-        return null;
-        break;
-      case GetLeftSpeed:
-        return null;
-        break;
-      case GetRightDistance:
-        return null;
-        break;
-      case GetRightSpeed:
-        return null;
-        break;
       case GetSpeed:
-        return null;
-        break;
-
+        double avgSpeed = FLEncoder.getVelocity() + FREncoder.getVelocity() + BLEncoder.getVelocity() + BREncoder.getVelocity();
+        avgSpeed /= 4.0;
+        return avgSpeed;
+      case GetDistance:
+        double avgDist = FLEncoder.getPosition() + FREncoder.getPosition() + BLEncoder.getPosition() + BREncoder.getPosition();
+        avgDist /= 4.0;
+        return avgDist;
+      case GetLeftDistance:
+        double avgLeftDist = FLEncoder.getPosition() + BLEncoder.getPosition();
+        avgLeftDist /= 2.0;
+        return avgLeftDist;
+      case GetLeftSpeed:
+        double avgLeftSpeed = FLEncoder.getVelocity() + BLEncoder.getVelocity();
+        avgLeftSpeed /= 2.0;
+        return avgLeftSpeed;
+      case GetRightDistance:
+        double avgRightdist = FREncoder.getPosition() + BREncoder.getPosition();
+        avgRightdist /= 2.0;
+        return avgRightdist;
+      case GetRightSpeed:
+        double avgRightSpeed = FREncoder.getVelocity() + BREncoder.getVelocity();
+        avgRightSpeed /= 2.0;
+        return avgRightSpeed;
       default:
         return 0;
-        break;
     }
   }
 
