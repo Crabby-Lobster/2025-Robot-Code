@@ -18,11 +18,15 @@ public final class Constants {
 
     public static final class DrivetrainConstants {
       
-      //Motor Can Ids
+      //Motor CAN Ids
       public static final int FLMotorID = 1;
       public static final int FRMotorID = 2;
       public static final int BLMotorID = 3;
       public static final int BRMotorID = 4;
+
+      //encoder values
+      public static final double EncoderPositionConversion = 0;
+      public static final double EncoderSpeedConversion = 0;
 
       // if the motors are inverted
       public static final boolean FLInvert = false;
