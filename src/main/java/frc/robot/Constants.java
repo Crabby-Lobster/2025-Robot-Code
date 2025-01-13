@@ -19,10 +19,10 @@ public final class Constants {
     public static final class DrivetrainConstants {
       
       //Motor CAN Ids
-      public static final int FLMotorID = 1;
+      public static final int FLMotorID = 4;
       public static final int FRMotorID = 2;
       public static final int BLMotorID = 3;
-      public static final int BRMotorID = 4;
+      public static final int BRMotorID = 1;
 
       //encoder values
       public static final double EncoderPositionConversion = 0;
@@ -32,7 +32,7 @@ public final class Constants {
       public static final boolean FLInvert = false;
       public static final boolean FRInvert = false;
       public static final boolean BLInvert = false;
-      public static final boolean BRInvert = false;
+      public static final boolean BRInvert = true;
 
       // current limit for motors
       public static final int stallCurrentLimit = 60;
