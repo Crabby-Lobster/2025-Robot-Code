@@ -55,15 +55,19 @@ public class DriveTrain extends SubsystemBase {
 
     // applies the configs to the motors
     FLConfig.inverted(FLInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
+    FLConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
     FLMotor.configure(FLConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
     FRConfig.inverted(FRInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
+    FRConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
     FRMotor.configure(FRConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
     BLConfig.inverted(BLInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
+    BLConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
     BLMotor.configure(BLConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
     BRConfig.inverted(BRInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
+    BRConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
     BRMotor.configure(BRConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
     // retrieves encoders from speed controllers
@@ -71,6 +75,8 @@ public class DriveTrain extends SubsystemBase {
     FREncoder = FLMotor.getEncoder();
     BLEncoder = FLMotor.getEncoder();
     BREncoder = FLMotor.getEncoder();
+
+    resetEncoder(0);
   }
 
 
@@ -129,6 +135,18 @@ public class DriveTrain extends SubsystemBase {
         return 0;
     }
   }
+
+
+  /**
+   * @param position the position to set the encoders to
+   */
+  public void resetEncoder(double position) {
+    FLEncoder.setPosition(position);
+    FREncoder.setPosition(position);
+    BLEncoder.setPosition(position);
+    BREncoder.setPosition(position);
+  }
+
 
   @Override
   public void periodic() {

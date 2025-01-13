@@ -25,8 +25,8 @@ public final class Constants {
       public static final int BRMotorID = 1;
 
       //encoder values
-      public static final double EncoderPositionConversion = 0;
-      public static final double EncoderSpeedConversion = 0;
+      public static final double EncoderPositionConversion = 1;
+      public static final double EncoderSpeedConversion = 1;
 
       // the motors invert status
       public static final boolean FLInvert = true;
