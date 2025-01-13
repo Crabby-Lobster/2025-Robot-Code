@@ -41,13 +41,13 @@ public class DriveTrain extends SubsystemBase {
   SparkMaxConfig BRConfig = new SparkMaxConfig();
 
   // creates the groups of motors
-  //@SuppressWarnings("removal")
-  //MotorControllerGroup LeftMotors = new MotorControllerGroup(FLMotor, BLMotor);
-  //@SuppressWarnings("removal")
-  //MotorControllerGroup RightMotors = new MotorControllerGroup(FRMotor, BRMotor);
+  @SuppressWarnings("removal")
+  MotorControllerGroup LeftMotors = new MotorControllerGroup(FLMotor, BLMotor);
+  @SuppressWarnings("removal")
+  MotorControllerGroup RightMotors = new MotorControllerGroup(FRMotor, BRMotor);
 
   // creates the diff drive
-  DifferentialDrive tankDrive = new DifferentialDrive(FLMotor, FRMotor);
+  DifferentialDrive tankDrive = new DifferentialDrive(LeftMotors, RightMotors);
 
   /** Creates a new DriveTrain.*/
   public DriveTrain() {
