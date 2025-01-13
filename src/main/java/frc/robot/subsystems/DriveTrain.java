@@ -53,7 +53,7 @@ public class DriveTrain extends SubsystemBase {
   public DriveTrain() {
 
     // applies the configs to the motors
-    FLConfig.inverted(FLInvert).idleMode(IdleMode.kBrake);
+    FLConfig.inverted(FLInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     //FLConfig.inverted(FLInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     //FLConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
     FLMotor.configure(FLConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
