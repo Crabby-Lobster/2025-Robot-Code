@@ -89,6 +89,7 @@ public class DriveTrain extends SubsystemBase {
   public void TankDrive(double leftSpeed, double rightSpeed, boolean square){
     double[] Speeds = {leftSpeed, rightSpeed};
 
+    // when square is true the values will be multiplied by themselves to make inputs smoother
     if (square) {
       Speeds[0] *= abs(Speeds[0]);
       Speeds[1] *= abs(Speeds[1]);
