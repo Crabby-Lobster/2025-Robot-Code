@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.OperatorConstants.DrivetrainConstants.*;
+import static java.lang.Math.*;
 
 public class DriveTrain extends SubsystemBase {
 
@@ -83,12 +84,20 @@ public class DriveTrain extends SubsystemBase {
   /**
    * @param leftSpeed The left motor throttle
    * @param rightSpeed The right motor throttle
+   * @param square whether the inputs are squared when sent to the motor
    */
-  public void TankDrive(double leftSpeed, double rightSpeed){
-    tankDrive.tankDrive(leftSpeed, rightSpeed, true);
+  public void TankDrive(double leftSpeed, double rightSpeed, boolean square){
+    double[] Speeds = {leftSpeed, rightSpeed};
 
-    SmartDashboard.putNumber("Drivetrain LeftWheelThrottle", leftSpeed);
-    SmartDashboard.putNumber("Drivetrain RightWheelThrottle", rightSpeed);
+    if (square) {
+      Speeds[0] *= abs(Speeds[0]);
+      Speeds[1] *= abs(Speeds[1]);
+    }
+
+    tankDrive.tankDrive(leftSpeed, rightSpeed);
+
+    SmartDashboard.putBoolean("Drivetrain SquareThrottle", square);
+    SmartDashboard.putNumberArray("Drivetrain Throttles", Speeds);
   }
 
 
