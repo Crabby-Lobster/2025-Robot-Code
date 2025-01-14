@@ -73,9 +73,9 @@ public class DriveTrain extends SubsystemBase {
 
     // retrieves encoders from speed controllers
     FLEncoder = FLMotor.getEncoder();
-    FREncoder = FLMotor.getEncoder();
-    BLEncoder = FLMotor.getEncoder();
-    BREncoder = FLMotor.getEncoder();
+    FREncoder = FRMotor.getEncoder();
+    BLEncoder = BLMotor.getEncoder();
+    BREncoder = BRMotor.getEncoder();
 
     resetEncoder(0);
   }
