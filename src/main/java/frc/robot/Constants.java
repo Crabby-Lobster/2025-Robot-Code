@@ -29,9 +29,9 @@ public final class Constants {
       public static final double EncoderSpeedConversion = 1;
 
       // the motors invert status
-      public static final boolean FLInvert = true;
+      public static final boolean FLInvert = false;
       public static final boolean FRInvert = true;
-      public static final boolean BLInvert = true;
+      public static final boolean BLInvert = false;
       public static final boolean BRInvert = true;
 
       // current limit for motors
