@@ -32,7 +32,7 @@ public final class Constants {
       public static final boolean FLInvert = false;
       public static final boolean FRInvert = true;
       public static final boolean BLInvert = false;
-      public static final boolean BRInvert = true;
+      public static final boolean BRInvert = false;
 
       // current limit for motors
       public static final int stallCurrentLimit = 60;

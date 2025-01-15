@@ -11,9 +11,8 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -44,26 +43,29 @@ public class DriveTrain extends SubsystemBase {
   // creates the diff drive
   DifferentialDrive tankDrive = new DifferentialDrive(FLMotor, FRMotor);
 
+  // creates gyro
+  ADIS16470_IMU gyro = new ADIS16470_IMU();
+
   /** Creates a new DriveTrain.*/
   public DriveTrain() {
 
     // applies the configs to the motors
     FLConfig.inverted(FLInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     FLConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
-    FLMotor.configure(FLConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    FLMotor.configure(FLConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     FRConfig.inverted(FRInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     FRConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
-    FRMotor.configure(FRConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    FRMotor.configure(FRConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     // sets the back motors to follow the front motors
     BLConfig.follow(FLMotorID, BLInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     BLConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
-    BLMotor.configure(BLConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    BLMotor.configure(BLConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     BRConfig.follow(FRMotorID, BRInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     BRConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
-    BRMotor.configure(BRConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    BRMotor.configure(BRConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     
 
@@ -74,6 +76,9 @@ public class DriveTrain extends SubsystemBase {
     BREncoder = BRMotor.getEncoder();
 
     resetEncoder(0);
+
+    // calibrates gyro
+    gyro.calibrate();
   }
 
 
@@ -153,6 +158,10 @@ public class DriveTrain extends SubsystemBase {
     BREncoder.setPosition(position);
   }
 
+  public double getHeading() {
+    return gyro.getAngle(gyro.getYawAxis());
+  }
+
 
   @Override
   public void periodic() {
@@ -167,5 +176,7 @@ public class DriveTrain extends SubsystemBase {
 
     SmartDashboard.putNumber("DriveTrain RightSpeed", getEncoderValues(EncoderRetriaval.GetRightSpeed));
     SmartDashboard.putNumber("DriveTrain RightDistance", getEncoderValues(EncoderRetriaval.GetRightDistance));
+
+    SmartDashboard.putNumber("DriveTrain Heading", getHeading());
   }
 }
