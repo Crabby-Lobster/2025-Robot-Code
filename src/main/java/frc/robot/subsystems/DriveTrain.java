@@ -49,6 +49,9 @@ public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain.*/
   public DriveTrain() {
 
+    // disables drivetrain saftey
+    tankDrive.setSafetyEnabled(false);
+
     // applies the configs to the motors
     FLConfig.inverted(FLInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     FLConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
@@ -102,6 +105,14 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumberArray("Drivetrain Throttles", Speeds);
   }
 
+  /** sets the voltage of the left and right drive motors
+   * @param leftVoltage the voltage to send to the left motors
+   * @param rightVoltage the voltage to send to the right motors
+   */
+  public void VTankDrive(double leftVoltage, double rightVoltage) {
+    FLMotor.setVoltage(leftVoltage);
+    FRMotor.setVoltage(rightVoltage);
+  }
 
   enum EncoderRetriaval {
     GetSpeed,
