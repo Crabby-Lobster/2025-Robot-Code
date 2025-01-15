@@ -12,6 +12,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -44,6 +45,9 @@ public class DriveTrain extends SubsystemBase {
   // creates the diff drive
   DifferentialDrive tankDrive = new DifferentialDrive(FLMotor, FRMotor);
 
+  // creates gyro
+  ADIS16470_IMU gyro = new ADIS16470_IMU();
+
   /** Creates a new DriveTrain.*/
   public DriveTrain() {
 
@@ -74,6 +78,9 @@ public class DriveTrain extends SubsystemBase {
     BREncoder = BRMotor.getEncoder();
 
     resetEncoder(0);
+
+    // calibrates gyro
+    gyro.calibrate();
   }
 
 
@@ -153,6 +160,10 @@ public class DriveTrain extends SubsystemBase {
     BREncoder.setPosition(position);
   }
 
+  public double getHeading() {
+    return gyro.getAngle(gyro.getYawAxis());
+  }
+
 
   @Override
   public void periodic() {
@@ -167,5 +178,7 @@ public class DriveTrain extends SubsystemBase {
 
     SmartDashboard.putNumber("DriveTrain RightSpeed", getEncoderValues(EncoderRetriaval.GetRightSpeed));
     SmartDashboard.putNumber("DriveTrain RightDistance", getEncoderValues(EncoderRetriaval.GetRightDistance));
+
+    SmartDashboard.putNumber("DriveTrain Heading", getHeading());
   }
 }
