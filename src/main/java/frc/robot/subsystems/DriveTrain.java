@@ -12,11 +12,8 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
-import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -37,9 +34,6 @@ public class DriveTrain extends SubsystemBase {
   RelativeEncoder BLEncoder;
   RelativeEncoder BREncoder;
 
-  // creates the gyroscope
-  ADIS16470_IMU gyro = new ADIS16470_IMU();
-
   // creates the configurations for the motors
   SparkMaxConfig FLConfig = new SparkMaxConfig();
   SparkMaxConfig FRConfig = new SparkMaxConfig();
@@ -50,11 +44,9 @@ public class DriveTrain extends SubsystemBase {
   // creates the diff drive
   DifferentialDrive tankDrive = new DifferentialDrive(FLMotor, FRMotor);
 
-  // shuffleboard tab for drivetrain
-  ShuffleboardTab drivetrainDiagnostics = Shuffleboard.getTab("Drivetrain");
-
   /** Creates a new DriveTrain.*/
   public DriveTrain() {
+
     // applies the configs to the motors
     FLConfig.inverted(FLInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     FLConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
@@ -73,6 +65,8 @@ public class DriveTrain extends SubsystemBase {
     BRConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
     BRMotor.configure(BRConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
+    
+
     // retrieves encoders from speed controllers
     FLEncoder = FLMotor.getEncoder();
     FREncoder = FRMotor.getEncoder();
@@ -80,10 +74,6 @@ public class DriveTrain extends SubsystemBase {
     BREncoder = BRMotor.getEncoder();
 
     resetEncoder(0);
-
-    // calibrates gyro
-    gyro.calibrate();
-    gyro.reset();
   }
 
 
@@ -103,8 +93,8 @@ public class DriveTrain extends SubsystemBase {
 
     tankDrive.tankDrive(leftSpeed, rightSpeed);
 
-    drivetrainDiagnostics.add("Square Throttle", square);
-    drivetrainDiagnostics.add("Throttles", Speeds);
+    SmartDashboard.putBoolean("Drivetrain SquareThrottle", square);
+    SmartDashboard.putNumberArray("Drivetrain Throttles", Speeds);
   }
 
 
@@ -164,22 +154,18 @@ public class DriveTrain extends SubsystemBase {
   }
 
 
-  public double getHeading() {
-    return gyro.getAngle(gyro.getYawAxis());
-  }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
 
     // posts drivetrain encoder data to driverstation
-    drivetrainDiagnostics.add("Speed", getEncoderValues(EncoderRetriaval.GetSpeed));
-    drivetrainDiagnostics.add("Distance", getEncoderValues(EncoderRetriaval.GetDistance));
+    SmartDashboard.putNumber("DriveTrain Speed", getEncoderValues(EncoderRetriaval.GetSpeed));
+    SmartDashboard.putNumber("DriveTrain Distance", getEncoderValues(EncoderRetriaval.GetDistance));
 
-    drivetrainDiagnostics.add("Left Speed", getEncoderValues(EncoderRetriaval.GetLeftSpeed));
-    drivetrainDiagnostics.add("Left Distance", getEncoderValues(EncoderRetriaval.GetLeftDistance));
+    SmartDashboard.putNumber("DriveTrain LeftSpeed", getEncoderValues(EncoderRetriaval.GetLeftSpeed));
+    SmartDashboard.putNumber("DriveTrain LeftDistance", getEncoderValues(EncoderRetriaval.GetLeftDistance));
 
-    drivetrainDiagnostics.add("Right Speed", getEncoderValues(EncoderRetriaval.GetRightSpeed));
-    drivetrainDiagnostics.add("Right Distance", getEncoderValues(EncoderRetriaval.GetRightDistance));
+    SmartDashboard.putNumber("DriveTrain RightSpeed", getEncoderValues(EncoderRetriaval.GetRightSpeed));
+    SmartDashboard.putNumber("DriveTrain RightDistance", getEncoderValues(EncoderRetriaval.GetRightDistance));
   }
 }
