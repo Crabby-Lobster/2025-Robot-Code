@@ -4,10 +4,8 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.REVLibError;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkRelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -42,14 +40,9 @@ public class DriveTrain extends SubsystemBase {
   SparkMaxConfig BLConfig = new SparkMaxConfig();
   SparkMaxConfig BRConfig = new SparkMaxConfig();
 
-  // creates the groups of motors
-  @SuppressWarnings("removal")
-  MotorControllerGroup LeftMotors = new MotorControllerGroup(FLMotor, BLMotor);
-  @SuppressWarnings("removal")
-  MotorControllerGroup RightMotors = new MotorControllerGroup(FRMotor, BRMotor);
 
   // creates the diff drive
-  DifferentialDrive tankDrive = new DifferentialDrive(LeftMotors, RightMotors);
+  DifferentialDrive tankDrive = new DifferentialDrive(FLMotor, FRMotor);
 
   /** Creates a new DriveTrain.*/
   public DriveTrain() {
@@ -63,13 +56,16 @@ public class DriveTrain extends SubsystemBase {
     FRConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
     FRMotor.configure(FRConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
-    BLConfig.inverted(BLInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
+    // sets the back motors to follow the front motors
+    BLConfig.follow(FLMotorID, BLInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     BLConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
     BLMotor.configure(BLConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
-    BRConfig.inverted(BRInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
+    BRConfig.follow(FRMotorID, BRInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     BRConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
     BRMotor.configure(BRConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+
+    
 
     // retrieves encoders from speed controllers
     FLEncoder = FLMotor.getEncoder();
