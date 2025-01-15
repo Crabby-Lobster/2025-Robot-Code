@@ -57,6 +57,9 @@ public final class Constants {
       public static final double kMaxSpeedMeterPerSeconds = 1;
       public static final double kMaxAccelerationMeterPerSecondSquared = 1;
 
+      // RAMSETE constants
+      public static final double kRamseteB = 2;
+      public static final double kRamseteZeta = 0.7;
     }
   }
 }
