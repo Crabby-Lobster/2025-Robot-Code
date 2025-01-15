@@ -15,5 +15,31 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+
+    public static final class DrivetrainConstants {
+      
+      //Motor CAN Ids
+      public static final int FLMotorID = 4;
+      public static final int FRMotorID = 2;
+      public static final int BLMotorID = 3;
+      public static final int BRMotorID = 1;
+
+      //encoder values
+      public static final double EncoderPositionConversion = 1;
+      public static final double EncoderSpeedConversion = 1;
+
+      // the motors invert status
+      public static final boolean FLInvert = false;
+      public static final boolean FRInvert = true;
+      public static final boolean BLInvert = false;
+      public static final boolean BRInvert = true;
+
+      // current limit for motors
+      public static final int stallCurrentLimit = 60;
+      public static final int freeCurrentLimit = 40;
+
+      // the throttle multiplier for manual driving
+      public static final double DriveSpeed = 0.5;
+    }
   }
 }
