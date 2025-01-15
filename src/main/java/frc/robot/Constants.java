@@ -40,6 +40,12 @@ public final class Constants {
 
       // the throttle multiplier for manual driving
       public static final double DriveSpeed = 0.5;
+
+      public static final double ksVolts = 0;
+      public static final double ksVoltSecondsPerFoot = 0;
+      public static final double kaVoltSecondsSquaredPerFoot = 0;
+
+      public static final double kPDriveVel = 0;
     }
   }
 }
