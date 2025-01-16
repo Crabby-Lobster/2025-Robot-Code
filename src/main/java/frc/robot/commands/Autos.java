@@ -85,8 +85,11 @@ public final class Autos {
           // ramsete command passes volts to the callback
           drivetrain::VTankDrive,
           drivetrain);
-
-      return Commands.runOnce(() -> drivetrain.resetOdometry(exampleTrajectory.getInitialPose()));
+ 
+      // reset odometry, run path, then stop
+      return Commands.runOnce(() -> drivetrain.resetOdometry(exampleTrajectory.getInitialPose()))
+        .andThen(ramseteCommand)
+        .andThen(Commands.runOnce(() -> drivetrain.VTankDrive(0, 0)));
   }
 
   private Autos() {
