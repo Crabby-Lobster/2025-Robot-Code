@@ -114,6 +114,14 @@ public class DriveTrain extends SubsystemBase {
     FRMotor.setVoltage(rightVoltage);
   }
 
+  /** voltage drive used by system identification
+   * @param voltage the voltage for the motors
+   */
+  public void voltageDrive(Voltage voltage) {
+    FLMotor.setVoltage(voltage);
+    FRMotor.setVoltage(voltage);
+  }
+
   enum EncoderRetriaval {
     GetSpeed,
     GetDistance,
