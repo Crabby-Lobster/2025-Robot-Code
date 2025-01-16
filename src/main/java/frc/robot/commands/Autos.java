@@ -9,6 +9,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import static frc.robot.Constants.OperatorConstants.DrivetrainConstants.*;
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -32,6 +33,15 @@ public final class Autos {
       ramseteMaxV
     );
 
+    // trajectory config
+    TrajectoryConfig config =
+      new TrajectoryConfig(
+        kMaxSpeedMeterPerSeconds,
+        kMaxAccelerationMeterPerSecondSquared)
+      //add kinematics to ensure max speed is obeyed
+      .setKinematics(kDriveKinematics)
+      // apply voltage constraint
+      .addConstraint(autoVoltageConstraint);
 
   }
 
