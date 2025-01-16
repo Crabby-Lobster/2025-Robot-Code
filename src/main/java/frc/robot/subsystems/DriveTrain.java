@@ -11,6 +11,8 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
@@ -207,8 +209,19 @@ public class DriveTrain extends SubsystemBase {
     BREncoder.setPosition(position);
   }
 
+  /**
+   * gets the heading of the robot
+   */
   public double getHeading() {
     return gyro.getAngle(gyro.getYawAxis());
+  }
+
+  /**
+   * returns the current estimated position of the robot
+   * @return
+   */
+  public Pose2d getPose() {
+    return driveOdometry.getPoseMeters();
   }
 
 
