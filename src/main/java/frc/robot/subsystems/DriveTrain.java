@@ -218,7 +218,7 @@ public class DriveTrain extends SubsystemBase {
 
   /**
    * returns the current estimated position of the robot
-   * @return
+   * @return the position of the robot
    */
   public Pose2d getPose() {
     return driveOdometry.getPoseMeters();
