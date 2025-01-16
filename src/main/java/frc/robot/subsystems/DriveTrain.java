@@ -50,7 +50,7 @@ public class DriveTrain extends SubsystemBase {
   ADIS16470_IMU gyro = new ADIS16470_IMU();
 
   // creates SysIdRoutine
-  SysIdRoutine routine = new SysIdRoutine(
+  SysIdRoutine systemId = new SysIdRoutine(
     new SysIdRoutine.Config(),
     new SysIdRoutine.Mechanism(this::voltageDrive, null, this)
   );
@@ -209,11 +209,15 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumber("DriveTrain Heading", getHeading());
   }
 
-  public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
-    return routine.quasistatic(direction);
+  /**gets the static function for system id
+   */
+  public Command systemIdStatic(SysIdRoutine.Direction direction) {
+    return systemId.quasistatic(direction);
   }
 
-  public Command sysIdDynamic(SysIdRoutine.Direction direction) {
-    return routine.dynamic(direction);
+  /**gets the dynamic function for system id
+   */
+  public Command systemIdDynamic(SysIdRoutine.Direction direction) {
+    return systemId.dynamic(direction);
   }
 }
