@@ -11,6 +11,8 @@ import static frc.robot.Constants.OperatorConstants.DrivetrainConstants.*;
 
 import java.util.List;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -21,6 +23,7 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
 public final class Autos {
   /** Example static factory for an autonomous command. */
@@ -64,6 +67,24 @@ public final class Autos {
         new Pose2d(2,0, new Rotation2d(0)),
         config
       );
+
+      // creates the ramsete command
+      RamseteCommand ramseteCommand =
+        new RamseteCommand(
+          exampleTrajectory,
+          drivetrain::getPose,
+          new RamseteController(kRamseteB, kRamseteZeta),
+          new SimpleMotorFeedforward(
+            ksVolts,
+            kvVoltSecondsPerMeter,
+            kaVoltSecondsSquaredPerMeter),
+          kDriveKinematics,
+          drivetrain::getDiffWheelSpeed,
+          new PIDController(kPDriveVel, 0, 0),
+          new PIDController(kPDriveVel, 0, 0),
+          // ramsete command passes volts to the callback
+          drivetrain::VTankDrive,
+          drivetrain);
 
       return Commands.runOnce(() -> drivetrain.resetOdometry(exampleTrajectory.getInitialPose()));
   }
