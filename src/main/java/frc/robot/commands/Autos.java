@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 
 import static frc.robot.Constants.OperatorConstants.DrivetrainConstants.*;
@@ -27,7 +28,7 @@ public final class Autos {
     return Commands.sequence(subsystem.exampleMethodCommand(), new ExampleCommand(subsystem));
   }
 
-  public static Command testTrajectory() {
+  public static Command testTrajectory(DriveTrain drivetrain) {
     
     // voltage constraint for ramsete controller
     var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
@@ -55,7 +56,7 @@ public final class Autos {
       TrajectoryGenerator.generateTrajectory(
         //start point
         new Pose2d(0,0, new Rotation2d(0)),
-        
+
         // interior points making S-curve
         List.of(new Translation2d(0.5,0.5), new Translation2d(1.5,-0.5)),
 
@@ -64,6 +65,7 @@ public final class Autos {
         config
       );
 
+      return Commands.runOnce(() -> drivetrain.resetOdometry(exampleTrajectory.getInitialPose()));
   }
 
   private Autos() {
