@@ -45,7 +45,7 @@ public final class Constants {
 
       // constants for trajectory following
       public static final double ksVolts = 0;
-      public static final double ksVoltSecondsPerMeter = 0;
+      public static final double kvVoltSecondsPerMeter = 0;
       public static final double kaVoltSecondsSquaredPerMeter = 0;
       public static final double kPDriveVel = 0;
 
@@ -60,6 +60,7 @@ public final class Constants {
       // RAMSETE constants
       public static final double kRamseteB = 2;
       public static final double kRamseteZeta = 0.7;
+      public static final double ramseteMaxV = 2;
     }
   }
 }
