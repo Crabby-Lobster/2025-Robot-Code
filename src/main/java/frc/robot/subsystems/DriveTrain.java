@@ -11,8 +11,9 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.units.LinearVelocityUnit;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -47,6 +48,9 @@ public class DriveTrain extends SubsystemBase {
   // creates the diff drive
   DifferentialDrive tankDrive = new DifferentialDrive(FLMotor, FRMotor);
 
+  // creates diff drive odometry
+  DifferentialDriveOdometry driveOdometry;
+
   // creates gyro
   ADIS16470_IMU gyro = new ADIS16470_IMU();
 
@@ -62,6 +66,13 @@ public class DriveTrain extends SubsystemBase {
 
     // disables drivetrain saftey
     tankDrive.setSafetyEnabled(false);
+
+    //initalizes diff odometry
+    driveOdometry = new DifferentialDriveOdometry(
+      new Rotation2d(getHeading()),
+      getEncoderValues(EncoderRetriaval.GetLeftDistance),
+      getEncoderValues(EncoderRetriaval.GetRightDistance)
+    );
 
     // applies the configs to the motors
     FLConfig.inverted(FLInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
