@@ -11,10 +11,12 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 
 import static frc.robot.Constants.OperatorConstants.DrivetrainConstants.*;
 import static java.lang.Math.*;
@@ -45,6 +47,13 @@ public class DriveTrain extends SubsystemBase {
 
   // creates gyro
   ADIS16470_IMU gyro = new ADIS16470_IMU();
+
+  // creates SysIdRoutine
+  SysIdRoutine routine = new SysIdRoutine(
+    new SysIdRoutine.Config(),
+    new SysIdRoutine.Mechanism(this::voltageDrive, null, this)
+  );
+
 
   /** Creates a new DriveTrain.*/
   public DriveTrain() {
