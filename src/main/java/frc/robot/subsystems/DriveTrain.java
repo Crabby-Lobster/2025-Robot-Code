@@ -11,6 +11,8 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.units.LinearVelocityUnit;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -18,7 +20,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-
 import static frc.robot.Constants.OperatorConstants.DrivetrainConstants.*;
 import static java.lang.Math.*;
 
@@ -176,6 +177,14 @@ public class DriveTrain extends SubsystemBase {
     }
   }
 
+  /** function for returning wheel speeds for ramsete controller
+   */
+  public DifferentialDriveWheelSpeeds getDiffWheelSpeed() {
+    return new DifferentialDriveWheelSpeeds(
+      getEncoderValues(EncoderRetriaval.GetLeftSpeed),
+      getEncoderValues(EncoderRetriaval.GetRightSpeed)
+    );
+  }
 
   /**
    * @param position the position to set the encoders to
