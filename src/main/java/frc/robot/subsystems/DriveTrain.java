@@ -216,6 +216,13 @@ public class DriveTrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
 
+    // updates the odometry
+    driveOdometry.update(
+      new Rotation2d(getHeading()),
+      getEncoderValues(EncoderRetriaval.GetLeftDistance),
+      getEncoderValues(EncoderRetriaval.GetRightDistance)
+    );
+
     // posts drivetrain encoder data to driverstation
     SmartDashboard.putNumber("DriveTrain Speed", getEncoderValues(EncoderRetriaval.GetSpeed));
     SmartDashboard.putNumber("DriveTrain Distance", getEncoderValues(EncoderRetriaval.GetDistance));
