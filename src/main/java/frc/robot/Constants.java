@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import static java.lang.Math.PI;
+
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 
 /**
@@ -28,15 +30,15 @@ public final class Constants {
 
       //gearbox and wheel constants
 
-      private static final double overallGearboxRatio = 1;
+      private static final double overallGearboxRatio = (1.0 / 10.71);
       /**
        *wheel diameter in meters
        */
-      private static final double wheelDiameter = 6;
+      private static final double wheelDiameter = 0.1524;
 
       //encoder values
-      public static final double EncoderPositionConversion = (1.0 / 12.75);
-      public static final double EncoderSpeedConversion = 1;
+      public static final double EncoderPositionConversion = overallGearboxRatio * wheelDiameter * PI;
+      public static final double EncoderSpeedConversion = (1.0 / 60.0) * wheelDiameter * PI;
 
       // the motors invert status
       public static final boolean FLInvert = false;
