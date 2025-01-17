@@ -68,12 +68,6 @@ public class DriveTrain extends SubsystemBase {
     // disables drivetrain saftey
     tankDrive.setSafetyEnabled(false);
 
-    //initalizes diff odometry
-    driveOdometry = new DifferentialDriveOdometry(
-      new Rotation2d(getHeading()),
-      getEncoderValues(EncoderRetriaval.GetLeftDistance),
-      getEncoderValues(EncoderRetriaval.GetRightDistance)
-    );
 
     // applies the configs to the motors
     FLConfig.inverted(FLInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
@@ -93,7 +87,6 @@ public class DriveTrain extends SubsystemBase {
     BRConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
     BRMotor.configure(BRConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
-    
 
     // retrieves encoders from speed controllers
     FLEncoder = FLMotor.getEncoder();
@@ -105,6 +98,13 @@ public class DriveTrain extends SubsystemBase {
 
     // calibrates gyro
     gyro.calibrate();
+
+    //initalizes diff odometry
+    driveOdometry = new DifferentialDriveOdometry(
+      new Rotation2d(getHeading()),
+      getEncoderValues(EncoderRetriaval.GetLeftDistance),
+      getEncoderValues(EncoderRetriaval.GetRightDistance)
+    );
   }
 
 
