@@ -26,8 +26,16 @@ public final class Constants {
       public static final int BLMotorID = 3;
       public static final int BRMotorID = 1;
 
+      //gearbox and wheel constants
+
+      private static final double overallGearboxRatio = 1;
+      /**
+       *wheel diameter in meters
+       */
+      private static final double wheelDiameter = 6;
+
       //encoder values
-      public static final double EncoderPositionConversion = 1;
+      public static final double EncoderPositionConversion = (1.0 / 12.75);
       public static final double EncoderSpeedConversion = 1;
 
       // the motors invert status
