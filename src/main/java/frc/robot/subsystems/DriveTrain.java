@@ -22,6 +22,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+
+import static edu.wpi.first.units.Units.Second;
+import static edu.wpi.first.units.Units.Seconds;
+import static edu.wpi.first.units.Units.Volts;
 import static frc.robot.Constants.OperatorConstants.DrivetrainConstants.*;
 import static java.lang.Math.*;
 
@@ -57,7 +61,11 @@ public class DriveTrain extends SubsystemBase {
 
   // creates SysIdRoutine
   SysIdRoutine systemId = new SysIdRoutine(
-    new SysIdRoutine.Config(),
+    new SysIdRoutine.Config(
+      Volts.of(3).per(Second),
+      Volts.of(3),
+      Seconds.of(1.5)
+    ),
     new SysIdRoutine.Mechanism(this::voltageDrive, null, this)
   );
 

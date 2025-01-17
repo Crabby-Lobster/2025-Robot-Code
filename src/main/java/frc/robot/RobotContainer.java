@@ -65,12 +65,10 @@ public class RobotContainer {
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-    m_driverController.a().whileTrue(
-      m_driveTrain.systemIdDynamic(Direction.kForward)
-      .andThen( m_driveTrain.systemIdDynamic(Direction.kReverse))
-      .andThen(m_driveTrain.systemIdStatic(Direction.kForward))
-      .andThen(m_driveTrain.systemIdStatic(Direction.kReverse))
-    );
+    m_driverController.a().whileTrue(m_driveTrain.systemIdStatic(Direction.kForward));
+    m_driverController.x().whileTrue(m_driveTrain.systemIdStatic(Direction.kReverse));
+    m_driverController.y().whileTrue(m_driveTrain.systemIdDynamic(Direction.kForward));
+    m_driverController.b().whileFalse(m_driveTrain.systemIdDynamic(Direction.kReverse));
   }
 
   /**
