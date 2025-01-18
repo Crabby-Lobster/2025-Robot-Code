@@ -38,7 +38,7 @@ public final class Constants {
 
       //encoder values
       public static final double EncoderPositionConversion = overallGearboxRatio * wheelDiameter * PI;
-      public static final double EncoderSpeedConversion = (1.0 / 60.0) * wheelDiameter * PI;
+      public static final double EncoderSpeedConversion = (1.0 / 60.0) * wheelDiameter * PI * overallGearboxRatio;
 
       // the motors invert status
       public static final boolean FLInvert = false;
