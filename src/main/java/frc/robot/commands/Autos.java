@@ -49,6 +49,7 @@ public final class Autos {
     );
 
     // trajectory config
+    /*
     TrajectoryConfig config =
       new TrajectoryConfig(
         kMaxSpeedMeterPerSeconds,
@@ -57,8 +58,20 @@ public final class Autos {
       .setKinematics(kDriveKinematics)
       // apply voltage constraint
       .addConstraint(autoVoltageConstraint);
+      */
     
+    TrajectoryConfig config =
+      new TrajectoryConfig(
+              kMaxSpeedMeterPerSeconds,
+              AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+          // Add kinematics to ensure max speed is actually obeyed
+          .setKinematics(DriveConstants.kDriveKinematics)
+          // Apply the voltage constraint
+          .addConstraint(autoVoltageConstraint);
+
+
     // test trajectory to follow
+    /**
     Trajectory exampleTrajectory = 
       TrajectoryGenerator.generateTrajectory(
         //start point
@@ -71,6 +84,18 @@ public final class Autos {
         new Pose2d(2,0, new Rotation2d(0)),
         config
       );
+      */
+
+      Trajectory exampleTrajectory =
+        TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(0)),
+            // Pass through these two interior waypoints, making an 's' curve path
+            List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+            // End 3 meters straight ahead of where we started, facing forward
+            new Pose2d(3, 0, new Rotation2d(0)),
+            // Pass config
+            config);
 
       // creates the ramsete command
       RamseteCommand ramseteCommand =
