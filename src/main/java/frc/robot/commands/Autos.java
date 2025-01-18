@@ -11,6 +11,7 @@ import static frc.robot.Constants.OperatorConstants.DrivetrainConstants.*;
 
 import java.util.List;
 
+import choreo.auto.AutoFactory;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -72,7 +73,6 @@ public final class Autos {
         config
       );
 
-
       // creates the ramsete command
       RamseteCommand ramseteCommand =
         new RamseteCommand(
@@ -95,6 +95,10 @@ public final class Autos {
       return Commands.runOnce(() -> drivetrain.resetOdometry(exampleTrajectory.getInitialPose()))
         .andThen(ramseteCommand)
         .andThen(Commands.runOnce(() -> drivetrain.VTankDrive(0, 0)));
+  }
+
+  public static Command NewTestTrajectory(AutoFactory autofactory) {
+    return autofactory.trajectoryCmd("New Path");
   }
 
   private Autos() {
