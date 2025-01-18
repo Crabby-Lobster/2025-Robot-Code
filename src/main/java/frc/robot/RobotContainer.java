@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -47,7 +46,7 @@ public class RobotContainer {
     autofactory = new AutoFactory(
       m_driveTrain::getPose,
       m_driveTrain::resetOdometry,
-      m_driveTrain::followTrajector,
+      m_driveTrain::followTrajectory,
       true,
       m_driveTrain
     );
@@ -75,11 +74,6 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-
-    m_driverController.a().whileTrue(m_driveTrain.systemIdStatic(Direction.kForward));
-    m_driverController.x().whileTrue(m_driveTrain.systemIdStatic(Direction.kReverse));
-    m_driverController.y().whileTrue(m_driveTrain.systemIdDynamic(Direction.kForward));
-    m_driverController.b().whileFalse(m_driveTrain.systemIdDynamic(Direction.kReverse));
   }
 
   /**
@@ -89,6 +83,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.NewTestTrajectory(autofactory);
+    return Autos.testTrajectory(autofactory);
   }
 }

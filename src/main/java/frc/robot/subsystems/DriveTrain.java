@@ -5,16 +5,13 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-
 import choreo.trajectory.DifferentialSample;
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.LTVUnicycleController;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -22,18 +19,11 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.math.kinematics.Kinematics;
-import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 
-import static edu.wpi.first.units.Units.Second;
-import static edu.wpi.first.units.Units.Seconds;
-import static edu.wpi.first.units.Units.Volts;
 import static frc.robot.Constants.OperatorConstants.DrivetrainConstants.*;
 import static java.lang.Math.*;
 
@@ -73,16 +63,6 @@ public class DriveTrain extends SubsystemBase {
   // creates gyro
   ADIS16470_IMU gyro = new ADIS16470_IMU();
 
-  // creates SysIdRoutine
-  SysIdRoutine systemId = new SysIdRoutine(
-    new SysIdRoutine.Config(
-      Volts.of(3).per(Second),
-      Volts.of(3),
-      Seconds.of(1.5)
-    ),
-    new SysIdRoutine.Mechanism(this::voltageDrive, null, this)
-  );
-
 
   /** Creates a new DriveTrain.*/
   public DriveTrain() {
@@ -94,23 +74,19 @@ public class DriveTrain extends SubsystemBase {
     // applies the configs to the motors
     FLConfig.inverted(FLInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     FLConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
-    FLConfig.closedLoop.p(kPDriveVel);
     FLMotor.configure(FLConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     FRConfig.inverted(FRInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     FRConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
-    FRConfig.closedLoop.p(kPDriveVel);
     FRMotor.configure(FRConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     // sets the back motors to follow the front motors
     BLConfig.follow(FLMotorID, BLInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     BLConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
-    BLConfig.closedLoop.p(kPDriveVel);
     BLMotor.configure(BLConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     BRConfig.follow(FRMotorID, BRInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
     BRConfig.encoder.positionConversionFactor(EncoderPositionConversion).velocityConversionFactor(EncoderSpeedConversion);
-    BRConfig.closedLoop.p(kPDriveVel);
     BRMotor.configure(BRConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
 
@@ -154,26 +130,11 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumberArray("Drivetrain Throttles", Speeds);
   }
 
-  /** sets the voltage of the left and right drive motors
-   * @param leftVoltage the voltage to send to the left motors
-   * @param rightVoltage the voltage to send to the right motors
+  /**
+   * follows the trajectory for choreo
+   * @param sample the sample of the trajectory to follow
    */
-  public void VTankDrive(double leftVoltage, double rightVoltage) {
-    leftVoltage = MathUtil.clamp(leftVoltage, -2, 2);
-    rightVoltage = MathUtil.clamp(rightVoltage, -2, 2);
-    FLMotor.setVoltage(leftVoltage);
-    FRMotor.setVoltage(rightVoltage);
-  }
-
-  /** voltage drive used by system identification
-   * @param voltage the voltage for the motors
-   */
-  public void voltageDrive(Voltage voltage) {
-    FLMotor.setVoltage(voltage);
-    FRMotor.setVoltage(voltage);
-  }
-
-  public void followTrajector(DifferentialSample sample) {
+  public void followTrajectory(DifferentialSample sample) {
     Pose2d pose = getPose();
 
     ChassisSpeeds ff = sample.getChassisSpeeds();
@@ -189,6 +150,11 @@ public class DriveTrain extends SubsystemBase {
     VelocityDrive(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
   }
 
+  /**
+   * sets the wheel velocity in M/s
+   * @param leftSpeed the speed for the left wheels
+   * @param rightSpeed the speed for the right wheels
+   */
   public void VelocityDrive(double leftSpeed, double rightSpeed) {
     FLMotor.set(LeftPID.calculate(getEncoderValues(EncoderRetriaval.GetLeftSpeed), leftSpeed));
     FRMotor.set(rightPID.calculate(getEncoderValues(EncoderRetriaval.GetRightSpeed), rightSpeed));
@@ -236,15 +202,6 @@ public class DriveTrain extends SubsystemBase {
       default:
         return 0;
     }
-  }
-
-  /** function for returning wheel speeds for ramsete controller
-   */
-  public DifferentialDriveWheelSpeeds getDiffWheelSpeed() {
-    return new DifferentialDriveWheelSpeeds(
-      getEncoderValues(EncoderRetriaval.GetLeftSpeed),
-      getEncoderValues(EncoderRetriaval.GetRightSpeed)
-    );
   }
 
   /**
@@ -308,20 +265,5 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumber("DriveTrain RightDistance", getEncoderValues(EncoderRetriaval.GetRightDistance));
 
     SmartDashboard.putNumber("DriveTrain Heading", getHeading());
-
-    SmartDashboard.putNumber("testx",driveOdometry.getPoseMeters().getX());
-    SmartDashboard.putNumber("testy",driveOdometry.getPoseMeters().getY());
-  }
-
-  /**gets the static function for system id
-   */
-  public Command systemIdStatic(SysIdRoutine.Direction direction) {
-    return systemId.quasistatic(direction);
-  }
-
-  /**gets the dynamic function for system id
-   */
-  public Command systemIdDynamic(SysIdRoutine.Direction direction) {
-    return systemId.dynamic(direction);
   }
 }

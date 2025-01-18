@@ -53,24 +53,9 @@ public final class Constants {
       // the throttle multiplier for manual driving
       public static final double DriveSpeed = 0.5;
 
-      // constants for trajectory following
-      public static final double ksVolts = 0.17513;
-      public static final double kvVoltSecondsPerMeter = 2.66;
-      public static final double kaVoltSecondsSquaredPerMeter = 0.34651;
-      public static final double kPDriveVel = 1.5802;
-
       // diff drive constants
       public static final double kTrackwidthMeter = 0.60325;
       public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeter);
-
-      // trajectory constraints
-      public static final double kMaxSpeedMeterPerSeconds = 0.5;
-      public static final double kMaxAccelerationMeterPerSecondSquared = 10;
-
-      // RAMSETE constants
-      public static final double kRamseteB = 0.01;
-      public static final double kRamseteZeta = 0.000001;
-      public static final double ramseteMaxV = 2.1;
     }
   }
 }
