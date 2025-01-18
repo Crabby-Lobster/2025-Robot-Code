@@ -64,13 +64,13 @@ public final class Constants {
       public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeter);
 
       // trajectory constraints
-      public static final double kMaxSpeedMeterPerSeconds = 1;
-      public static final double kMaxAccelerationMeterPerSecondSquared = 1;
+      public static final double kMaxSpeedMeterPerSeconds = 0.5;
+      public static final double kMaxAccelerationMeterPerSecondSquared = 10;
 
       // RAMSETE constants
-      public static final double kRamseteB = 2;
-      public static final double kRamseteZeta = 0.7;
-      public static final double ramseteMaxV = 6;
+      public static final double kRamseteB = 0.01;
+      public static final double kRamseteZeta = 0.000001;
+      public static final double ramseteMaxV = 2.1;
     }
   }
 }

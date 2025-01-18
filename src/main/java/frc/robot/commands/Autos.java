@@ -65,10 +65,10 @@ public final class Autos {
         new Pose2d(0,0, new Rotation2d(0)),
 
         // interior points making S-curve
-        List.of(new Translation2d(0.5,0.5), new Translation2d(1.5,-0.5)),
+        List.of(new Translation2d(0.1,0)),
 
         // end point 2 meters infront of start point
-        new Pose2d(2,0, new Rotation2d(0)),
+        new Pose2d(3,-0.5, new Rotation2d(0)),
         config
       );
 

@@ -11,6 +11,8 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -141,6 +143,8 @@ public class DriveTrain extends SubsystemBase {
    * @param rightVoltage the voltage to send to the right motors
    */
   public void VTankDrive(double leftVoltage, double rightVoltage) {
+    leftVoltage = MathUtil.clamp(leftVoltage, -2, 2);
+    rightVoltage = MathUtil.clamp(rightVoltage, -2, 2);
     FLMotor.setVoltage(leftVoltage);
     FRMotor.setVoltage(rightVoltage);
   }
@@ -220,7 +224,8 @@ public class DriveTrain extends SubsystemBase {
    * gets the heading of the robot
    */
   public double getHeading() {
-    return gyro.getAngle(gyro.getYawAxis());
+    return gyro.getAngle(gyro.getYawAxis()) * PI / 180.0;
+    
   }
 
   /**
@@ -266,6 +271,9 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumber("DriveTrain RightDistance", getEncoderValues(EncoderRetriaval.GetRightDistance));
 
     SmartDashboard.putNumber("DriveTrain Heading", getHeading());
+
+    SmartDashboard.putNumber("testx",driveOdometry.getPoseMeters().getX());
+    SmartDashboard.putNumber("testy",driveOdometry.getPoseMeters().getY());
   }
 
   /**gets the static function for system id
