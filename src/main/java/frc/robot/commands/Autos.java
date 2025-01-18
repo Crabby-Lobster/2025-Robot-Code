@@ -63,9 +63,9 @@ public final class Autos {
     TrajectoryConfig config =
       new TrajectoryConfig(
               kMaxSpeedMeterPerSeconds,
-              AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+              kMaxAccelerationMeterPerSecondSquared)
           // Add kinematics to ensure max speed is actually obeyed
-          .setKinematics(DriveConstants.kDriveKinematics)
+          .setKinematics(kDriveKinematics)
           // Apply the voltage constraint
           .addConstraint(autoVoltageConstraint);
 
