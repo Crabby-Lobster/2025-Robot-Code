@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.ExampleCommand;
@@ -26,10 +27,9 @@ public class RobotContainer {
 
   AutoFactory autofactory;
 
-  private final Joystick leftStick = new Joystick(0);
-  private final Joystick rightStick = new Joystick(1);
-  @SuppressWarnings("unused")
-  private final XboxController controller = new XboxController(2);
+  private final Joystick leftStick = new Joystick(ControllerConstants.LeftJoystick);
+  private final Joystick rightStick = new Joystick(ControllerConstants.rightJoystick);
+  private final XboxController controller = new XboxController(ControllerConstants.controller);
 
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -39,7 +39,7 @@ public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
-      new CommandXboxController(2);
+      new CommandXboxController(ControllerConstants.controller);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

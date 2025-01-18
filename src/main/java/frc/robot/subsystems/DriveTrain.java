@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import static frc.robot.Constants.OperatorConstants.DrivetrainConstants.*;
+import static frc.robot.Constants.DrivetrainConstants.*;
 import static java.lang.Math.*;
 
 public class DriveTrain extends SubsystemBase {
