@@ -235,9 +235,10 @@ public class DriveTrain extends SubsystemBase {
    * @param pose the pose
    */
   public void resetOdometry(Pose2d pose) {
+    resetEncoder(0);
     driveOdometry.resetPosition(new Rotation2d(getHeading()),
-      getEncoderValues(EncoderRetriaval.GetLeftDistance),
-      getEncoderValues(EncoderRetriaval.GetRightDistance),
+      0,
+      0,
       pose
     );
   }
@@ -265,5 +266,8 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumber("DriveTrain RightDistance", getEncoderValues(EncoderRetriaval.GetRightDistance));
 
     SmartDashboard.putNumber("DriveTrain Heading", getHeading());
+
+    SmartDashboard.putNumber("odom x", driveOdometry.getPoseMeters().getX());
+    SmartDashboard.putNumber("odom y", driveOdometry.getPoseMeters().getY());
   }
 }
