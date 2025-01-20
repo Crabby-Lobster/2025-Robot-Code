@@ -62,7 +62,7 @@ public class PathSelector {
                         //6th side aka top left
                         SmartDashboard.putString("Pathselector", "Top Left Reef Right Pole");
                     }
-                }else if (lDirect == 270){
+                else if (lDirect == 270){
                     //to the left pole
                     if (rDirect == 0){
                         //1st side aka top
@@ -90,7 +90,7 @@ public class PathSelector {
                     }
                 }
             }
-        
+        }
     }
 
 }
