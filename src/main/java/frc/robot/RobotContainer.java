@@ -28,14 +28,16 @@ public class RobotContainer {
   // creates the autofactory
   AutoFactory autofactory;
 
+  // creates the joysticks and controller
   private final Joystick leftStick = new Joystick(ControllerConstants.LeftJoystick);
   private final Joystick rightStick = new Joystick(ControllerConstants.rightJoystick);
   private final XboxController controller = new XboxController(ControllerConstants.controller);
 
-  // The robot's subsystems and commands are defined here...
+  // creates the subsystems
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_driveTrain = new DriveTrain();
 
+  // creates the commands
   private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
 
   // creates the autocontainer
@@ -47,6 +49,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    
     // creates the choreo autofactory
     autofactory = new AutoFactory(
       m_driveTrain::getPose,

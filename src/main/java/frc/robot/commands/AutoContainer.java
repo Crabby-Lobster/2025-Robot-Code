@@ -30,11 +30,17 @@ public class AutoContainer {
 
         autoChooser = new AutoChooser();
 
+        // adds the autos to the chooser
         autoChooser.addRoutine("Test", this::test);
 
+        // puts the chooser on the dashboard
         SmartDashboard.putData("Auto Chooster", autoChooser);
     }
 
+    /**
+     * creates a test auto program
+     * @return the auto routine
+     */
     public AutoRoutine test() {
         // creates the routine
         AutoRoutine testRoutine = autofactory.newRoutine("Test");
@@ -53,6 +59,11 @@ public class AutoContainer {
         return testRoutine;
     }
 
+
+    /**
+     * returns the auto command
+     * @return the auto command
+     */
     public Command getAutoCommand() {
         return autoChooser.selectedCommandScheduler();
     }
