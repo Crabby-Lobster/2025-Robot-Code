@@ -6,6 +6,7 @@ package frc.robot;
 
 import static java.lang.Math.PI;
 
+import edu.wpi.first.hal.PowerDistributionJNI;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 
 /**
@@ -59,6 +60,9 @@ public final class Constants {
     // diff drive constants
     public static final double kTrackwidthMeter = 0.60325;
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeter);
+    
   }
-
+  public static class Point{
+    public String[] pointList;
+  }
 }
