@@ -5,14 +5,18 @@
 package frc.robot;
 
 import frc.robot.Constants.ControllerConstants;
-import frc.robot.commands.Autos;
+import frc.robot.commands.AutoContainer;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import choreo.auto.AutoChooser;
 import choreo.auto.AutoFactory;
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -25,6 +29,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
 
+  // creates the autofactory
   AutoFactory autofactory;
 
   private final Joystick leftStick = new Joystick(ControllerConstants.LeftJoystick);
@@ -37,12 +42,16 @@ public class RobotContainer {
 
   private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
 
+  // creates the autocontainer
+  AutoContainer m_AutoContainer;
+
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(ControllerConstants.controller);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    // creates the choreo autofactory
     autofactory = new AutoFactory(
       m_driveTrain::getPose,
       m_driveTrain::resetOdometry,
@@ -50,6 +59,9 @@ public class RobotContainer {
       true,
       m_driveTrain
     );
+
+    // creaets the auto container
+    m_AutoContainer = new AutoContainer(autofactory, m_driveTrain);
 
     // Configure the trigger bindings
     configureBindings();
@@ -83,6 +95,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.testTrajectory(autofactory);
+    return m_AutoContainer.getAutoCommand();
   }
 }
