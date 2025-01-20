@@ -23,86 +23,76 @@ public class PathSelector {
 
             SmartDashboard.putNumber("leftstick pov", lDirect);
             SmartDashboard.putNumber("right pov", rDirect);
-            if (lDirect == 0){
+            if(rJoystick.getRawButtonPressed(1)){
+                if (lDirect == 0){
                 //to the coral
-                if (rDirect == 90){
-                    //right side
-                    SmartDashboard.putString("Pathselector", "Right Coral");
-                }
-                else if(rDirect==270){
-                    //left side
-                    SmartDashboard.putString("Pathselector", "Left Coral");
-                }
-            }else if (lDirect == 90){
-                //to the right pole
-                //note:right trigger makes it go to the bottom of l/r sides
+                    if (rDirect == 90){
+                        //right side
+                        SmartDashboard.putString("Pathselector", "Right Coral");
+                    }
+                    else if(rDirect==270){
+                        //left side
+                        SmartDashboard.putString("Pathselector", "Left Coral");
+                    }
+                }else if (lDirect == 90){
+                    //to the right pole
+                    //note:right trigger makes it go to the bottom of l/r sides
 
-                if (rDirect == 0){
-                    //1st side aka top
-                    SmartDashboard.putString("Pathselector", "Top Reef Right Pole");
-                }
-                else if (rDirect == 90){
-                    //right side
-                    if (rJoystick.getRawButton(1)){
-                        //3th side aka bottom right
-                        SmartDashboard.putString("Pathselector", "Bottom Right Reef Right Pole");
-                    }else{
+                    if (rDirect == 0){
+                        //1st side aka top
+                        SmartDashboard.putString("Pathselector", "Top Reef Right Pole");
+                    }
+                    else if (rDirect == 45){
                         //2nd side aka top right
                         SmartDashboard.putString("Pathselector", "Top Right Reef Right Pole");
-
                     }
-                }
-                else if (rDirect == 180){
-                    //4th side aka bottom
-                    SmartDashboard.putString("Pathselector", "Bottom Reef Right Pole");
-
-                }
-                else if(rDirect==270){
-                    //left side
-                    if (rJoystick.getRawButton(1)){
+                    else if (rDirect == 135){
+                        //3rd side aka bottom right
+                        SmartDashboard.putString("Pathselector", "Bottom Right Reef Right Pole");
+                    }
+                    else if (rDirect == 180){
+                        //4th side aka bottom
+                        SmartDashboard.putString("Pathselector", "Bottom Reef Right Pole");
+                    }
+                    else if (rDirect == 225){
+                        //4th side aka bottom left
+                        SmartDashboard.putString("Pathselector", "Bottom Left Reef Right Pole");
+                    }
+                    else if(rDirect==270){
                         //5th side aka bottom left
                         SmartDashboard.putString("Pathselector", "Bottom Left Reef Right Pole");
-
-                    }else{
+                    }else if (rDirect == 315){
                         //6th side aka top left
-                        SmartDashboard.putString("Pathselector", "Top Left Reef Right Pole");
-
+                        SmartDashboard.putString("Pathselector", "Top Right Reef Right Pole");
                     }
-                }
-            }else if (lDirect == 270){
-                //to the left pole
-                if (rDirect == 0){
-                    //1st side aka top
-                    SmartDashboard.putString("Pathselector", "Top Reef Left Pole");
-
-                }
-                else if (rDirect == 90){
-                    //right side
-                    if (rJoystick.getRawButton(1)){
-                        //3th side aka bottom right
-                        SmartDashboard.putString("Pathselector", "Bottom Right Reef Left Pole");
-
-                    }else{
+                }else if (lDirect == 270){
+                    //to the left pole
+                    if (rDirect == 0){
+                        //1st side aka top
+                        SmartDashboard.putString("Pathselector", "Top Reef Left Pole");
+                    }
+                    else if (rDirect == 45){
                         //2nd side aka top right
                         SmartDashboard.putString("Pathselector", "Top Right Reef Left Pole");
-
                     }
-                }
-                else if (rDirect == 180){
-                    //4th side aka bottom
-                    SmartDashboard.putString("Pathselector", "Bottom Reef Left Pole");
-
-                }
-                else if(rDirect==270){
-                    //left side
-                    if (rJoystick.getRawButton(1)){
+                    else if (rDirect == 135){
+                        //3rd side aka bottom right
+                        SmartDashboard.putString("Pathselector", "Bottom Right Reef Left Pole");
+                    }
+                    else if (rDirect == 180){
+                        //4th side aka bottom
+                        SmartDashboard.putString("Pathselector", "Bottom Reef Left Pole");
+                    }
+                    else if (rDirect == 225){
+                        //4th side aka bottom left
+                        SmartDashboard.putString("Pathselector", "Bottom Left Reef Left Pole");
+                    }
+                    else if(rDirect==270){
                         //5th side aka bottom left
                         SmartDashboard.putString("Pathselector", "Bottom Left Reef Left Pole");
-
-                    }else{
+                    }else if (rDirect == 315){
                         //6th side aka top left
-                        SmartDashboard.putString("Pathselector", "Top Left Reef Left Pole");
-
+                        SmartDashboard.putString("Pathselector", "Top Right Reef Left Pole");
                     }
                 }
             }
