@@ -17,19 +17,12 @@ public class PathSelector {
     Joystick leJoystick;
     Joystick rJoystick;
     public void GetButtonPresses(){
-        if (leJoystick.getRawButtonPressed(0)){
-            //left trigger pressed
-            while (leJoystick.getPOV()!= 0 &&
-            leJoystick.getPOV()!= 90 &&
-            leJoystick.getPOV()!= 180 &&
-            leJoystick.getPOV()!= 270 ){}
+        if (leJoystick.getRawButton(1)){
             int lDirect = leJoystick.getPOV();
-            while (rJoystick.getPOV()!= 0 &&
-            rJoystick.getPOV()!= 90 &&
-            rJoystick.getPOV()!= 180 &&
-            rJoystick.getPOV()!= 270 ){}//while either joystick
-            //is going neither direction it just waits
             int rDirect = rJoystick.getPOV();
+
+            SmartDashboard.putNumber("leftstick pov", lDirect);
+            SmartDashboard.putNumber("right pov", rDirect);
             if (lDirect == 0){
                 //to the coral
                 if (rDirect == 90){
@@ -50,7 +43,7 @@ public class PathSelector {
                 }
                 else if (rDirect == 90){
                     //right side
-                    if (rJoystick.getRawButtonPressed(0)){
+                    if (rJoystick.getRawButton(1)){
                         //3th side aka bottom right
                         SmartDashboard.putString("Pathselector", "Bottom Right Reef Right Pole");
                     }else{
@@ -66,7 +59,7 @@ public class PathSelector {
                 }
                 else if(rDirect==270){
                     //left side
-                    if (rJoystick.getRawButtonPressed(0)){
+                    if (rJoystick.getRawButton(1)){
                         //5th side aka bottom left
                         SmartDashboard.putString("Pathselector", "Bottom Left Reef Right Pole");
 
@@ -85,7 +78,7 @@ public class PathSelector {
                 }
                 else if (rDirect == 90){
                     //right side
-                    if (rJoystick.getRawButtonPressed(0)){
+                    if (rJoystick.getRawButton(1)){
                         //3th side aka bottom right
                         SmartDashboard.putString("Pathselector", "Bottom Right Reef Left Pole");
 
@@ -102,7 +95,7 @@ public class PathSelector {
                 }
                 else if(rDirect==270){
                     //left side
-                    if (rJoystick.getRawButtonPressed(0)){
+                    if (rJoystick.getRawButton(1)){
                         //5th side aka bottom left
                         SmartDashboard.putString("Pathselector", "Bottom Left Reef Left Pole");
 
