@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.PathSelector;
 import frc.robot.subsystems.DriveTrain;
 import static frc.robot.Constants.DrivetrainConstants.*;
 
@@ -18,14 +19,16 @@ public class DefaultDrive extends Command {
   Joystick rightJoystick;
   XboxController controller;
   DriveTrain drivetrain;
+  PathSelector pathSelector;
 
   /** Creates a new DefaultDrive. */
-  public DefaultDrive(Joystick leftJoystick, Joystick rightJoystick, DriveTrain driveTrain, XboxController controller) {
+  public DefaultDrive(Joystick leftJoystick, Joystick rightJoystick, DriveTrain driveTrain, XboxController controller, PathSelector pathSelector) {
     // assigns the inputs from the constructor to the variables to be used in this class
     this.LeftJoystick = leftJoystick;
     this.rightJoystick = rightJoystick;
     this.drivetrain = driveTrain;
     this.controller = controller;
+    this.pathSelector = pathSelector;
     // Use addRequirements() here to declare subsystem dependencies.
     // this tell the drivetrain that it is required for this command to run
     addRequirements(driveTrain);
@@ -43,6 +46,7 @@ public class DefaultDrive extends Command {
     double left_speed = -controller.getLeftY() * DriveSpeed;
     double right_speed = -controller.getRightY() * DriveSpeed;
     drivetrain.TankDrive(left_speed, right_speed, true);
+    pathSelector.GetButtonPresses();
   }
 
   // Called once the command ends or is interrupted.

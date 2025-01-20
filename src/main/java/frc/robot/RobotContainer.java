@@ -31,11 +31,14 @@ public class RobotContainer {
   private final Joystick rightStick = new Joystick(ControllerConstants.rightJoystick);
   private final XboxController controller = new XboxController(ControllerConstants.controller);
 
+  //The path selection tool of the robot
+  private final PathSelector pathSelector = new PathSelector(leftStick, rightStick);
+
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_driveTrain = new DriveTrain();
 
-  private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
+  private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller, pathSelector);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =

@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /** Add your docs here. */
 public class PathSelector {
-    public void PathSelector(Joystick leJoystick, Joystick rJoystick){
+    public PathSelector(Joystick leJoystick, Joystick rJoystick){
         this.leJoystick = leJoystick;
         this.rJoystick = rJoystick;
     }
