@@ -60,5 +60,11 @@ public final class Constants {
     public static final double kTrackwidthMeter = 0.60325;
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeter);
   }
+  public static final class AlgaeArmConstants {
+    public static final int pivotNum = 0;
+    public static final int rollerNum = 0;
+    public static final int[] pEncodeNum = {3, 3};
+    public static final int pLimitSwitchNum = 0;
+  }
 
 }
