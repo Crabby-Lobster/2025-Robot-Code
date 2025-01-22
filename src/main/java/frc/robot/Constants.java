@@ -60,5 +60,13 @@ public final class Constants {
     public static final double kTrackwidthMeter = 0.60325;
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeter);
   }
+  public static final class CoralArmConstants {
+    
+    public static final int pivotNum = 91;
+    public static final int rollerNum = 92;
+    public static final int[] pEncode = {3, 4};
+    public static final int pLimitNum = 0;
+    public static final double[] pPIDNum = {3.0, 3.0, 3.0};
+  }
 
 }
