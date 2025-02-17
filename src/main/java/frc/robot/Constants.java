@@ -26,10 +26,10 @@ public final class Constants {
   public static final class DrivetrainConstants {
       
     //Motor CAN Ids
-    public static final int FLMotorID = 4;
-    public static final int FRMotorID = 2;
+    public static final int FLMotorID = 2;
+    public static final int FRMotorID = 7;
     public static final int BLMotorID = 3;
-    public static final int BRMotorID = 1;
+    public static final int BRMotorID = 6;
 
     //gearbox and wheel constants
 
