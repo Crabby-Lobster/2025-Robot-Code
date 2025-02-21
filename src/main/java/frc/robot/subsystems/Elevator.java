@@ -8,6 +8,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
@@ -18,8 +19,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.ElevatorConstants.*;
 
 public class Elevator extends SubsystemBase {
-  SparkMax leftM;
-  SparkMax rightM;
+  SparkMax leftM = new SparkMax(leftMID, MotorType.kBrushless);
+  SparkMax rightM = new SparkMax(rightMID, MotorType.kBrushless);
 
   RelativeEncoder leftEnc;
   RelativeEncoder rightEnc;

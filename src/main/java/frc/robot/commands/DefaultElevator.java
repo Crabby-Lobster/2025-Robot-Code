@@ -35,7 +35,8 @@ public class DefaultElevator extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevator.setSpeed(0.25);
+    double speed = controller.getRightTriggerAxis() - controller.getLeftTriggerAxis();
+    elevator.setSpeed(speed * 0.5);
   }
 
   // Called once the command ends or is interrupted.

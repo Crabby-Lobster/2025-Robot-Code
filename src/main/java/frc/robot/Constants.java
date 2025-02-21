@@ -62,11 +62,11 @@ public final class Constants {
   }
 
   public static final class ElevatorConstants {
-    public static final int leftMID = 99;
-    public static final int rightMID = 99;
+    public static final int leftMID = 4;
+    public static final int rightMID = 5;
 
     public static final boolean leftInvert = false;
-    public static final boolean rightInvert = false;
+    public static final boolean rightInvert = true;
 
     public static final double positionConversion = 1;
     public static final double velocityConversion = 1;

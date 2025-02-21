@@ -29,15 +29,17 @@ public class RobotContainer {
 
   AutoFactory autofactory;
 
+  // controllers
   private final Joystick leftStick = new Joystick(ControllerConstants.LeftJoystick);
   private final Joystick rightStick = new Joystick(ControllerConstants.rightJoystick);
   private final XboxController controller = new XboxController(ControllerConstants.controller);
 
-  // The robot's subsystems and commands are defined here...
+  // subsystems
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_driveTrain = new DriveTrain();
   private  final Elevator m_elevator = new Elevator();
 
+  // commands
   private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
   private final DefaultElevator m_DefaultElevator = new DefaultElevator(m_elevator, leftStick, rightStick, controller);
 
@@ -58,6 +60,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
 
+    // sets default commands
     m_driveTrain.setDefaultCommand(m_DefaultDrive);
     m_elevator.setDefaultCommand(m_DefaultElevator);
   }
