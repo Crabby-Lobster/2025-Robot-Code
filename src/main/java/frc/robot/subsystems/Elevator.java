@@ -5,7 +5,9 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -14,6 +16,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.ElevatorConstants.*;
@@ -27,7 +30,8 @@ public class Elevator extends SubsystemBase {
 
   DigitalInput elevatorLimit = new DigitalInput(elevatorLimitswitch);
 
-  PIDController elevatorposPID = new PIDController(elevatorPID[0], elevatorPID[1], elevatorPID[2]);
+  SparkClosedLoopController leftController;
+  SparkClosedLoopController rightController;
 
   /** Creates a new Elevator. */
   public Elevator() {
@@ -40,15 +44,21 @@ public class Elevator extends SubsystemBase {
     leftConfig.encoder.positionConversionFactor(positionConversion).velocityConversionFactor(velocityConversion);
     rightConfig.encoder.positionConversionFactor(positionConversion).velocityConversionFactor(velocityConversion);
 
+    leftConfig.closedLoop.pid(elevatorPID[0], elevatorPID[1], elevatorPID[2]);
+    rightConfig.closedLoop.pid(elevatorPID[0], elevatorPID[1], elevatorPID[2]);
+
     leftM.configure(leftConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     rightM.configure(rightConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     leftEnc = leftM.getEncoder();
     rightEnc = rightM.getEncoder();
+
+    leftController = leftM.getClosedLoopController();
+    rightController = rightM.getClosedLoopController();
   }
 
   public boolean getLimitSwitch() {
-    return elevatorLimit.get();
+    return !elevatorLimit.get();
   }
 
   public double getHeight(){
@@ -61,9 +71,13 @@ public class Elevator extends SubsystemBase {
   }
 
   public void setPosition(double position) {
-    double throttle = elevatorposPID.calculate(getHeight(), position);
-    leftM.set(throttle);
-    rightM.set(throttle);
+    leftController.setReference(position, ControlType.kPosition);
+    rightController.setReference(position, ControlType.kPosition);
+  }
+
+  public void resetPosition(double position) {
+    leftEnc.setPosition(position);
+    rightEnc.setPosition(position);
   }
 
   @Override

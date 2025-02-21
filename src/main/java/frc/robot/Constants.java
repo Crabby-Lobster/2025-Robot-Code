@@ -71,8 +71,8 @@ public final class Constants {
     public static final double positionConversion = 1;
     public static final double velocityConversion = 1;
 
-    public static final int elevatorLimitswitch = 1;
+    public static final int elevatorLimitswitch = 0;
 
-    public static final double[] elevatorPID = {0,0,0};
+    public static final double[] elevatorPID = {0.1,0,0};
   }
 }
