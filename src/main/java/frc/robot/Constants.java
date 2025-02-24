@@ -71,6 +71,13 @@ public final class Constants {
     public static final int rollerLID = 99;
     public static final int rollerRID = 99;
 
+    public static final boolean pivotInvert = false;
+    public static final boolean rollerLInvert = false;
+    public static final boolean rollerRInvert = false;
+
+    public static final double pivotPosConversion = 1;
+    public static final double pivotVelConversion = 1;
+
     // Limit switches
     public static final int HomeSwitchID = 0;
     public static final int coralSwitchID = 0;
