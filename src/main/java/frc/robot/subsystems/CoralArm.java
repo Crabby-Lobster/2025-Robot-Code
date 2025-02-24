@@ -62,6 +62,10 @@ public class CoralArm extends SubsystemBase {
     return PivotEncoder.getPosition();
   }
 
+  public void resetPivotPosition (double position) {
+    PivotEncoder.setPosition(position);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
