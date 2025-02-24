@@ -27,6 +27,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.DrivetrainConstants.*;
 import static java.lang.Math.*;
 
+/**
+ * the drivetrain for the robot
+ */
 public class DriveTrain extends SubsystemBase {
 
   LTVUnicycleController controller = new LTVUnicycleController(0.02);

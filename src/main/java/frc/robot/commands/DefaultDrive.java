@@ -10,7 +10,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveTrain;
 import static frc.robot.Constants.DrivetrainConstants.*;
 
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
+/**
+ * controls drivetrain during teleop
+ */
 public class DefaultDrive extends Command {
   
   //The joysticks used to control the drivetrain

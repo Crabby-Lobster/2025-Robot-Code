@@ -17,12 +17,18 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  /**
+   * the values for controller inputs
+   */
   public static class ControllerConstants {
     public static final int LeftJoystick = 0;
     public static final int rightJoystick = 1;
     public static final int controller = 2;
   }
 
+  /**
+   * values for the drivetrain subsystem
+   */
   public static final class DrivetrainConstants {
       
     //Motor CAN Ids
@@ -32,8 +38,8 @@ public final class Constants {
     public static final int BRMotorID = 6;
 
     //gearbox and wheel constants
-
     private static final double overallGearboxRatio = (1.0 / 10.71);
+
     /**
      *wheel diameter in meters
       */
@@ -61,6 +67,9 @@ public final class Constants {
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeter);
   }
 
+  /**
+   * values for the elevator subsytem
+   */
   public static final class ElevatorConstants {
     public static final int leftMID = 4;
     public static final int rightMID = 5;

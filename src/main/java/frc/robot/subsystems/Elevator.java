@@ -18,20 +18,28 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.ElevatorConstants.*;
 
+/**
+ * The elevator for the robot
+ */
 public class Elevator extends SubsystemBase {
+  // Motors
   SparkMax leftM = new SparkMax(leftMID, MotorType.kBrushless);
   SparkMax rightM = new SparkMax(rightMID, MotorType.kBrushless);
 
+  // Encoders
   RelativeEncoder leftEnc;
   RelativeEncoder rightEnc;
 
+  // Limit switch
   DigitalInput elevatorLimit = new DigitalInput(elevatorLimitswitch);
 
+  // PIDs
   SparkClosedLoopController leftController;
   SparkClosedLoopController rightController;
 
   /** Creates a new Elevator. */
   public Elevator() {
+    // motor configs
     SparkMaxConfig leftConfig = new SparkMaxConfig();
     SparkMaxConfig rightConfig = new SparkMaxConfig();
 
@@ -54,24 +62,44 @@ public class Elevator extends SubsystemBase {
     rightController = rightM.getClosedLoopController();
   }
 
+  /**
+   * Returns whether the limit switch is pressed
+   * @return the value of the limit switch
+   */
   public boolean getLimitSwitch() {
     return !elevatorLimit.get();
   }
 
+  /**
+   * gets the position of the elevator in inches
+   * @return elevator height in inches
+   */
   public double getHeight(){
     return (leftEnc.getPosition() + rightEnc.getPosition()) / 2.0;
   }
 
+  /**
+   * sets the speed of the elevator motors
+   * @param speed the speed the elevator moves
+   */
   public void setSpeed(double speed) {
     leftM.set(speed);
     rightM.set(speed);
   }
 
+  /**
+   * sets the position of the elevator
+   * @param position the position the elevator will move to
+   */
   public void setPosition(double position) {
     leftController.setReference(position, ControlType.kPosition);
     rightController.setReference(position, ControlType.kPosition);
   }
 
+  /**
+   * resets the position of the encoders
+   * @param position the position to reset the encoders to
+   */
   public void resetPosition(double position) {
     leftEnc.setPosition(position);
     rightEnc.setPosition(position);
