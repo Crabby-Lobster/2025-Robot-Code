@@ -84,4 +84,21 @@ public final class Constants {
 
     public static final double[] elevatorPID = {0.1,0,0};
   }
+
+  /**
+   * stored elevator positions
+   */
+  public static final class ElevatorPositions {
+    public static final double TOP = 0;
+
+    public static final double L4Coral = 0;
+    public static final double L3Coral = 0;
+    public static final double L2Coral = 0;
+
+    public static final double AlgaePickup = 0;
+
+    public static final double CoralPickup = 0;
+    
+    public static final double HOME = 0;
+  }
 }
