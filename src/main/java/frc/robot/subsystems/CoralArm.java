@@ -7,7 +7,10 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.RelativeEncoder;
-
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -16,30 +19,39 @@ import static frc.robot.Constants.CoralArmConstants.*;
 
 public class CoralArm extends SubsystemBase {
   /** Creates a new CoralArm. */
-  VictorSPX spxPivot = new VictorSPX(pivotNum);
-  VictorSPX spxRoller = new VictorSPX(rollerNum);
-  Encoder pivotEncoder = new Encoder(pEncode[0], pEncode[1]);
-  DigitalInput pivotLimitSwitch = new DigitalInput(pivotNum);
-  PIDController pivotPID = new PIDController(pivotNum, rollerNum, pivotNum);
-
-  public void SetPivotSpeed(double speed) {
-    spxPivot.set(VictorSPXControlMode.PercentOutput, speed);
-  }
-  public void SetRollerSpeed(double speed) {
-    spxRoller.set(VictorSPXControlMode.PercentOutput, speed);
-  }
-  public void setPivotPosition(double angle) {
-    double position = pivotPID.calculate(getPivotPosition(), angle);
-    SetPivotSpeed(position);
-  }
-  public boolean getLimitSwitch() {
-    return pivotLimitSwitch.get();
-  }
-  public double getPivotPosition(){
-    return pivotEncoder.getDistance();
-  }
   public CoralArm() {
 
+  }
+
+  //Motors
+  SparkMax coralPivot = new SparkMax(pivotID, MotorType.kBrushless);
+  VictorSPX lRoller = new VictorSPX(rollerLID);
+  VictorSPX rRoller = new VictorSPX(rollerRID);
+
+  // Limit switches
+  DigitalInput homeSwitch = new DigitalInput(HomeSwitchID);
+  DigitalInput coralSwitch = new DigitalInput(coralSwitchID);
+
+  // Encoders
+  RelativeEncoder PivotEncoder;
+
+  // PID
+  SparkClosedLoopController PivotPID;
+
+  public void SetPivotSpeed(double speed) {
+    coralPivot.set(speed);
+  }
+  public void SetRollerSpeed(double speed) {
+    coralPivot.set(speed);
+  }
+  public void setPivotPosition(double angle) {
+    PivotPID.setReference(angle, ControlType.kPosition);
+  }
+  public boolean getLimitSwitch() {
+    return homeSwitch.get();
+  }
+  public double getPivotPosition(){
+    return PivotEncoder.getPosition();
   }
 
   @Override

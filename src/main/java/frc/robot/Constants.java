@@ -60,13 +60,33 @@ public final class Constants {
     public static final double kTrackwidthMeter = 0.60325;
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeter);
   }
+  
+  /**
+   * values for coral arm subsytem
+   */
   public static final class CoralArmConstants {
     
-    public static final int pivotNum = 91;
-    public static final int rollerNum = 92;
-    public static final int[] pEncode = {3, 4};
-    public static final int pLimitNum = 0;
-    public static final double[] pPIDNum = {3.0, 3.0, 3.0};
+    // Motors
+    public static final int pivotID = 99;
+    public static final int rollerLID = 99;
+    public static final int rollerRID = 99;
+
+    // Limit switches
+    public static final int HomeSwitchID = 0;
+    public static final int coralSwitchID = 0;
+
+    // PID
+    public static final double[] PIDNum = {0.0, 0.0, 0.0};
   }
 
+  /**
+   * saved coral arm positions
+   */
+  public static final class CoralArmPositions {
+    public static final double HOME = 0;
+
+    public static final double INTAKE = 0;
+
+    public static final double SCORE = 0;
+  }
 }
