@@ -41,15 +41,23 @@ public class CoralArm extends SubsystemBase {
   public void SetPivotSpeed(double speed) {
     coralPivot.set(speed);
   }
+
   public void SetRollerSpeed(double speed) {
     coralPivot.set(speed);
   }
+
   public void setPivotPosition(double angle) {
     PivotPID.setReference(angle, ControlType.kPosition);
   }
-  public boolean getLimitSwitch() {
+
+  public boolean getHomeSwitch() {
     return homeSwitch.get();
   }
+
+  public boolean getCoralSwitch() {
+    return coralSwitch.get();
+  }
+
   public double getPivotPosition(){
     return PivotEncoder.getPosition();
   }
