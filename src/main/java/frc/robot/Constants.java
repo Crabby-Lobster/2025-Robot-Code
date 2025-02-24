@@ -60,11 +60,30 @@ public final class Constants {
     public static final double kTrackwidthMeter = 0.60325;
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeter);
   }
+
+  /**
+   *  saved values for algea arm
+   */
   public static final class AlgaeArmConstants {
-    public static final int pivotNum = 0;
-    public static final int rollerNum = 0;
-    public static final int[] pEncodeNum = {3, 3};
-    public static final int pLimitSwitchNum = 0;
+    // Motors
+    public static final int pivotID = 99;
+    public static final int rollerLID = 99;
+    public static final int rollerRID = 99;
+
+    // Limit switches
+    public static final int HomeSwitchID = 0;
+    public static final int AlgeaSwitchID = 0;
+
+    // PID
+    public static final double[] PIDValues = {0,0,0};
   }
 
+  /**
+   * saved algea arm position
+   */
+  public static final class AlgearArmPositions {
+    public static final double HOME = 0;
+    public static final double INTAKE = 0;
+    public static final double SCORE = 0;
+  }
 }

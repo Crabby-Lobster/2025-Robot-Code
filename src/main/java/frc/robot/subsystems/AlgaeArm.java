@@ -6,6 +6,11 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -15,28 +20,38 @@ import static frc.robot.Constants.AlgaeArmConstants.*;
 
 public class AlgaeArm extends SubsystemBase {
   /** Creates a new AlgaeArm. */
-  VictorSPX spxPivot = new VictorSPX(pivotNum);
-  VictorSPX spxRoller = new VictorSPX(rollerNum);
-  DigitalInput pivotLimitSwitch = new DigitalInput(pLimitSwitchNum);
-  Encoder pivotEncoder = new Encoder(pEncodeNum[0], pEncodeNum[1]);
-  PIDController pivotPosition = new PIDController(rollerNum, pivotNum, pLimitSwitchNum);
+  SparkMax algeaPivot = new SparkMax(pivotID, MotorType.kBrushless);
+  VictorSPX lRoller = new VictorSPX(rollerLID);
+  VictorSPX rRoller = new VictorSPX(rollerRID);
+
+  DigitalInput homeSwitch = new DigitalInput(HomeSwitchID);
+  DigitalInput algeaSwitch = new DigitalInput(AlgeaSwitchID);
+
+  RelativeEncoder pivotEnc;
+  SparkClosedLoopController pivotPID;
+
+  public AlgaeArm() {}
+
   public void setPivotSpeed(double speed) {
-    spxPivot.set(VictorSPXControlMode.PercentOutput, speed);
+    algeaPivot.set(speed);
   }
   public void setRollerSpeed(double speed) {
-    spxRoller.set(VictorSPXControlMode.PercentOutput, speed);
+    lRoller.set(VictorSPXControlMode.PercentOutput, speed);
+    rRoller.set(VictorSPXControlMode.PercentOutput, speed);
   }
   public void setPivotPosition(double angle) {
-    double position = pivotPosition.calculate(getPivotPosition(),angle);
-    spxPivot.set(VictorSPXControlMode.PercentOutput, position);
+    pivotPID.setReference(angle, ControlType.kPosition);
   }
   public double getPivotPosition() {
-    return pivotEncoder.getDistance();
+    return pivotEnc.getPosition();
   }
-  public boolean getLimitSwitch() {
-    return pivotLimitSwitch.get();
+  public boolean getHomeSwitch() {
+    return homeSwitch.get();
   }
-  public AlgaeArm() {}
+
+  public boolean getAlgeaSwitch() {
+    return algeaSwitch.get();
+  }
 
   @Override
   public void periodic() {
