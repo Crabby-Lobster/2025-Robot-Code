@@ -92,4 +92,8 @@ public class ScoreSystemState {
     public double lerp(double from, double to, double factor) {
         return from + factor * (to - from);
     }
+    
+    public double remap(double in, double inMin, double inMax, double outMin, double outMax) {
+        return outMin + (outMax - outMin) * ((in - inMin) / (inMax - inMin));
+    }
 }
