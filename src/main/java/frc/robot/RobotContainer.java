@@ -7,8 +7,11 @@ package frc.robot;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DefaultDrive;
+import frc.robot.commands.DefaultElevator;
+import frc.robot.commands.ElevatorHome;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.ExampleSubsystem;
 import choreo.auto.AutoFactory;
 import edu.wpi.first.wpilibj.Joystick;
@@ -27,15 +30,22 @@ public class RobotContainer {
 
   AutoFactory autofactory;
 
+  // controllers
   private final Joystick leftStick = new Joystick(ControllerConstants.LeftJoystick);
   private final Joystick rightStick = new Joystick(ControllerConstants.rightJoystick);
   private final XboxController controller = new XboxController(ControllerConstants.controller);
 
-  // The robot's subsystems and commands are defined here...
+  // subsystems
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_driveTrain = new DriveTrain();
+  private  final Elevator m_elevator = new Elevator();
 
+  // Default commands
   private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
+  private final DefaultElevator m_DefaultElevator = new DefaultElevator(m_elevator, leftStick, rightStick, controller);
+
+  // Homing Commands
+  private final ElevatorHome m_ElevatorHome = new ElevatorHome(m_elevator);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -54,7 +64,9 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
 
+    // sets default commands
     m_driveTrain.setDefaultCommand(m_DefaultDrive);
+    m_elevator.setDefaultCommand(m_DefaultElevator);
   }
 
   /**
@@ -84,5 +96,12 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return Autos.testTrajectory(autofactory);
+  }
+
+  /**
+   * Homes the robot subsystems
+   */
+  public void HomeRobot() {
+    m_ElevatorHome.schedule();
   }
 }
