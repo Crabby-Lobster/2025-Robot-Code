@@ -82,4 +82,14 @@ public class ScoreSystemState {
         algeaArmFull = full;
     }
 
+    /**
+     * lineraly interpolates between from and to by factor
+     * @param from the start value
+     * @param to the end value
+     * @param factor the factor to lerp by
+     * @return the lerped value
+     */
+    public double lerp(double from, double to, double factor) {
+        return from + factor * (to - from);
+    }
 }

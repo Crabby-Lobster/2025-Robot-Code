@@ -38,7 +38,7 @@ public class RobotContainer {
   // subsystems
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_driveTrain = new DriveTrain();
-  private  final Elevator m_elevator = new Elevator();
+  private final Elevator m_elevator = new Elevator();
 
   // Default commands
   private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
