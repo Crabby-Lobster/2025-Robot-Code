@@ -19,6 +19,10 @@ public class DefaultScoreSystem extends Command {
   Joystick rightJoy;
   XboxController controller;
 
+
+  //temp
+  double position = 0;
+
   /** Creates a new DefaultScoreSystem. */
   public DefaultScoreSystem(ScoreSystem scoreSystem, Joystick leftJoy, Joystick rightJoy, XboxController controller) {
     this.scoreSystem = scoreSystem;
@@ -36,9 +40,13 @@ public class DefaultScoreSystem extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+    position += (controller.getRightTriggerAxis() - controller.getLeftTriggerAxis()) * 0.5;
+
+    // state
     ScoreSystemState desiredState = new ScoreSystemState();
 
-    desiredState.setElevator(0);
+    desiredState.setElevator(position);
 
     
     scoreSystem.setState(desiredState);
