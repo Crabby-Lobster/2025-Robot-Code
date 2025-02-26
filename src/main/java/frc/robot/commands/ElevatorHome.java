@@ -5,7 +5,9 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.ElevatorPositions;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.ScoreSystem;
 
 /**
  * moves the elevator down until it reaches home position
@@ -16,10 +18,10 @@ public class ElevatorHome extends Command {
   Elevator elevator;
 
   /** Creates a new ElevatorHome. */
-  public ElevatorHome(Elevator elevator) {
-    this.elevator = elevator;
+  public ElevatorHome(ScoreSystem scoreSystem) {
+    elevator = scoreSystem.elevator;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(elevator);
+    addRequirements(scoreSystem);
   }
 
   // Called when the command is initially scheduled.
@@ -29,20 +31,20 @@ public class ElevatorHome extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevator.setSpeed(-0.25);
+    elevator.setSpeed(-0.1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     elevator.setSpeed(0);
-    elevator.resetPosition(0);
+    elevator.resetPosition(ElevatorPositions.HOME);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     //return elevator.getLimitSwitch();
-    return true;
+    return elevator.getLimitSwitch();
   }
 }

@@ -4,14 +4,18 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.ScoreSystemState;
 import frc.robot.ScoreSystemState.RollerState;
+import frc.robot.commands.ElevatorHome;
+import frc.robot.Constants.ElevatorPositions;
 
 public class ScoreSystem extends SubsystemBase {
 
   // parts
-  Elevator elevator;
+  public Elevator elevator;
 
   //States
   private ScoreSystemState desiredState = new ScoreSystemState();
@@ -58,6 +62,7 @@ public class ScoreSystem extends SubsystemBase {
   private void checkElevatorSaftey() {
     double desiredPosition = desiredState.elevatorPos;
     
+    desiredPosition = MathUtil.clamp(desiredPosition, ElevatorPositions.HOME, ElevatorPositions.TOP);
     safeState.setElevator(desiredPosition);
   }
 
@@ -81,7 +86,11 @@ public class ScoreSystem extends SubsystemBase {
     safeState.setCoralArm(desiredPosition, desiredMode);
   }
 
-  
+  public SequentialCommandGroup HomeSystems(ScoreSystem scoresystem) {
+    return new SequentialCommandGroup(
+      new ElevatorHome(scoresystem)
+    );
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

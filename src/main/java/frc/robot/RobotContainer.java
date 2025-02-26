@@ -19,6 +19,7 @@ import choreo.auto.AutoFactory;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -47,8 +48,6 @@ public class RobotContainer {
   private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
   private final DefaultScoreSystem m_DefaultScoreSystem = new DefaultScoreSystem(m_ScoreSystem, leftStick, rightStick, controller);
 
-  // Homing Commands
-  private final ElevatorHome m_ElevatorHome = new ElevatorHome(m_elevator);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -89,6 +88,7 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    m_driverController.a().onTrue(HomeRobot());
   }
 
   /**
@@ -104,7 +104,7 @@ public class RobotContainer {
   /**
    * Homes the robot subsystems
    */
-  public void HomeRobot() {
-    //m_ElevatorHome.schedule();
+  public SequentialCommandGroup HomeRobot() {
+    return m_ScoreSystem.HomeSystems(m_ScoreSystem);
   }
 }

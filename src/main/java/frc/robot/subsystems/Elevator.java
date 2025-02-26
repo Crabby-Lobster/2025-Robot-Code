@@ -43,8 +43,8 @@ public class Elevator extends SubsystemBase {
     SparkMaxConfig leftConfig = new SparkMaxConfig();
     SparkMaxConfig rightConfig = new SparkMaxConfig();
 
-    leftConfig.inverted(leftInvert).idleMode(IdleMode.kBrake);
-    rightConfig.inverted(rightInvert).idleMode(IdleMode.kBrake);
+    leftConfig.inverted(leftInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(highCurrentLimit);
+    rightConfig.inverted(rightInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(highCurrentLimit);
 
     leftConfig.encoder.positionConversionFactor(positionConversion);
     rightConfig.encoder.positionConversionFactor(positionConversion);
@@ -103,6 +103,9 @@ public class Elevator extends SubsystemBase {
   public void resetPosition(double position) {
     leftEnc.setPosition(position);
     rightEnc.setPosition(position);
+  }
+
+  public void lowCurrent() {
   }
 
   @Override

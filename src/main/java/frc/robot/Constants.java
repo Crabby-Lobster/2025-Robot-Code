@@ -77,9 +77,11 @@ public final class Constants {
     public static final boolean leftInvert = false;
     public static final boolean rightInvert = true;
 
+    public static final int highCurrentLimit = 40;
+
     public static final double positionConversion = (1.0 / 12.0) * 1.75 * PI;
 
-    public static final int elevatorLimitswitch = 0;
+    public static final int elevatorLimitswitch = 9;
 
     public static final double[] elevatorPID = {0.1,0,0};
   }
@@ -88,7 +90,7 @@ public final class Constants {
    * stored elevator positions
    */
   public static final class ElevatorPositions {
-    public static final double TOP = 0;
+    public static final double TOP = 32;
 
     public static final double L4Coral = 0;
     public static final double L3Coral = 0;
@@ -98,7 +100,7 @@ public final class Constants {
 
     public static final double CoralPickup = 0;
     
-    public static final double HOME = 0;
+    public static final double HOME = 8.75;
 
 
     public static final double minElevatorSafeHeight = 0;

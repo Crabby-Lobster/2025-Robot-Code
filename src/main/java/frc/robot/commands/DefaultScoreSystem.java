@@ -4,10 +4,13 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.ScoreSystemState;
+import frc.robot.Constants.ElevatorPositions;
 import frc.robot.subsystems.ScoreSystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -21,7 +24,7 @@ public class DefaultScoreSystem extends Command {
 
 
   //temp
-  double position = 0;
+  double position = ElevatorPositions.HOME;
 
   /** Creates a new DefaultScoreSystem. */
   public DefaultScoreSystem(ScoreSystem scoreSystem, Joystick leftJoy, Joystick rightJoy, XboxController controller) {
@@ -41,7 +44,7 @@ public class DefaultScoreSystem extends Command {
   @Override
   public void execute() {
 
-    position += (controller.getRightTriggerAxis() - controller.getLeftTriggerAxis()) * 0.5;
+    position = MathUtil.clamp(position + (controller.getRightTriggerAxis() - controller.getLeftTriggerAxis()), ElevatorPositions.HOME, ElevatorPositions.TOP);
 
     // state
     ScoreSystemState desiredState = new ScoreSystemState();
@@ -51,6 +54,8 @@ public class DefaultScoreSystem extends Command {
     
     scoreSystem.setState(desiredState);
     scoreSystem.update();
+
+    SmartDashboard.putNumber("test num", scoreSystem.elevator.getHeight());
   }
 
   // Called once the command ends or is interrupted.
