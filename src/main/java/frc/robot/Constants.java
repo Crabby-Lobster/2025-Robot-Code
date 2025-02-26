@@ -100,5 +100,9 @@ public final class Constants {
     public static final double CoralPickup = 0;
     
     public static final double HOME = 0;
+
+
+    public static final double maxArmSafeAngle = 0;
+    public static final double minElevatorSafeHeight = 0;
   }
 }
