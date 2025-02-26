@@ -46,8 +46,8 @@ public class Elevator extends SubsystemBase {
     leftConfig.inverted(leftInvert).idleMode(IdleMode.kBrake);
     rightConfig.inverted(rightInvert).idleMode(IdleMode.kBrake);
 
-    leftConfig.encoder.positionConversionFactor(positionConversion).velocityConversionFactor(velocityConversion);
-    rightConfig.encoder.positionConversionFactor(positionConversion).velocityConversionFactor(velocityConversion);
+    leftConfig.encoder.positionConversionFactor(positionConversion);
+    rightConfig.encoder.positionConversionFactor(positionConversion);
 
     leftConfig.closedLoop.pid(elevatorPID[0], elevatorPID[1], elevatorPID[2]);
     rightConfig.closedLoop.pid(elevatorPID[0], elevatorPID[1], elevatorPID[2]);

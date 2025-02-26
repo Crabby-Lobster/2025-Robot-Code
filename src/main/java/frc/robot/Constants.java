@@ -77,8 +77,7 @@ public final class Constants {
     public static final boolean leftInvert = false;
     public static final boolean rightInvert = true;
 
-    public static final double positionConversion = 1;
-    public static final double velocityConversion = 1;
+    public static final double positionConversion = (1.0 / 12.0) * 1.75 * PI;
 
     public static final int elevatorLimitswitch = 0;
 

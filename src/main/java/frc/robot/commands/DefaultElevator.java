@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator;
 
@@ -40,7 +41,10 @@ public class DefaultElevator extends Command {
   @Override
   public void execute() {
     position += (controller.getRightTriggerAxis() - controller.getLeftTriggerAxis()) * 0.1;
-    elevator.setPosition(position);;
+    elevator.setPosition(position);
+
+    SmartDashboard.putNumber("EL pos", position);
+    SmartDashboard.putNumber("true pos", elevator.getHeight());
   }
 
   // Called once the command ends or is interrupted.
