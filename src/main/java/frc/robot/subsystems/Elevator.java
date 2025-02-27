@@ -15,6 +15,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ElevatorPositions;
 
 import static frc.robot.Constants.ElevatorConstants.*;
 
@@ -60,6 +61,8 @@ public class Elevator extends SubsystemBase {
 
     leftController = leftM.getClosedLoopController();
     rightController = rightM.getClosedLoopController();
+
+    resetPosition(ElevatorPositions.HOME);
   }
 
   /**
