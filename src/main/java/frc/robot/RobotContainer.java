@@ -7,7 +7,6 @@ package frc.robot;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DefaultDrive;
-import frc.robot.commands.DefaultElevator;
 import frc.robot.commands.DefaultScoreSystem;
 import frc.robot.commands.ElevatorHome;
 import frc.robot.commands.ExampleCommand;

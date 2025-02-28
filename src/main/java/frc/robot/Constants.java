@@ -71,26 +71,34 @@ public final class Constants {
    * values for the elevator subsytem
    */
   public static final class ElevatorConstants {
-    public static final int leftMID = 4;
-    public static final int rightMID = 5;
+    public static final int leftMoterID = 4;
+    public static final int rightMoterId = 5;
+    public static final int stage2MotorId = 99;
 
     public static final boolean leftInvert = false;
     public static final boolean rightInvert = true;
+    public static final boolean stage2invert = true;
 
-    public static final int highCurrentLimit = 40;
+    public static final int stallCurrentLimit = 40;
 
-    public static final double positionConversion = (1.0 / 12.0) * 1.75 * PI;
+    public static final double stage1positionConversion = (1.0 / 12.0) * 1.75 * PI;
+    public static final double stage2positionConversion = 1;
+
+    public static final double[] stage1elevatorPID = {0.1,0,0};
+    public static final double[] stage2elevatorPID = {0.1,0,0};
 
     public static final int elevatorLimitswitch = 9;
-
-    public static final double[] elevatorPID = {0.1,0,0};
   }
 
   /**
    * stored elevator positions
    */
   public static final class ElevatorPositions {
-    public static final double TOP = 32;
+    public static final double MAXHEIGHT = 32;
+
+    public static final double STAGE1TOP = 32;
+    public static final double STAGE2TOP = 0;
+
 
     public static final double L4Coral = 0;
     public static final double L3Coral = 0;
@@ -100,7 +108,7 @@ public final class Constants {
 
     public static final double CoralPickup = 0;
     
-    public static final double HOME = 8.75;
+    public static final double HOME = 0;
 
 
     public static final double minElevatorSafeHeight = 0;
