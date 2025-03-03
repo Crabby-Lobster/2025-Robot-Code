@@ -113,7 +113,9 @@ public class Elevator extends SubsystemBase {
     double stage2pos = MathUtil.clamp(position - stage1pos, ElevatorPositions.HOME, ElevatorPositions.STAGE2TOP);
 
     leftController.setReference(stage1pos, ControlType.kPosition);
-    rightController.setReference(stage2pos, ControlType.kPosition);
+    rightController.setReference(stage1pos, ControlType.kPosition);
+
+    stage2Controller.setReference(stage2pos, ControlType.kPosition);
   }
 
   /**
@@ -124,6 +126,7 @@ public class Elevator extends SubsystemBase {
 
     leftEnc.setPosition(position);
     rightEnc.setPosition(position);
+    
     stage2Enc.setPosition(position);
   }
 

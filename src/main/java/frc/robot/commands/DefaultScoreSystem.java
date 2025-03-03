@@ -44,7 +44,7 @@ public class DefaultScoreSystem extends Command {
   @Override
   public void execute() {
 
-    position = MathUtil.clamp(position + (controller.getRightTriggerAxis() - controller.getLeftTriggerAxis()), ElevatorPositions.HOME, ElevatorPositions.MAXHEIGHT);
+    position = MathUtil.clamp(position + (controller.getRightTriggerAxis() - controller.getLeftTriggerAxis()), ElevatorPositions.HOME, ElevatorPositions.MAXHEIGHT());
 
     // state
     ScoreSystemState desiredState = new ScoreSystemState();

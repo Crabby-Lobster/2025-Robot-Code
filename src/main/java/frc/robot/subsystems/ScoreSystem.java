@@ -62,7 +62,7 @@ public class ScoreSystem extends SubsystemBase {
   private void checkElevatorSaftey() {
     double desiredPosition = desiredState.elevatorPos;
     
-    desiredPosition = MathUtil.clamp(desiredPosition, ElevatorPositions.HOME, ElevatorPositions.MAXHEIGHT);
+    desiredPosition = MathUtil.clamp(desiredPosition, ElevatorPositions.HOME, ElevatorPositions.MAXHEIGHT());
     
     safeState.setElevator(desiredPosition);
   }

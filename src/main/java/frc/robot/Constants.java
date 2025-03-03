@@ -73,7 +73,7 @@ public final class Constants {
   public static final class ElevatorConstants {
     public static final int leftMoterID = 4;
     public static final int rightMoterId = 5;
-    public static final int stage2MotorId = 99;
+    public static final int stage2MotorId = 14;
 
     public static final boolean leftInvert = false;
     public static final boolean rightInvert = true;
@@ -82,7 +82,7 @@ public final class Constants {
     public static final int stallCurrentLimit = 40;
 
     public static final double stage1positionConversion = (1.0 / 12.0) * 1.75 * PI;
-    public static final double stage2positionConversion = 1;
+    public static final double stage2positionConversion = (1.0 / 20) * 1.5 * PI;
 
     public static final double[] stage1elevatorPID = {0.1,0,0};
     public static final double[] stage2elevatorPID = {0.1,0,0};
@@ -94,10 +94,13 @@ public final class Constants {
    * stored elevator positions
    */
   public static final class ElevatorPositions {
-    public static final double MAXHEIGHT = 32;
 
-    public static final double STAGE1TOP = 32;
-    public static final double STAGE2TOP = 0;
+    public static final double MAXHEIGHT() {
+      return STAGE1TOP + STAGE2TOP;
+    }
+
+    public static final double STAGE1TOP = 25;
+    public static final double STAGE2TOP = 14;
 
 
     public static final double L4Coral = 0;
