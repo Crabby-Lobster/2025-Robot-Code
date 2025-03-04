@@ -24,7 +24,7 @@ public class DefaultScoreSystem extends Command {
 
 
   //temp
-  double position = ElevatorPositions.HOME;
+  double position = ElevatorPositions.OFFSET;
 
   /** Creates a new DefaultScoreSystem. */
   public DefaultScoreSystem(ScoreSystem scoreSystem, Joystick leftJoy, Joystick rightJoy, XboxController controller) {
@@ -44,7 +44,7 @@ public class DefaultScoreSystem extends Command {
   @Override
   public void execute() {
 
-    position = MathUtil.clamp(position + (controller.getRightTriggerAxis() - controller.getLeftTriggerAxis()), ElevatorPositions.HOME, ElevatorPositions.MAXHEIGHT());
+    position = MathUtil.clamp(position + (controller.getRightTriggerAxis() - controller.getLeftTriggerAxis()), ElevatorPositions.HOME + ElevatorPositions.OFFSET, ElevatorPositions.MAXHEIGHT() + ElevatorPositions.OFFSET);
 
     // state
     ScoreSystemState desiredState = new ScoreSystemState();

@@ -102,6 +102,10 @@ public final class Constants {
     public static final double STAGE1TOP = 25;
     public static final double STAGE2TOP = 14;
 
+    public static final double HOME = 0;
+
+    public static final double OFFSET = 0;
+
 
     public static final double L4Coral = 0;
     public static final double L3Coral = 0;
@@ -110,8 +114,6 @@ public final class Constants {
     public static final double AlgaePickup = 0;
 
     public static final double CoralPickup = 0;
-    
-    public static final double HOME = 0;
 
 
     public static final double minElevatorSafeHeight = 0;
