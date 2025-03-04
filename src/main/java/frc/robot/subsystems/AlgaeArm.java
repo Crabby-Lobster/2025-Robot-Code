@@ -26,7 +26,7 @@ public class AlgaeArm extends SubsystemBase {
   DigitalInput algeaSwitch = new DigitalInput(AlgeaSwitchID);
 
   RelativeEncoder pivotEnc;
-  
+
   SparkClosedLoopController pivotPID;
 
   public AlgaeArm() {}
