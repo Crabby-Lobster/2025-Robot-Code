@@ -18,6 +18,7 @@ import static frc.robot.Constants.AlgaeArmConstants.*;
 public class AlgaeArm extends SubsystemBase {
   /** Creates a new AlgaeArm. */
   SparkMax algeaPivot = new SparkMax(pivotID, MotorType.kBrushless);
+
   VictorSPX lRoller = new VictorSPX(rollerLID);
   VictorSPX rRoller = new VictorSPX(rollerRID);
 
@@ -25,6 +26,7 @@ public class AlgaeArm extends SubsystemBase {
   DigitalInput algeaSwitch = new DigitalInput(AlgeaSwitchID);
 
   RelativeEncoder pivotEnc;
+  
   SparkClosedLoopController pivotPID;
 
   public AlgaeArm() {}
@@ -32,16 +34,20 @@ public class AlgaeArm extends SubsystemBase {
   public void setPivotSpeed(double speed) {
     algeaPivot.set(speed);
   }
+
   public void setRollerSpeed(double speed) {
     lRoller.set(VictorSPXControlMode.PercentOutput, speed);
     rRoller.set(VictorSPXControlMode.PercentOutput, speed);
   }
+
   public void setPivotPosition(double angle) {
     pivotPID.setReference(angle, ControlType.kPosition);
   }
+
   public double getPivotPosition() {
     return pivotEnc.getPosition();
   }
+
   public boolean getHomeSwitch() {
     return homeSwitch.get();
   }

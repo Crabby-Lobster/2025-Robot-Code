@@ -6,7 +6,6 @@ package frc.robot;
 
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.Autos;
-import frc.robot.commands.DefaultAlgaeArm;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.AlgaeArm;
@@ -39,8 +38,7 @@ public class RobotContainer {
   private final AlgaeArm m_algaeArm = new AlgaeArm();
 
   private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
-  private final DefaultAlgaeArm m_DefaultAlgaeArm = new DefaultAlgaeArm(m_algaeArm, leftStick, rightStick, controller);
-
+ 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(ControllerConstants.controller);
@@ -59,7 +57,6 @@ public class RobotContainer {
     configureBindings();
 
     m_driveTrain.setDefaultCommand(m_DefaultDrive);
-    m_algaeArm.setDefaultCommand(m_DefaultAlgaeArm);
   }
 
   /**
