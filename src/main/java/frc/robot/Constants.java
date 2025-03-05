@@ -73,22 +73,22 @@ public final class Constants {
   public static final class CoralArmConstants {
     
     // Motors
-    public static final int pivotID = 99;
-    public static final int rollerLID = 99;
-    public static final int rollerRID = 99;
+    public static final int pivotID = 8;
+    public static final int rollerLID = 10;
+    public static final int rollerRID = 11;
 
     public static final boolean pivotInvert = false;
     public static final boolean rollerLInvert = false;
     public static final boolean rollerRInvert = false;
 
-    public static final double pivotPosConversion = 1;
+    public static final double pivotPosConversion = (1 / 275.0) * 360;;
 
     // Limit switches
     public static final int HomeSwitchID = 2;
     public static final int coralSwitchID = 3;
 
     // PID
-    public static final double[] PIDNum = {0.0, 0.0, 0.0};
+    public static final double[] PIDNum = {0.1, 0.0, 0.0};
   }
 
   /**
@@ -111,7 +111,7 @@ public final class Constants {
   public static final class AlgaeArmConstants {
     // Motors
     public static final int pivotID = 9;
-    public static final int rollerLID = 13;
+    public static final int rollerLID = 12;
     public static final int rollerRID = 13;
     public static final double pivotPosConversion = (1 / 275.0) * 360;
 

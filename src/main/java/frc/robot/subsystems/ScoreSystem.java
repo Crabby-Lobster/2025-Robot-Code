@@ -17,6 +17,7 @@ public class ScoreSystem extends SubsystemBase {
 
   // parts
   public Elevator elevator;
+  public CoralArm coralArm;
   public AlgaeArm algaeArm;
 
   //States
@@ -25,8 +26,9 @@ public class ScoreSystem extends SubsystemBase {
   private ScoreSystemState currentState = new ScoreSystemState();
 
   /** Creates a new ScoreSystem. */
-  public ScoreSystem(Elevator elevator, AlgaeArm algaeArm) {
+  public ScoreSystem(Elevator elevator, CoralArm coralArm, AlgaeArm algaeArm) {
     this.elevator = elevator;
+    this.coralArm = coralArm;
     this.algaeArm = algaeArm;
   }
 

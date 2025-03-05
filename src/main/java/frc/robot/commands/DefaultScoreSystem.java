@@ -51,7 +51,7 @@ public class DefaultScoreSystem extends Command {
     ScoreSystemState desiredState = new ScoreSystemState();
 
     desiredState.setElevator(0);
-    desiredState.setAlgaeArm(position, RollerState.kIdle);
+    desiredState.setAlgaeArm(0, RollerState.kIdle);
 
     
     scoreSystem.setState(desiredState);

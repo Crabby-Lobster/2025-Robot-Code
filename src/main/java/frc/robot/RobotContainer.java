@@ -10,6 +10,7 @@ import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DefaultScoreSystem;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.AlgaeArm;
+import frc.robot.subsystems.CoralArm;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -42,9 +43,11 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_driveTrain = new DriveTrain();
   
+  private final CoralArm m_CoralArm = new CoralArm();
   private final AlgaeArm m_algaeArm = new AlgaeArm();
   private final Elevator m_elevator = new Elevator();
-  private final ScoreSystem m_ScoreSystem = new ScoreSystem(m_elevator, m_algaeArm);
+
+  private final ScoreSystem m_ScoreSystem = new ScoreSystem(m_elevator, m_CoralArm, m_algaeArm);
 
   // Default commands
   private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
