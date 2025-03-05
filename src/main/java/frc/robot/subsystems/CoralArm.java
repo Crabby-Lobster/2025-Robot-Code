@@ -14,9 +14,16 @@ import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.AlgearArmPositions;
+import frc.robot.Constants.CoralArmPositions;
+import frc.robot.Constants.ElevatorPositions;
+import frc.robot.ScoreSystemState;
+
 import static frc.robot.Constants.CoralArmConstants.*;
 
 public class CoralArm extends SubsystemBase {
@@ -75,6 +82,27 @@ public class CoralArm extends SubsystemBase {
 
   public void resetPivotPosition (double position) {
     pivotEncoder.setPosition(position);
+  }
+
+  public double[] getSafeHeight(double dangerAngle) {
+    double dangerAngleStart = CoralArmPositions.dangerAngles[0];
+    double dangerAngleEnd = CoralArmPositions.dangerAngles[1];
+
+    double elevatorMin = CoralArmPositions.dangerHeight[0];
+    double elevatorMax = CoralArmPositions.dangerHeight[1];
+
+    double lerpVal = ScoreSystemState.remap(dangerAngle, dangerAngleStart, dangerAngleEnd, 0, 1);
+
+    lerpVal = MathUtil.clamp(lerpVal, 0, 1);
+
+    lerpVal = ScoreSystemState.lerp(elevatorMin, elevatorMax, lerpVal);
+
+    double[] returnValues = {
+      lerpVal,
+      ElevatorPositions.MAXHEIGHT()
+    };
+
+    return returnValues;
   }
 
   @Override

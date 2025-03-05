@@ -4,7 +4,10 @@
 
 package frc.robot.subsystems;
 
+import org.opencv.core.Mat;
+
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.ScoreSystemState;
@@ -76,7 +79,12 @@ public class ScoreSystem extends SubsystemBase {
     double algaeAngle = Math.max(desiredState.algeaArmPos, currentState.algeaArmPos);
     double[] algaeClearence = algaeArm.getSafeHeight(algaeAngle);
 
+    // keeps elevator clear of coral arm
+    double coralAngle = Math.max(desiredState.coralArmPos, currentState.coralArmPos);
+    double[] coralClearence = coralArm.getSafeHeight(coralAngle);
+
     desiredPosition = MathUtil.clamp(desiredPosition, algaeClearence[0], algaeClearence[1]);
+    desiredPosition = MathUtil.clamp(desiredPosition, coralClearence[0], coralClearence[1]);
 
     safeState.setElevator(desiredPosition);
   }
