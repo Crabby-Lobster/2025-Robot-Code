@@ -8,17 +8,17 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.CoralArmConstants.*;
 
 public class CoralArm extends SubsystemBase {
-  /** Creates a new CoralArm. */
-  public CoralArm() {
-
-  }
 
   //Motors
   SparkMax coralPivot = new SparkMax(pivotID, MotorType.kBrushless);
@@ -30,10 +30,23 @@ public class CoralArm extends SubsystemBase {
   DigitalInput coralSwitch = new DigitalInput(coralSwitchID);
 
   // Encoders
-  RelativeEncoder PivotEncoder;
+  RelativeEncoder pivotEncoder;
 
   // PID
-  SparkClosedLoopController PivotPID;
+  SparkClosedLoopController pivotPID;
+
+  /** Creates a new CoralArm. */
+  public CoralArm() {
+    SparkMaxConfig pivotConfig = new SparkMaxConfig();
+    pivotConfig.inverted(pivotInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(40);
+    pivotConfig.encoder.positionConversionFactor(pivotPosConversion);
+    pivotConfig.closedLoop.pid(PIDValues[0], PIDValues[1], PIDValues[2]);
+
+    coralPivot.configure(pivotConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+    pivotEncoder = coralPivot.getEncoder();
+    pivotPID = coralPivot.getClosedLoopController();
+  }
 
   public void SetPivotSpeed(double speed) {
     coralPivot.set(speed);
@@ -43,8 +56,8 @@ public class CoralArm extends SubsystemBase {
     coralPivot.set(speed);
   }
 
-  public void setPivotPosition(double angle) {
-    PivotPID.setReference(angle, ControlType.kPosition);
+  public void setPosition(double angle) {
+    pivotPID.setReference(angle, ControlType.kPosition);
   }
 
   public boolean getHomeSwitch() {
@@ -56,11 +69,11 @@ public class CoralArm extends SubsystemBase {
   }
 
   public double getPivotPosition(){
-    return PivotEncoder.getPosition();
+    return pivotEncoder.getPosition();
   }
 
   public void resetPivotPosition (double position) {
-    PivotEncoder.setPosition(position);
+    pivotEncoder.setPosition(position);
   }
 
   @Override

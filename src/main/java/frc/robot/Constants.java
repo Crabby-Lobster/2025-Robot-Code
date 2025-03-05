@@ -77,7 +77,7 @@ public final class Constants {
     public static final int rollerLID = 10;
     public static final int rollerRID = 11;
 
-    public static final boolean pivotInvert = false;
+    public static final boolean pivotInvert = true;
     public static final boolean rollerLInvert = false;
     public static final boolean rollerRInvert = false;
 
@@ -88,7 +88,7 @@ public final class Constants {
     public static final int coralSwitchID = 3;
 
     // PID
-    public static final double[] PIDNum = {0.1, 0.0, 0.0};
+    public static final double[] PIDValues = {0.1, 0.0, 0.0};
   }
 
   /**
