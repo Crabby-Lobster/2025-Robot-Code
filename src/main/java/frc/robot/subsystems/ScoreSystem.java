@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.ScoreSystemState;
 import frc.robot.ScoreSystemState.RollerState;
 import frc.robot.commands.AlgaeHome;
+import frc.robot.commands.CoralHome;
 import frc.robot.commands.ElevatorHome;
 import frc.robot.Constants.ElevatorPositions;
 
@@ -53,7 +54,8 @@ public class ScoreSystem extends SubsystemBase {
 
     // updates subsystems
     elevator.setPosition(safeState.elevatorPos);
-    algaeArm.setPivotPosition(safeState.algeaArmPos);
+    coralArm.setPosition(safeState.coralArmPos);
+    algaeArm.setPosition(safeState.algeaArmPos);
 
     // updates current state
     currentState.setElevator(elevator.getHeight());
@@ -101,6 +103,7 @@ public class ScoreSystem extends SubsystemBase {
 
   public SequentialCommandGroup HomeSystems(ScoreSystem scoresystem) {
     return new SequentialCommandGroup(
+      new CoralHome(scoresystem),
       new AlgaeHome(scoresystem),
       new ElevatorHome(scoresystem)
     );
@@ -109,6 +112,7 @@ public class ScoreSystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     currentState.setElevator(elevator.getHeight());
+    currentState.setCoralArm(coralArm.getPivotPosition(), safeState.coralMode, coralArm.getCoralSwitch());
     currentState.setAlgaeArm(algaeArm.getPivotPosition(), safeState.algaeMode, algaeArm.getAlgeaSwitch());
   }
 }

@@ -45,7 +45,6 @@ public class DefaultScoreSystem extends Command {
 
     position = position + (controller.getRightTriggerAxis() - controller.getLeftTriggerAxis());
 
-    position = controller.getRightTriggerAxis() - controller.getLeftTriggerAxis();
     SmartDashboard.putNumber("Desired position", position);
 
     // state
@@ -53,9 +52,9 @@ public class DefaultScoreSystem extends Command {
 
     desiredState.setElevator(0);
     desiredState.setAlgaeArm(0, RollerState.kIdle);
+    desiredState.setCoralArm(position, RollerState.kIdle);
 
-    scoreSystem.coralArm.SetPivotSpeed(position);
-    
+
     scoreSystem.setState(desiredState);
     scoreSystem.update();
   }

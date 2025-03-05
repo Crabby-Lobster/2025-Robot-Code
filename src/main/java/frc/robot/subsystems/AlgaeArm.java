@@ -61,7 +61,7 @@ public class AlgaeArm extends SubsystemBase {
     rRoller.set(VictorSPXControlMode.PercentOutput, speed);
   }
 
-  public void setPivotPosition(double angle) {
+  public void setPosition(double angle) {
     pivotPID.setReference(angle, ControlType.kPosition);
   }
 
