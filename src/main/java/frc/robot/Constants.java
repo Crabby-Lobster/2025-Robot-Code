@@ -87,7 +87,7 @@ public final class Constants {
     public static final int AlgeaSwitchID = 1;
 
     // PID
-    public static final double[] PIDValues = {0,0,0};
+    public static final double[] PIDValues = {0.1,0,0};
   }
 
   /**

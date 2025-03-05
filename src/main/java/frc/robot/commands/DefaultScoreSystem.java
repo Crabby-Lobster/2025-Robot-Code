@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.ScoreSystemState;
 import frc.robot.Constants.ElevatorPositions;
+import frc.robot.ScoreSystemState.RollerState;
 import frc.robot.subsystems.ScoreSystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -24,7 +25,7 @@ public class DefaultScoreSystem extends Command {
 
 
   //temp
-  double position = ElevatorPositions.OFFSET;
+  double position = 0;
 
   /** Creates a new DefaultScoreSystem. */
   public DefaultScoreSystem(ScoreSystem scoreSystem, Joystick leftJoy, Joystick rightJoy, XboxController controller) {
@@ -44,26 +45,19 @@ public class DefaultScoreSystem extends Command {
   @Override
   public void execute() {
 
-    position = MathUtil.clamp(position + (controller.getRightTriggerAxis() - controller.getLeftTriggerAxis()), ElevatorPositions.HOME + ElevatorPositions.OFFSET, ElevatorPositions.MAXHEIGHT() + ElevatorPositions.OFFSET);
+    position = position + (controller.getRightTriggerAxis() - controller.getLeftTriggerAxis());
+
+    SmartDashboard.putNumber("Desired position", position);
 
     // state
     ScoreSystemState desiredState = new ScoreSystemState();
 
-    desiredState.setElevator(position);
+    desiredState.setElevator(0);
+    desiredState.setAlgaeArm(position, RollerState.kIdle);
 
     
     scoreSystem.setState(desiredState);
     scoreSystem.update();
-
-    double speed = 0;
-    if (controller.getLeftBumperButton()) {
-      speed = -0.25;
-    }
-    if (controller.getRightBumperButton()) {
-      speed = 0.25;
-    }
-
-    scoreSystem.algaeArm.setPivotSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.

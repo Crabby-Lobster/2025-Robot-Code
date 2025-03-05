@@ -53,7 +53,7 @@ public class ScoreSystem extends SubsystemBase {
 
     // updates subsystems
     elevator.setPosition(safeState.elevatorPos);
-    algaeArm.setPivotPosition(desiredState.algeaArmPos);
+    algaeArm.setPivotPosition(safeState.algeaArmPos);
 
     // updates current state
     currentState.setElevator(elevator.getHeight());
@@ -93,10 +93,10 @@ public class ScoreSystem extends SubsystemBase {
    * checks to make sure the algae arm wont cause any collisions
    */
   private void checkAlgaeSaftey() {
-    double desiredPosition = desiredState.coralArmPos;
-    RollerState desiredMode = desiredState.coralMode;
+    double desiredPosition = desiredState.algeaArmPos;
+    RollerState desiredMode = desiredState.algaeMode;
     
-    safeState.setCoralArm(desiredPosition, desiredMode);
+    safeState.setAlgaeArm(desiredPosition, desiredMode);
   }
 
   public SequentialCommandGroup HomeSystems(ScoreSystem scoresystem) {
@@ -109,6 +109,6 @@ public class ScoreSystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     currentState.setElevator(elevator.getHeight());
-    currentState.setAlgaeArm(algaeArm.getPivotPosition(), desiredState.algaeMode, algaeArm.getAlgeaSwitch());
+    currentState.setAlgaeArm(algaeArm.getPivotPosition(), safeState.algaeMode, algaeArm.getAlgeaSwitch());
   }
 }

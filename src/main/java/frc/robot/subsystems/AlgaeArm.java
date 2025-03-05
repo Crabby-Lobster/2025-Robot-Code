@@ -44,7 +44,7 @@ public class AlgaeArm extends SubsystemBase {
     SparkMaxConfig pivotConfig = new SparkMaxConfig();
     pivotConfig.inverted(pivotInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(40);
     pivotConfig.encoder.positionConversionFactor(pivotPosConversion);
-    pivotConfig.closedLoop.pid(PIDValues[0], PIDValues[0], PIDValues[0]);
+    pivotConfig.closedLoop.pid(PIDValues[0], PIDValues[1], PIDValues[2]);
 
     algeaPivot.configure(pivotConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
