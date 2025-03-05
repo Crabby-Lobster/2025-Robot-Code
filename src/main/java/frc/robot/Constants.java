@@ -77,13 +77,13 @@ public final class Constants {
     public static final int rollerLID = 12;
     public static final int rollerRID = 13;
 
-    public static final boolean pivotInvert = true;
+    public static final boolean pivotInvert = false;
     public static final boolean rollerInvert = false;
 
     public static final double pivotPosConversion = (1 / 275.0) * 360;;
 
     // Limit switches
-    public static final int HomeSwitchID = 2;
+    public static final int HomeSwitchID = 7;
     public static final int coralSwitchID = 3;
 
     // PID
@@ -99,13 +99,13 @@ public final class Constants {
    * saved coral arm positions
    */
   public static final class CoralArmPositions {
-    public static final double HOME = 0;
+    public static final double HOME = 90;
 
     public static final double INTAKE = 0;
 
     public static final double SCORE = 0;
 
-    public static final double[] dangerAngles = {0,135};
+    public static final double[] dangerAngles = {0,-90};
     public static final double[] dangerHeight = {0,18};
   }
 
@@ -123,7 +123,7 @@ public final class Constants {
     public static final boolean rollerInvert = false;
 
     // Limit switches
-    public static final int HomeSwitchID = 0;
+    public static final int HomeSwitchID = 8;
     public static final int AlgeaSwitchID = 1;
 
     // PID

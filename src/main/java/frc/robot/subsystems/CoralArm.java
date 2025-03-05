@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -58,6 +59,8 @@ public class CoralArm extends SubsystemBase {
 
     lRoller.setInverted(pivotInvert);
     rRoller.setInverted(!pivotInvert);
+
+    resetPivotPosition(CoralArmPositions.HOME);
   }
 
   public void SetPivotSpeed(double speed) {
@@ -65,7 +68,8 @@ public class CoralArm extends SubsystemBase {
   }
 
   public void setRollerSpeed(double speed) {
-    coralPivot.set(speed);
+    lRoller.set(ControlMode.PercentOutput, speed);
+    rRoller.set(ControlMode.PercentOutput, speed);
   }
 
   public void setPosition(double angle) {
@@ -133,5 +137,7 @@ public class CoralArm extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Coral Arm Pos", getPivotPosition());
+
+    SmartDashboard.putBoolean("Coral limit", getHomeSwitch());
   }
 }

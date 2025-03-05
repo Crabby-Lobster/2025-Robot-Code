@@ -131,5 +131,7 @@ public class AlgaeArm extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Algae Pivot", getPivotPosition());
+
+    SmartDashboard.putBoolean("Algae", getHomeSwitch());
   }
 }
