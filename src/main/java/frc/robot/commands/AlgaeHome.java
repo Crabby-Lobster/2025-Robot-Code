@@ -21,7 +21,7 @@ public class AlgaeHome extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    algaeArm.resetPivtot(0);
+    algaeArm.resetPivot(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -35,6 +35,6 @@ public class AlgaeHome extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

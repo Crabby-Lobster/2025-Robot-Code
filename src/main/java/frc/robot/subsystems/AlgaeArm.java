@@ -60,7 +60,7 @@ public class AlgaeArm extends SubsystemBase {
     return algeaSwitch.get();
   }
 
-  public void resetPivtot(double position) {
+  public void resetPivot(double position) {
     pivotEnc.setPosition(position);
   }
 
