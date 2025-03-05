@@ -74,12 +74,11 @@ public final class Constants {
     
     // Motors
     public static final int pivotID = 8;
-    public static final int rollerLID = 10;
-    public static final int rollerRID = 11;
+    public static final int rollerLID = 12;
+    public static final int rollerRID = 13;
 
     public static final boolean pivotInvert = true;
-    public static final boolean rollerLInvert = false;
-    public static final boolean rollerRInvert = false;
+    public static final boolean rollerInvert = false;
 
     public static final double pivotPosConversion = (1 / 275.0) * 360;;
 
@@ -89,6 +88,11 @@ public final class Constants {
 
     // PID
     public static final double[] PIDValues = {0.1, 0.0, 0.0};
+
+    // Rollers
+    public static final double IntakeSpeed = 0;
+    public static final double ScoreSpeed = 0;
+    public static final double HoldSpeed = 0;
   }
 
   /**
@@ -111,11 +115,12 @@ public final class Constants {
   public static final class AlgaeArmConstants {
     // Motors
     public static final int pivotID = 9;
-    public static final int rollerLID = 12;
-    public static final int rollerRID = 13;
+    public static final int rollerLID = 10;
+    public static final int rollerRID = 11;
     public static final double pivotPosConversion = (1 / 275.0) * 360;
 
     public static final boolean pivotInvert = false;
+    public static final boolean rollerInvert = false;
 
     // Limit switches
     public static final int HomeSwitchID = 0;
@@ -123,6 +128,11 @@ public final class Constants {
 
     // PID
     public static final double[] PIDValues = {0.1,0,0};
+
+    // Rollers
+    public static final double IntakeSpeed = -0.5;
+    public static final double ScoreSpeed = 1;
+    public static final double HoldSpeed = -0.25;
   }
 
   /**

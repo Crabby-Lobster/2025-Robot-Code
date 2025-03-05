@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AlgearArmPositions;
 import frc.robot.Constants.CoralArmPositions;
 import frc.robot.Constants.ElevatorPositions;
+import frc.robot.ScoreSystemState.RollerState;
 import frc.robot.ScoreSystemState;
 
 import static frc.robot.Constants.CoralArmConstants.*;
@@ -54,13 +55,16 @@ public class CoralArm extends SubsystemBase {
 
     pivotEncoder = coralPivot.getEncoder();
     pivotPID = coralPivot.getClosedLoopController();
+
+    lRoller.setInverted(pivotInvert);
+    rRoller.setInverted(!pivotInvert);
   }
 
   public void SetPivotSpeed(double speed) {
     coralPivot.set(speed);
   }
 
-  public void SetRollerSpeed(double speed) {
+  public void setRollerSpeed(double speed) {
     coralPivot.set(speed);
   }
 
@@ -69,11 +73,11 @@ public class CoralArm extends SubsystemBase {
   }
 
   public boolean getHomeSwitch() {
-    return homeSwitch.get();
+    return !homeSwitch.get();
   }
 
   public boolean getCoralSwitch() {
-    return coralSwitch.get();
+    return !coralSwitch.get();
   }
 
   public double getPivotPosition(){
@@ -103,6 +107,26 @@ public class CoralArm extends SubsystemBase {
     };
 
     return returnValues;
+  }
+
+  public void updateRollers(RollerState rollerState) {
+    switch (rollerState) {
+      case kIdle:
+        setRollerSpeed(HoldSpeed);
+        break;
+      case kIntake:
+        setRollerSpeed(IntakeSpeed);
+        break;
+      case kScore:
+        setRollerSpeed(ScoreSpeed);
+        break;
+      case kHold:
+        if (getCoralSwitch()) {
+          setRollerSpeed(0);
+        } else {
+          setRollerSpeed(HoldSpeed);
+        }
+    }
   }
 
   @Override

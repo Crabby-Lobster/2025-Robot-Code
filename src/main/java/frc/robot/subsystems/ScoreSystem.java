@@ -60,6 +60,9 @@ public class ScoreSystem extends SubsystemBase {
     coralArm.setPosition(safeState.coralArmPos);
     algaeArm.setPosition(safeState.algeaArmPos);
 
+    coralArm.updateRollers(safeState.coralMode);
+    algaeArm.updateRollers(safeState.algaeMode);
+
     // updates current state
     currentState.setElevator(elevator.getHeight());
     currentState.setCoralArm(0, safeState.algaeMode, false);

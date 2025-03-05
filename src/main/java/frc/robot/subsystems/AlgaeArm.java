@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.ScoreSystemState;
 import frc.robot.Constants.AlgearArmPositions;
 import frc.robot.Constants.ElevatorPositions;
+import frc.robot.ScoreSystemState.RollerState;
 
 import static frc.robot.Constants.AlgaeArmConstants.*;
 
@@ -40,6 +41,7 @@ public class AlgaeArm extends SubsystemBase {
 
   SparkClosedLoopController pivotPID;
 
+
   public AlgaeArm() {
     SparkMaxConfig pivotConfig = new SparkMaxConfig();
     pivotConfig.inverted(pivotInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(40);
@@ -50,6 +52,9 @@ public class AlgaeArm extends SubsystemBase {
 
     pivotEnc = algeaPivot.getEncoder();
     pivotPID = algeaPivot.getClosedLoopController();
+
+    lRoller.setInverted(pivotInvert);
+    rRoller.setInverted(!pivotInvert);
   }
 
   public void setPivotSpeed(double speed) {
@@ -70,11 +75,11 @@ public class AlgaeArm extends SubsystemBase {
   }
 
   public boolean getHomeSwitch() {
-    return homeSwitch.get();
+    return !homeSwitch.get();
   }
 
   public boolean getAlgeaSwitch() {
-    return algeaSwitch.get();
+    return !algeaSwitch.get();
   }
 
   public void resetPivot(double position) {
@@ -100,6 +105,26 @@ public class AlgaeArm extends SubsystemBase {
     };
 
     return returnValues;
+  }
+
+  public void updateRollers(RollerState rollerState) {
+    switch (rollerState) {
+      case kIdle:
+        setRollerSpeed(0);
+        break;
+      case kIntake:
+        setRollerSpeed(IntakeSpeed);
+        break;
+      case kScore:
+        setRollerSpeed(ScoreSpeed);
+        break;
+      case kHold:
+        if (getAlgeaSwitch()) {
+          setRollerSpeed(0);
+        } else {
+          setRollerSpeed(HoldSpeed);
+        }
+    }
   }
 
   @Override
