@@ -57,12 +57,12 @@ public class DefaultScoreSystem extends Command {
 
     double speed = 0;
     if (controller.getLeftBumperButton()) {
-      speed = -0.5;
+      speed = -0.25;
     }
     if (controller.getRightBumperButton()) {
-      speed = 0.5;
+      speed = 0.25;
     }
-    
+
     scoreSystem.algaeArm.setPivotSpeed(speed);
   }
 

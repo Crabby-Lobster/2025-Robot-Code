@@ -135,7 +135,7 @@ public final class Constants {
       return STAGE1TOP + STAGE2TOP;
     }
 
-    public static final double STAGE1TOP = 25;
+    public static final double STAGE1TOP = 20;
     public static final double STAGE2TOP = 14;
 
     public static final double HOME = 0;
