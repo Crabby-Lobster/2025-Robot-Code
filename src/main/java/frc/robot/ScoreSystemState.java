@@ -89,11 +89,11 @@ public class ScoreSystemState {
      * @param factor the factor to lerp by
      * @return the lerped value
      */
-    public double lerp(double from, double to, double factor) {
+    public static double lerp(double from, double to, double factor) {
         return from + factor * (to - from);
     }
     
-    public double remap(double in, double inMin, double inMax, double outMin, double outMax) {
+    public static double remap(double in, double inMin, double inMax, double outMin, double outMax) {
         return outMin + (outMax - outMin) * ((in - inMin) / (inMax - inMin));
     }
 }

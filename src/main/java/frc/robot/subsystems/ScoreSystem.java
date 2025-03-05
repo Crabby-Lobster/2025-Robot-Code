@@ -5,12 +5,14 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.ScoreSystemState;
 import frc.robot.ScoreSystemState.RollerState;
 import frc.robot.commands.AlgaeHome;
 import frc.robot.commands.ElevatorHome;
+import frc.robot.Constants.AlgearArmPositions;
 import frc.robot.Constants.ElevatorPositions;
 
 public class ScoreSystem extends SubsystemBase {
@@ -51,6 +53,7 @@ public class ScoreSystem extends SubsystemBase {
 
     // updates subsystems
     elevator.setPosition(safeState.elevatorPos);
+    algaeArm.setPivotPosition(desiredState.algeaArmPos);
 
     // updates current state
     currentState.setElevator(elevator.getHeight());
@@ -67,6 +70,12 @@ public class ScoreSystem extends SubsystemBase {
     
     desiredPosition = MathUtil.clamp(desiredPosition - ElevatorPositions.OFFSET, ElevatorPositions.HOME, ElevatorPositions.MAXHEIGHT());
     
+    //keeps elevator clear of algae arm
+    double algaeAngle = Math.max(desiredState.algeaArmPos, currentState.algeaArmPos);
+    double[] algaeClearence = algaeArm.getSafeHeight(algaeAngle);
+
+    desiredPosition = MathUtil.clamp(desiredPosition, algaeClearence[0], algaeClearence[1]);
+
     safeState.setElevator(desiredPosition);
   }
 
@@ -100,5 +109,6 @@ public class ScoreSystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     currentState.setElevator(elevator.getHeight());
+    currentState.setAlgaeArm(algaeArm.getPivotPosition(), desiredState.algaeMode, algaeArm.getAlgeaSwitch());
   }
 }

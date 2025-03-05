@@ -10,10 +10,20 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.ScoreSystemState;
+import frc.robot.Constants.AlgearArmPositions;
+import frc.robot.Constants.ElevatorPositions;
+
 import static frc.robot.Constants.AlgaeArmConstants.*;
 
 public class AlgaeArm extends SubsystemBase {
@@ -31,6 +41,13 @@ public class AlgaeArm extends SubsystemBase {
   SparkClosedLoopController pivotPID;
 
   public AlgaeArm() {
+    SparkMaxConfig pivotConfig = new SparkMaxConfig();
+    pivotConfig.inverted(pivotInvert).idleMode(IdleMode.kBrake).smartCurrentLimit(40);
+    pivotConfig.encoder.positionConversionFactor(pivotPosConversion);
+    pivotConfig.closedLoop.pid(PIDValues[0], PIDValues[0], PIDValues[0]);
+
+    algeaPivot.configure(pivotConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
     pivotEnc = algeaPivot.getEncoder();
     pivotPID = algeaPivot.getClosedLoopController();
   }
@@ -62,6 +79,27 @@ public class AlgaeArm extends SubsystemBase {
 
   public void resetPivot(double position) {
     pivotEnc.setPosition(position);
+  }
+
+  public double[] getSafeHeight(double dangerAngle) {
+    double dangerAngleStart = AlgearArmPositions.dangerAngles[0];
+    double dangerAngleEnd = AlgearArmPositions.dangerAngles[1];
+
+    double elevatorMin = AlgearArmPositions.dangerHeight[0];
+    double elevatorMax = AlgearArmPositions.dangerHeight[1];
+
+    double lerpVal = ScoreSystemState.remap(dangerAngle, dangerAngleStart, dangerAngleEnd, 0, 1);
+
+    lerpVal = MathUtil.clamp(lerpVal, 0, 1);
+
+    lerpVal = ScoreSystemState.lerp(elevatorMin, elevatorMax, lerpVal);
+
+    double[] returnValues = {
+      lerpVal,
+      ElevatorPositions.MAXHEIGHT()
+    };
+
+    return returnValues;
   }
 
   @Override

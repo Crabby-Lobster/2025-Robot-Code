@@ -80,8 +80,7 @@ public final class Constants {
     public static final boolean rollerLInvert = false;
     public static final boolean rollerRInvert = false;
 
-    public static final double pivotPosConversion = 1;
-    public static final double pivotVelConversion = 1;
+    public static final double pivotPosConversion = (1 / 275.0) * 360;
 
     // Limit switches
     public static final int HomeSwitchID = 0;
@@ -99,8 +98,8 @@ public final class Constants {
     public static final double INTAKE = 0;
     public static final double SCORE = 0;
 
-    public static final double[] dangerAngles = {0,0};
-    public static final double[] dangerHeight = {0,0};
+    public static final double[] dangerAngles = {10,35};
+    public static final double[] dangerHeight = {0,10};
   }
 
   /**
