@@ -66,7 +66,45 @@ public final class Constants {
     public static final double kTrackwidthMeter = 0.60325;
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeter);
   }
+  
+  /**
+   * values for coral arm subsytem
+   */
+  public static final class CoralArmConstants {
+    
+    // Motors
+    public static final int pivotID = 99;
+    public static final int rollerLID = 99;
+    public static final int rollerRID = 99;
 
+    public static final boolean pivotInvert = false;
+    public static final boolean rollerLInvert = false;
+    public static final boolean rollerRInvert = false;
+
+    public static final double pivotPosConversion = 1;
+    public static final double pivotVelConversion = 1;
+
+    // Limit switches
+    public static final int HomeSwitchID = 0;
+    public static final int coralSwitchID = 0;
+
+    // PID
+    public static final double[] PIDNum = {0.0, 0.0, 0.0};
+  }
+
+  /**
+   * saved coral arm positions
+   */
+  public static final class CoralArmPositions {
+    public static final double HOME = 0;
+
+    public static final double INTAKE = 0;
+
+    public static final double SCORE = 0;
+
+    public static final double[] dangerAngles = {0,0};
+    public static final double[] dangerHeight = {0,0};
+  
   /**
    *  saved values for algea arm
    */
@@ -75,11 +113,6 @@ public final class Constants {
     public static final int pivotID = 9;
     public static final int rollerLID = 13;
     public static final int rollerRID = 13;
-
-    public static final boolean pivotInvert = false;
-    public static final boolean rollerLInvert = false;
-    public static final boolean rollerRInvert = false;
-
     public static final double pivotPosConversion = (1 / 275.0) * 360;
 
     // Limit switches
