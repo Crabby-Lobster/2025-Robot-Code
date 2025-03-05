@@ -55,7 +55,15 @@ public class DefaultScoreSystem extends Command {
     scoreSystem.setState(desiredState);
     scoreSystem.update();
 
-    SmartDashboard.putNumber("test num", scoreSystem.elevator.getHeight());
+    double speed = 0;
+    if (controller.getLeftBumperButton()) {
+      speed = -0.5;
+    }
+    if (controller.getRightBumperButton()) {
+      speed = 0.5;
+    }
+    
+    scoreSystem.algaeArm.setPivotSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.

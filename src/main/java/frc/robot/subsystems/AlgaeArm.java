@@ -12,6 +12,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.AlgaeArmConstants.*;
 
@@ -29,7 +30,10 @@ public class AlgaeArm extends SubsystemBase {
 
   SparkClosedLoopController pivotPID;
 
-  public AlgaeArm() {}
+  public AlgaeArm() {
+    pivotEnc = algeaPivot.getEncoder();
+    pivotPID = algeaPivot.getClosedLoopController();
+  }
 
   public void setPivotSpeed(double speed) {
     algeaPivot.set(speed);
@@ -56,8 +60,13 @@ public class AlgaeArm extends SubsystemBase {
     return algeaSwitch.get();
   }
 
+  public void resetPivtot(double position) {
+    pivotEnc.setPosition(position);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Algae Pivot", getPivotPosition());
   }
 }

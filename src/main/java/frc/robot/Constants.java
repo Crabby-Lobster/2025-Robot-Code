@@ -72,9 +72,9 @@ public final class Constants {
    */
   public static final class AlgaeArmConstants {
     // Motors
-    public static final int pivotID = 99;
-    public static final int rollerLID = 99;
-    public static final int rollerRID = 99;
+    public static final int pivotID = 9;
+    public static final int rollerLID = 13;
+    public static final int rollerRID = 13;
 
     public static final boolean pivotInvert = false;
     public static final boolean rollerLInvert = false;
@@ -85,7 +85,7 @@ public final class Constants {
 
     // Limit switches
     public static final int HomeSwitchID = 0;
-    public static final int AlgeaSwitchID = 0;
+    public static final int AlgeaSwitchID = 1;
 
     // PID
     public static final double[] PIDValues = {0,0,0};
