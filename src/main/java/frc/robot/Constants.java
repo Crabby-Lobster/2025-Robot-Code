@@ -82,11 +82,10 @@ public final class Constants {
     public static final boolean rollerRInvert = false;
 
     public static final double pivotPosConversion = 1;
-    public static final double pivotVelConversion = 1;
 
     // Limit switches
-    public static final int HomeSwitchID = 0;
-    public static final int coralSwitchID = 0;
+    public static final int HomeSwitchID = 2;
+    public static final int coralSwitchID = 3;
 
     // PID
     public static final double[] PIDNum = {0.0, 0.0, 0.0};
@@ -104,7 +103,8 @@ public final class Constants {
 
     public static final double[] dangerAngles = {0,0};
     public static final double[] dangerHeight = {0,0};
-  
+  }
+
   /**
    *  saved values for algea arm
    */
@@ -114,6 +114,8 @@ public final class Constants {
     public static final int rollerLID = 13;
     public static final int rollerRID = 13;
     public static final double pivotPosConversion = (1 / 275.0) * 360;
+
+    public static final boolean pivotInvert = false;
 
     // Limit switches
     public static final int HomeSwitchID = 0;
