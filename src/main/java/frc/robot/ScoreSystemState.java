@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import frc.robot.Constants.AlgearArmPositions;
+import frc.robot.Constants.CoralArmPositions;
+import frc.robot.Constants.ElevatorPositions;
+
 /** A State for the scoresystem */
 public class ScoreSystemState {
 
@@ -15,15 +19,15 @@ public class ScoreSystemState {
     }
 
     // elevator
-    public double elevatorPos = 0;
+    public double elevatorPos = ElevatorPositions.HOME;
 
     // coral arm
-    public double coralArmPos = 0;
+    public double coralArmPos = CoralArmPositions.STORE;
     public RollerState coralMode = RollerState.kIdle;
     public boolean coralArmFull = false;
 
     // algea arm
-    public double algeaArmPos = 0;
+    public double algeaArmPos = AlgearArmPositions.STORE;
     public RollerState algaeMode = RollerState.kIdle;
     public boolean algeaArmFull = false;
 

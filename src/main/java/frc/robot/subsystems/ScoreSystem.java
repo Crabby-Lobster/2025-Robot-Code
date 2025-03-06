@@ -26,7 +26,7 @@ public class ScoreSystem extends SubsystemBase {
   //States
   private ScoreSystemState desiredState = new ScoreSystemState();
   private ScoreSystemState safeState = new ScoreSystemState();
-  private ScoreSystemState currentState = new ScoreSystemState();
+  public ScoreSystemState currentState = new ScoreSystemState();
 
   /** Creates a new ScoreSystem. */
   public ScoreSystem(Elevator elevator, CoralArm coralArm, AlgaeArm algaeArm) {

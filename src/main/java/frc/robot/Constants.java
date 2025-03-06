@@ -100,9 +100,12 @@ public final class Constants {
    */
   public static final class CoralArmPositions {
     public static final double HOME = 90;
+    public static final double MINANGLE = -90;
+    
+    public static final double STORE = 90;
+
     public static final double INTAKE = 0;
     public static final double SCORE = 0;
-    public static final double MINANGLE = -90;
 
     public static final double[] dangerAngles = {15,-90};
     public static final double[] dangerHeight = {0,24};
@@ -139,9 +142,13 @@ public final class Constants {
    */
   public static final class AlgearArmPositions {
     public static final double HOME = 65;
+    public static final double MINANGLE = -35;
+
+    public static final double STORE = 0;
+
+    public static final double GROUNDINTAKE = 0; 
     public static final double INTAKE = 0;
     public static final double SCORE = 0;
-    public static final double MINANGLE = -35;
 
     public static final double[] dangerAngles = {0,-35};
     public static final double[] dangerHeight = {0,10};
@@ -187,13 +194,14 @@ public final class Constants {
     public static final double OFFSET = 0;
 
 
-    public static final double L4Coral = 0;
-    public static final double L3Coral = 0;
+    public static final double CoralIntake = 0;
+    public static final double L1Coral = 0;
     public static final double L2Coral = 0;
+    public static final double L3Coral = 0;
 
-    public static final double AlgaePickup = 0;
-
-    public static final double CoralPickup = 0;
+    public static final double AlgaeGround = 0;
+    public static final double AlgaeIntake = 0;
+    public static final double AlgaeScore = 0;
 
 
     public static final double minElevatorSafeHeight = 0;
