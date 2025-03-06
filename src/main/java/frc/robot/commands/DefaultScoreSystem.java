@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.ScoreSystemState;
+import frc.robot.Constants.AlgearArmPositions;
 import frc.robot.Constants.CoralArmPositions;
 import frc.robot.ScoreSystemState.RollerState;
 import frc.robot.subsystems.ScoreSystem;
@@ -24,7 +25,7 @@ public class DefaultScoreSystem extends Command {
 
 
   //temp
-  double position = CoralArmPositions.HOME;
+  double position = AlgearArmPositions.HOME;
 
   /** Creates a new DefaultScoreSystem. */
   public DefaultScoreSystem(ScoreSystem scoreSystem, Joystick leftJoy, Joystick rightJoy, XboxController controller) {
@@ -52,8 +53,8 @@ public class DefaultScoreSystem extends Command {
     ScoreSystemState desiredState = new ScoreSystemState();
 
     desiredState.setElevator(0);
-    desiredState.setAlgaeArm(0, RollerState.kIdle);
-    desiredState.setCoralArm(position, RollerState.kIdle);
+    desiredState.setAlgaeArm(position, RollerState.kIdle);
+    desiredState.setCoralArm(CoralArmPositions.HOME, RollerState.kIdle);
 
 
     scoreSystem.setState(desiredState);

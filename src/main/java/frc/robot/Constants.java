@@ -119,7 +119,7 @@ public final class Constants {
     public static final int rollerRID = 11;
     public static final double pivotPosConversion = (1 / 275.0) * 360;
 
-    public static final boolean pivotInvert = false;
+    public static final boolean pivotInvert = true;
     public static final boolean rollerInvert = false;
 
     // Limit switches
@@ -139,11 +139,11 @@ public final class Constants {
    * saved algea arm position
    */
   public static final class AlgearArmPositions {
-    public static final double HOME = 0;
+    public static final double HOME = 65;
     public static final double INTAKE = 0;
     public static final double SCORE = 0;
 
-    public static final double[] dangerAngles = {10,35};
+    public static final double[] dangerAngles = {0,-35};
     public static final double[] dangerHeight = {0,10};
   }
 

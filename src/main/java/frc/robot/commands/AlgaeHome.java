@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.AlgearArmPositions;
 import frc.robot.subsystems.AlgaeArm;
 import frc.robot.subsystems.ScoreSystem;
 
@@ -20,21 +21,24 @@ public class AlgaeHome extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    algaeArm.resetPivot(0);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    algaeArm.setPivotSpeed(0.1);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    algaeArm.setPivotSpeed(0);
+    algaeArm.resetPivot(AlgearArmPositions.HOME);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return algaeArm.getHomeSwitch();
   }
 }

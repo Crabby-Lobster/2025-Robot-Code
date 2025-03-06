@@ -54,7 +54,9 @@ public class AlgaeArm extends SubsystemBase {
     pivotPID = algeaPivot.getClosedLoopController();
 
     lRoller.setInverted(pivotInvert);
-    rRoller.setInverted(!pivotInvert);
+    rRoller.setInverted(pivotInvert);
+
+    resetPivot(AlgearArmPositions.HOME);
   }
 
   public void setPivotSpeed(double speed) {
