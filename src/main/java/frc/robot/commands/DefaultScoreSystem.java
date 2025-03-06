@@ -21,14 +21,14 @@ public class DefaultScoreSystem extends Command {
 
   Joystick leftJoy;
   Joystick rightJoy;
-  XboxController controller;
+  Joystick controller;
 
 
   //temp
   double position = CoralArmPositions.HOME;
 
   /** Creates a new DefaultScoreSystem. */
-  public DefaultScoreSystem(ScoreSystem scoreSystem, Joystick leftJoy, Joystick rightJoy, XboxController controller) {
+  public DefaultScoreSystem(ScoreSystem scoreSystem, Joystick leftJoy, Joystick rightJoy, Joystick controller) {
     this.scoreSystem = scoreSystem;
     this.leftJoy = leftJoy;
     this.rightJoy = rightJoy;
@@ -45,7 +45,7 @@ public class DefaultScoreSystem extends Command {
   @Override
   public void execute() {
 
-    position = position + (controller.getRightTriggerAxis() - controller.getLeftTriggerAxis());
+    position = position + controller.getY();
 
     SmartDashboard.putNumber("Desired position", position);
 

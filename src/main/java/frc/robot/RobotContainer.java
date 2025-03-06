@@ -36,7 +36,7 @@ public class RobotContainer {
   // controllers
   private final Joystick leftStick = new Joystick(ControllerConstants.LeftJoystick);
   private final Joystick rightStick = new Joystick(ControllerConstants.rightJoystick);
-  private final XboxController controller = new XboxController(ControllerConstants.controller);
+  private final Joystick controller = new Joystick(ControllerConstants.controller);
 
   
   // subsystems
