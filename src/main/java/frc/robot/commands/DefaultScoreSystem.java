@@ -25,7 +25,7 @@ public class DefaultScoreSystem extends Command {
 
 
   //temp
-  double position = AlgearArmPositions.HOME;
+  double position = CoralArmPositions.HOME;
 
   /** Creates a new DefaultScoreSystem. */
   public DefaultScoreSystem(ScoreSystem scoreSystem, Joystick leftJoy, Joystick rightJoy, XboxController controller) {
@@ -53,9 +53,8 @@ public class DefaultScoreSystem extends Command {
     ScoreSystemState desiredState = new ScoreSystemState();
 
     desiredState.setElevator(0);
-    desiredState.setAlgaeArm(position, RollerState.kIdle);
-    desiredState.setCoralArm(CoralArmPositions.HOME, RollerState.kIdle);
-
+    desiredState.setAlgaeArm(AlgearArmPositions.HOME, RollerState.kIdle);
+    desiredState.setCoralArm(position, RollerState.kIdle);
 
     scoreSystem.setState(desiredState);
     scoreSystem.update();

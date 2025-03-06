@@ -13,6 +13,7 @@ import frc.robot.commands.AlgaeHome;
 import frc.robot.commands.CoralHome;
 import frc.robot.commands.ElevatorHome;
 import frc.robot.Constants.AlgearArmPositions;
+import frc.robot.Constants.CoralArmPositions;
 import frc.robot.Constants.ElevatorPositions;
 
 public class ScoreSystem extends SubsystemBase {
@@ -97,7 +98,7 @@ public class ScoreSystem extends SubsystemBase {
     double desiredPosition = desiredState.coralArmPos;
     RollerState desiredMode = desiredState.coralMode;
 
-    desiredPosition = MathUtil.clamp(desiredPosition, AlgearArmPositions.MINANGLE, AlgearArmPositions.HOME);
+    desiredPosition = MathUtil.clamp(desiredPosition, CoralArmPositions.MINANGLE, CoralArmPositions.HOME);
     
     safeState.setCoralArm(desiredPosition, desiredMode);
   }

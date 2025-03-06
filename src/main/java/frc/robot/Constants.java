@@ -102,10 +102,10 @@ public final class Constants {
     public static final double HOME = 90;
     public static final double INTAKE = 0;
     public static final double SCORE = 0;
-    public static final double MINANGLE = 0;
+    public static final double MINANGLE = -90;
 
-    public static final double[] dangerAngles = {0,-90};
-    public static final double[] dangerHeight = {0,18};
+    public static final double[] dangerAngles = {15,-90};
+    public static final double[] dangerHeight = {0,24};
   }
 
   /**
