@@ -53,8 +53,8 @@ public class AlgaeArm extends SubsystemBase {
     pivotEnc = algeaPivot.getEncoder();
     pivotPID = algeaPivot.getClosedLoopController();
 
-    lRoller.setInverted(pivotInvert);
-    rRoller.setInverted(pivotInvert);
+    lRoller.setInverted(rollerInvert);
+    rRoller.setInverted(!rollerInvert);
 
     resetPivot(AlgearArmPositions.STORE);
   }
@@ -135,5 +135,7 @@ public class AlgaeArm extends SubsystemBase {
     SmartDashboard.putNumber("Algae Pivot", getPivotPosition());
 
     SmartDashboard.putBoolean("Algae", getHomeSwitch());
+
+    SmartDashboard.putBoolean("Algae Piece", getAlgeaSwitch());
   }
 }

@@ -84,7 +84,7 @@ public final class Constants {
 
     // Limit switches
     public static final int HomeSwitchID = 7;
-    public static final int coralSwitchID = 3;
+    public static final int coralSwitchID = 6;
 
     // PID
     public static final double[] PIDValues = {0.1, 0.0, 0.0};
@@ -102,7 +102,7 @@ public final class Constants {
     public static final double HOME = 90;
     public static final double MINANGLE = -90;
     
-    public static final double STORE = 90;
+    public static final double STORE = 85;
 
     public static final double INTAKE = 0;
     public static final double SCORE = 0;
@@ -126,7 +126,7 @@ public final class Constants {
 
     // Limit switches
     public static final int HomeSwitchID = 8;
-    public static final int AlgeaSwitchID = 1;
+    public static final int AlgeaSwitchID = 5;
 
     // PID
     public static final double[] PIDValues = {0.1,0,0};
@@ -144,11 +144,11 @@ public final class Constants {
     public static final double HOME = 65;
     public static final double MINANGLE = -35;
 
-    public static final double STORE = 0;
+    public static final double STORE = 60;
 
-    public static final double GROUNDINTAKE = 0; 
-    public static final double INTAKE = 0;
-    public static final double SCORE = 0;
+    public static final double GROUNDINTAKE = -15; 
+    public static final double INTAKE = 25;
+    public static final double SCORE = 45;
 
     public static final double[] dangerAngles = {0,-35};
     public static final double[] dangerHeight = {0,10};
@@ -200,8 +200,8 @@ public final class Constants {
     public static final double L3Coral = 0;
 
     public static final double AlgaeGround = 0;
-    public static final double AlgaeIntake = 0;
-    public static final double AlgaeScore = 0;
+    public static final double AlgaeIntake = 15;
+    public static final double AlgaeScore = MAXHEIGHT();
 
 
     public static final double minElevatorSafeHeight = 0;
