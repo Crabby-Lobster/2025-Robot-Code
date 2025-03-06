@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.CoralArmPositions;
 import frc.robot.subsystems.CoralArm;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -31,7 +32,7 @@ public class HomeCoralArm extends Command {
   @Override
   public void end(boolean interrupted) {
     coralArm.SetPivotSpeed(0);
-    coralArm.resetPivotPosition(0);
+    coralArm.resetPivotPosition(CoralArmPositions.HOME);
   }
 
   // Returns true when the command should end.
