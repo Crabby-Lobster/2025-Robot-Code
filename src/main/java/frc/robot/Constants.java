@@ -100,10 +100,9 @@ public final class Constants {
    */
   public static final class CoralArmPositions {
     public static final double HOME = 90;
-
     public static final double INTAKE = 0;
-
     public static final double SCORE = 0;
+    public static final double MINANGLE = 0;
 
     public static final double[] dangerAngles = {0,-90};
     public static final double[] dangerHeight = {0,18};
@@ -142,6 +141,7 @@ public final class Constants {
     public static final double HOME = 65;
     public static final double INTAKE = 0;
     public static final double SCORE = 0;
+    public static final double MINANGLE = 0;
 
     public static final double[] dangerAngles = {0,-35};
     public static final double[] dangerHeight = {0,10};
