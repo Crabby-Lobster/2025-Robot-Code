@@ -24,7 +24,7 @@ public class DefaultScoreSystem extends Command {
   Joystick rightJoy;
   Joystick controller;
 
-  ScoresystemPositionContainer positionContainer = new ScoresystemPositionContainer(leftJoy, rightJoy, controller);
+  ScoresystemPositionContainer positionContainer;
 
   /** Creates a new DefaultScoreSystem. */
   public DefaultScoreSystem(ScoreSystem scoreSystem, Joystick leftJoy, Joystick rightJoy, Joystick controller) {
@@ -32,6 +32,8 @@ public class DefaultScoreSystem extends Command {
     this.leftJoy = leftJoy;
     this.rightJoy = rightJoy;
     this.controller = controller;
+
+    positionContainer = new ScoresystemPositionContainer(leftJoy, rightJoy, controller);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(scoreSystem);
   }

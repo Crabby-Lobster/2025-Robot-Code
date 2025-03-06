@@ -59,7 +59,7 @@ public class CoralArm extends SubsystemBase {
     lRoller.setInverted(pivotInvert);
     rRoller.setInverted(!pivotInvert);
 
-    resetPivotPosition(CoralArmPositions.HOME);
+    resetPivotPosition(CoralArmPositions.STORE);
   }
 
   public void SetPivotSpeed(double speed) {

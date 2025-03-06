@@ -56,7 +56,7 @@ public class AlgaeArm extends SubsystemBase {
     lRoller.setInverted(pivotInvert);
     rRoller.setInverted(pivotInvert);
 
-    resetPivot(AlgearArmPositions.HOME);
+    resetPivot(AlgearArmPositions.STORE);
   }
 
   public void setPivotSpeed(double speed) {
