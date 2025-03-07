@@ -75,14 +75,15 @@ public class ScoreSystem extends SubsystemBase {
   private void checkElevatorSaftey() {
     double desiredPosition = desiredState.elevatorPos;
     
+    // Clamps to elevator position
     desiredPosition = MathUtil.clamp(desiredPosition - ElevatorPositions.OFFSET, ElevatorPositions.HOME, ElevatorPositions.MAXHEIGHT());
     
     //keeps elevator clear of algae arm
-    double algaeAngle = Math.max(desiredState.algeaArmPos, currentState.algeaArmPos);
+    double algaeAngle = Math. min(desiredState.algeaArmPos, currentState.algeaArmPos);
     double[] algaeClearence = algaeArm.getSafeHeight(algaeAngle);
 
     // keeps elevator clear of coral arm
-    double coralAngle = Math.max(desiredState.coralArmPos, currentState.coralArmPos);
+    double coralAngle = Math.min(desiredState.coralArmPos, currentState.coralArmPos);
     double[] coralClearence = coralArm.getSafeHeight(coralAngle);
 
     desiredPosition = MathUtil.clamp(desiredPosition, algaeClearence[0], algaeClearence[1]);
