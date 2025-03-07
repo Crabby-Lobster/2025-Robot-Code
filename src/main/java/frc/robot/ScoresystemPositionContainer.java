@@ -10,7 +10,7 @@ import frc.robot.Constants.CoralArmPositions;
 import frc.robot.Constants.ElevatorPositions;
 import frc.robot.ScoreSystemState.RollerState;
 
-/** Add your docs here. */
+/** The container for Saved positions and the logic to switch between them */
 public class ScoresystemPositionContainer {
     Joystick leftJoy;
     Joystick righJoy;
@@ -24,17 +24,40 @@ public class ScoresystemPositionContainer {
     AlgaePosition algaePositions = new AlgaePosition();
     CoralPosition coralPositions = new CoralPosition();
 
+    /**Creates the position container */
+    public ScoresystemPositionContainer(Joystick leftJoy, Joystick rightJoy, Joystick controller) {
+        this.leftJoy = leftJoy;
+        this.righJoy = rightJoy;
+        this.controller = controller;
+    }
 
+    /**
+     * Contains the arm position and height for a specific saved position
+     * @param armPos The saved arm position
+     * @param elevatorHeight The saved height for the elevator
+     */
     private class ArmPositions {
         public double armPos;
         public double elevatorHeight;
         
+        /**
+         * Creates new ArmPosition
+         * @param arm the arm position
+         * @param elevator the arm height
+         */
         public ArmPositions(double arm, double elevator) {
             this.armPos = arm;
             this.elevatorHeight = elevator;
         }
     }
 
+    /**
+     * contains the saved positions for the algae arm
+     * @param Store The stored position of the arm
+     * @param Ground the ground intake position
+     * @param Intake The reef intake position
+     * @param Score the verticale scoring position
+     */
     private class AlgaePosition {
         public ArmPositions Store = new ArmPositions(AlgearArmPositions.STORE, ElevatorPositions.HOME);
         public ArmPositions Ground = new ArmPositions(AlgearArmPositions.GROUNDINTAKE, ElevatorPositions.AlgaeGround);
@@ -42,7 +65,13 @@ public class ScoresystemPositionContainer {
         public ArmPositions Score = new ArmPositions(AlgearArmPositions.SCORE, ElevatorPositions.AlgaeScore);
     }
 
-    @SuppressWarnings("unused")
+    /**
+     * Contains the saved positions for the coral arm
+     * @param Store The stored position
+     * @param L1 The Level 1 Coral
+     * @param l2 The level 2 Coral
+     * @param l3 The level 3 Coral
+    */
     private class CoralPosition {
         public ArmPositions Store = new ArmPositions(CoralArmPositions.STORE, ElevatorPositions.HOME);
         public ArmPositions L1 = new ArmPositions(CoralArmPositions.SCORE, ElevatorPositions.L1Coral);
@@ -51,13 +80,11 @@ public class ScoresystemPositionContainer {
     }
 
 
-    public ScoresystemPositionContainer(Joystick leftJoy, Joystick rightJoy, Joystick controller) {
-        this.leftJoy = leftJoy;
-        this.righJoy = rightJoy;
-        this.controller = controller;
-    }
-
-
+    /**
+     * contains the internal logic for selecting arm position
+     * @param currentState The currant scoresystem state
+     * @return the desired score system state
+     */
     public ScoreSystemState getState(ScoreSystemState currentState) {
         // POSITIONS
         // THE STORED POSITION
