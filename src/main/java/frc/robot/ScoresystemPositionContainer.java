@@ -9,7 +9,6 @@ import frc.robot.Constants.AlgearArmPositions;
 import frc.robot.Constants.CoralArmPositions;
 import frc.robot.Constants.ElevatorPositions;
 import frc.robot.ScoreSystemState.RollerState;
-import frc.robot.subsystems.AlgaeArm;
 
 /** Add your docs here. */
 public class ScoresystemPositionContainer {
@@ -22,19 +21,35 @@ public class ScoresystemPositionContainer {
 
     ScoreSystemState DesiredState = new ScoreSystemState();
 
-    double[][] AlgaePositions = {
-        {AlgearArmPositions.STORE, ElevatorPositions.HOME},
-        {AlgearArmPositions.GROUNDINTAKE, ElevatorPositions.AlgaeGround},
-        {AlgearArmPositions.INTAKE, ElevatorPositions.AlgaeIntake},
-        {AlgearArmPositions.SCORE, ElevatorPositions.AlgaeScore}
-    };
+    AlgaePosition algaePositions = new AlgaePosition();
+    CoralPosition coralPositions = new CoralPosition();
 
-    double[][] CoralPositions = {
-        {CoralArmPositions.STORE, ElevatorPositions.HOME},
-        {CoralArmPositions.SCORE, ElevatorPositions.L1Coral},
-        {CoralArmPositions.SCORE, ElevatorPositions.L2Coral},
-        {CoralArmPositions.SCORE, ElevatorPositions.L3Coral}
-    };
+
+    private class ArmPositions {
+        public double armPos;
+        public double elevatorHeight;
+        
+        public ArmPositions(double arm, double elevator) {
+            this.armPos = arm;
+            this.elevatorHeight = elevator;
+        }
+    }
+
+    private class AlgaePosition {
+        public ArmPositions Store = new ArmPositions(AlgearArmPositions.STORE, ElevatorPositions.HOME);
+        public ArmPositions Ground = new ArmPositions(AlgearArmPositions.GROUNDINTAKE, ElevatorPositions.AlgaeGround);
+        public ArmPositions Intake = new ArmPositions(AlgearArmPositions.INTAKE, ElevatorPositions.AlgaeIntake);
+        public ArmPositions Score = new ArmPositions(AlgearArmPositions.SCORE, ElevatorPositions.AlgaeScore);
+    }
+
+    @SuppressWarnings("unused")
+    private class CoralPosition {
+        public ArmPositions Store = new ArmPositions(CoralArmPositions.STORE, ElevatorPositions.HOME);
+        public ArmPositions L1 = new ArmPositions(CoralArmPositions.SCORE, ElevatorPositions.L1Coral);
+        public ArmPositions L2 = new ArmPositions(CoralArmPositions.SCORE, ElevatorPositions.L2Coral);
+        public ArmPositions L3 = new ArmPositions(CoralArmPositions.SCORE, ElevatorPositions.L3Coral);
+    }
+
 
     public ScoresystemPositionContainer(Joystick leftJoy, Joystick rightJoy, Joystick controller) {
         this.leftJoy = leftJoy;
@@ -47,27 +62,27 @@ public class ScoresystemPositionContainer {
         // POSITIONS
         // THE STORED POSITION
         if (controller.getRawButtonPressed(2)) {
-            DesiredState.elevatorPos = ElevatorPositions.HOME;
-            DesiredState.coralArmPos = CoralPositions[0][0];
-            DesiredState.algeaArmPos = AlgaePositions[0][0];
+            DesiredState.elevatorPos = ElevatorPositions.OFFSET;
+            DesiredState.coralArmPos = coralPositions.Store.armPos;
+            DesiredState.algeaArmPos = algaePositions.Store.armPos;
         }
         // ALGAE GROUND
         else if (controller.getRawButtonPressed(7)) {
-            DesiredState.elevatorPos = AlgaePositions[1][1];
-            DesiredState.coralArmPos = CoralPositions[0][0];
-            DesiredState.algeaArmPos = AlgaePositions[1][0];
+            DesiredState.elevatorPos = algaePositions.Ground.elevatorHeight;
+            DesiredState.coralArmPos = coralPositions.Store.armPos;
+            DesiredState.algeaArmPos = algaePositions.Ground.armPos;
         }
         // ALGAE INTAKE
         else if (controller.getRawButtonPressed(9)) {
-            DesiredState.elevatorPos = AlgaePositions[2][1];
-            DesiredState.coralArmPos = CoralPositions[0][0];
-            DesiredState.algeaArmPos = AlgaePositions[2][0];
+            DesiredState.elevatorPos = algaePositions.Intake.elevatorHeight;
+            DesiredState.coralArmPos = coralPositions.Store.armPos;
+            DesiredState.algeaArmPos = algaePositions.Intake.armPos;
         }
         // ALGAE SCORE
         else if (controller.getRawButtonPressed(11)) {
-            DesiredState.elevatorPos = AlgaePositions[3][1];
-            DesiredState.coralArmPos = CoralPositions[0][0];
-            DesiredState.algeaArmPos = AlgaePositions[3][0];
+            DesiredState.elevatorPos = algaePositions.Score.elevatorHeight;
+            DesiredState.coralArmPos = coralPositions.Store.armPos;
+            DesiredState.algeaArmPos = algaePositions.Score.armPos;
         }
 
 
