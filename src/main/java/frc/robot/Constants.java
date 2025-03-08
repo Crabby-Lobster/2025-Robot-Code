@@ -24,6 +24,8 @@ public final class Constants {
     public static final int LeftJoystick = 0;
     public static final int rightJoystick = 1;
     public static final int controller = 2;
+
+    public static final double AlgaeOffestValue = 10;
   }
 
   /**

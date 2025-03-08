@@ -21,6 +21,8 @@ public class DefaultScoreSystem extends Command {
 
   ScoresystemPositionContainer positionContainer;
 
+  double algaeOFfset = 0;
+
   /** Creates a new DefaultScoreSystem. */
   public DefaultScoreSystem(ScoreSystem scoreSystem, Joystick leftJoy, Joystick rightJoy, Joystick controller) {
     this.scoreSystem = scoreSystem;
@@ -40,12 +42,13 @@ public class DefaultScoreSystem extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    algaeOFfset = controller.getY() * 0.1;
 
     // state
     ScoreSystemState desiredState;
     desiredState = positionContainer.getState(scoreSystem.currentState);
 
-    scoreSystem.setState(desiredState);
+    scoreSystem.setState(desiredState, algaeOFfset);
 
     scoreSystem.update();
   }

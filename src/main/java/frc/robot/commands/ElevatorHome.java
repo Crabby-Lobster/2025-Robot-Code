@@ -49,6 +49,6 @@ public class ElevatorHome extends Command {
   @Override
   public boolean isFinished() {
     //return elevator.getLimitSwitch();
-    return elevator.getLimitSwitch();
+    return true;
   }
 }

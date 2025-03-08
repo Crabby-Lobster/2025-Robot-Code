@@ -41,7 +41,8 @@ public class ScoreSystem extends SubsystemBase {
    * sets the desired state for the score system
    * @param state the desired state
    */
-  public void setState(ScoreSystemState state) {
+  public void setState(ScoreSystemState state, double algaeOffset) {
+    state.algeaArmPos += algaeOffset;
     desiredState = state;
   }
 
