@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.ScoreSystemState;
 import frc.robot.ScoreSystemState.RollerState;
 import frc.robot.commands.AlgaeHome;
+import frc.robot.commands.BreakTies;
 import frc.robot.commands.CoralHome;
 import frc.robot.commands.ElevatorHome;
 import frc.robot.Constants.AlgearArmPositions;
@@ -118,6 +119,7 @@ public class ScoreSystem extends SubsystemBase {
 
   public SequentialCommandGroup HomeSystems(ScoreSystem scoresystem) {
     return new SequentialCommandGroup(
+      new BreakTies(scoresystem),
       new CoralHome(scoresystem),
       new AlgaeHome(scoresystem),
       new ElevatorHome(scoresystem)

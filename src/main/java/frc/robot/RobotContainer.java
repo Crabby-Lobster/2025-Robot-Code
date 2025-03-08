@@ -92,7 +92,7 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.button(1).onTrue(HomeRobot());
+    //m_driverController.button(1).onTrue(HomeRobot());
   }
 
   /**
@@ -102,7 +102,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.testTrajectory(autofactory);
+    //return Autos.testTrajectory(autofactory);
+    return HomeRobot();
   }
 
   /**

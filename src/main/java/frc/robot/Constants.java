@@ -60,7 +60,7 @@ public final class Constants {
     public static final int freeCurrentLimit = 40;
 
     // the throttle multiplier for manual driving
-    public static final double DriveSpeed = 0.5;
+    public static final double DriveSpeed = 1;
 
     // diff drive constants
     public static final double kTrackwidthMeter = 0.60325;
@@ -87,7 +87,7 @@ public final class Constants {
     public static final int coralSwitchID = 6;
 
     // PID
-    public static final double[] PIDValues = {0.1, 0.0, 0.0};
+    public static final double[] PIDValues = {0.2, 0.0, 0.0};
 
     // Rollers
     public static final double IntakeSpeed = -0.5;
@@ -104,11 +104,14 @@ public final class Constants {
     
     public static final double STORE = 85;
 
-    public static final double INTAKE = 0;
+    public static final double INTAKE = -80;
     public static final double SCORE = 70;
 
+    public static final double AlgaeIntakeGround = -50;
+    public static final double AlgaeIntakeOther = 0;
+
     public static final double[] dangerAngles = {15,-90};
-    public static final double[] dangerHeight = {0,24};
+    public static final double[] dangerHeight = {0,12};
   }
 
   /**
@@ -146,11 +149,11 @@ public final class Constants {
 
     public static final double STORE = 60;
 
-    public static final double GROUNDINTAKE = -15; 
+    public static final double GROUNDINTAKE = -35; 
     public static final double INTAKE = 25;
     public static final double SCORE = 45;
 
-    public static final double[] dangerAngles = {0,-35};
+    public static final double[] dangerAngles = {-20,-35};
     public static final double[] dangerHeight = {0,10};
   }
 
@@ -199,7 +202,7 @@ public final class Constants {
     public static final double L2Coral = 20;
     public static final double L3Coral = 30;
 
-    public static final double AlgaeGround = 0;
+    public static final double AlgaeGround = 12;
     public static final double AlgaeIntake = 15;
     public static final double AlgaeScore = MAXHEIGHT();
 
