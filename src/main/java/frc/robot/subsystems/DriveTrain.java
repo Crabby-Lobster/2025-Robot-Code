@@ -256,17 +256,5 @@ public class DriveTrain extends SubsystemBase {
       getEncoderValues(EncoderRetriaval.GetLeftDistance),
       getEncoderValues(EncoderRetriaval.GetRightDistance)
     );
-
-    // posts drivetrain encoder data to driverstation
-    SmartDashboard.putNumber("DriveTrain Speed", getEncoderValues(EncoderRetriaval.GetSpeed));
-    SmartDashboard.putNumber("DriveTrain Distance", getEncoderValues(EncoderRetriaval.GetDistance));
-
-    SmartDashboard.putNumber("DriveTrain LeftSpeed", getEncoderValues(EncoderRetriaval.GetLeftSpeed));
-    SmartDashboard.putNumber("DriveTrain LeftDistance", getEncoderValues(EncoderRetriaval.GetLeftDistance));
-
-    SmartDashboard.putNumber("DriveTrain RightSpeed", getEncoderValues(EncoderRetriaval.GetRightSpeed));
-    SmartDashboard.putNumber("DriveTrain RightDistance", getEncoderValues(EncoderRetriaval.GetRightDistance));
-
-    SmartDashboard.putNumber("DriveTrain Heading", getHeading());
   }
 }

@@ -5,47 +5,39 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.ElevatorPositions;
-import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.ScoreSystem;
+import frc.robot.Constants.CoralArmPositions;
+import frc.robot.subsystems.CoralArm;
 
-/**
- * moves the elevator down until it reaches home position
- * command ends once limit switch is triggered
- */
-public class ElevatorHome extends Command {
-
-  Elevator elevator;
-
-  /** Creates a new ElevatorHome. */
-  public ElevatorHome(ScoreSystem scoreSystem) {
-    elevator = scoreSystem.elevator;
+/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
+public class HomeCoralArm extends Command {
+  CoralArm coralArm;
+  /** Creates a new HomeCoralArm. */
+  public HomeCoralArm(CoralArm coralArm) {
+    this.coralArm = coralArm;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(scoreSystem);
+    addRequirements(coralArm);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevator.setSpeed(-0.01,-0.1);
+    coralArm.SetPivotSpeed(-0.1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    elevator.setSpeed(0, -0.1);
-    elevator.resetPosition(ElevatorPositions.HOME);
+    coralArm.SetPivotSpeed(0);
+    coralArm.resetPivotPosition(CoralArmPositions.HOME);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //return elevator.getLimitSwitch();
-    return elevator.getLimitSwitch();
+    return coralArm.getHomeSwitch();
   }
 }

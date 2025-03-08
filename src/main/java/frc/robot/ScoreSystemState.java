@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import frc.robot.Constants.AlgearArmPositions;
+import frc.robot.Constants.CoralArmPositions;
+import frc.robot.Constants.ElevatorPositions;
+
 /** A State for the scoresystem */
 public class ScoreSystemState {
 
@@ -15,15 +19,15 @@ public class ScoreSystemState {
     }
 
     // elevator
-    public double elevatorPos = 0;
+    public double elevatorPos = ElevatorPositions.HOME;
 
     // coral arm
-    public double coralArmPos = 0;
+    public double coralArmPos = CoralArmPositions.STORE;
     public RollerState coralMode = RollerState.kIdle;
     public boolean coralArmFull = false;
 
     // algea arm
-    public double algeaArmPos = 0;
+    public double algeaArmPos = AlgearArmPositions.STORE;
     public RollerState algaeMode = RollerState.kIdle;
     public boolean algeaArmFull = false;
 
@@ -82,4 +86,18 @@ public class ScoreSystemState {
         algeaArmFull = full;
     }
 
+    /**
+     * lineraly interpolates between from and to by factor
+     * @param from the start value
+     * @param to the end value
+     * @param factor the factor to lerp by
+     * @return the lerped value
+     */
+    public static double lerp(double from, double to, double factor) {
+        return from + factor * (to - from);
+    }
+    
+    public static double remap(double in, double inMin, double inMax, double outMin, double outMax) {
+        return outMin + (outMax - outMin) * ((in - inMin) / (inMax - inMin));
+    }
 }

@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveTrain;
 import static frc.robot.Constants.DrivetrainConstants.*;
@@ -18,11 +17,11 @@ public class DefaultDrive extends Command {
   //The joysticks used to control the drivetrain
   Joystick LeftJoystick;
   Joystick rightJoystick;
-  XboxController controller;
+  Joystick controller;
   DriveTrain drivetrain;
 
   /** Creates a new DefaultDrive. */
-  public DefaultDrive(Joystick leftJoystick, Joystick rightJoystick, DriveTrain driveTrain, XboxController controller) {
+  public DefaultDrive(Joystick leftJoystick, Joystick rightJoystick, DriveTrain driveTrain, Joystick controller) {
     // assigns the inputs from the constructor to the variables to be used in this class
     this.LeftJoystick = leftJoystick;
     this.rightJoystick = rightJoystick;
@@ -42,8 +41,8 @@ public class DefaultDrive extends Command {
   public void execute() {
 
     // this calls the function from the drivetrain to set the speed of the motors
-    double left_speed = -controller.getLeftY() * DriveSpeed;
-    double right_speed = -controller.getRightY() * DriveSpeed;
+    double left_speed = -LeftJoystick.getY() * DriveSpeed;
+    double right_speed = -rightJoystick.getY() * DriveSpeed;
     drivetrain.TankDrive(left_speed, right_speed, true);
   }
 
