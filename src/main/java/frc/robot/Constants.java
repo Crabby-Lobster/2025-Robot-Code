@@ -144,7 +144,7 @@ public final class Constants {
    * saved algea arm position
    */
   public static final class AlgearArmPositions {
-    public static final double HOME = 65;
+    public static final double HOME = 70;
     public static final double MINANGLE = -35;
 
     public static final double STORE = 60;
@@ -152,7 +152,7 @@ public final class Constants {
     public static final double GROUNDINTAKE = -10; 
     public static final double INTAKE = -5;
     public static final double INTAKEHigh = 10;
-    public static final double SCORE = 70;
+    public static final double SCORE = 80;
 
     public static final double[] dangerAngles = {-10,-35};
     public static final double[] dangerHeight = {0,10};
@@ -190,8 +190,8 @@ public final class Constants {
       return STAGE1TOP + STAGE2TOP;
     }
 
-    public static final double STAGE1TOP = 20;
-    public static final double STAGE2TOP = 14;
+    public static final double STAGE1TOP = 25;
+    public static final double STAGE2TOP = 16;
 
     public static final double HOME = 0;
 

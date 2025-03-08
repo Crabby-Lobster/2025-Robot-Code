@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.CoralArmPositions;
 import frc.robot.subsystems.CoralArm;
@@ -21,7 +22,9 @@ public class CoralHome extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    SmartDashboard.putBoolean("CoralHoming", true);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -34,6 +37,7 @@ public class CoralHome extends Command {
   public void end(boolean interrupted) {
     coralArm.SetPivotSpeed(0);
     coralArm.resetPivotPosition(CoralArmPositions.HOME);
+    SmartDashboard.putBoolean("CoralHoming", false);
   }
 
   // Returns true when the command should end.
