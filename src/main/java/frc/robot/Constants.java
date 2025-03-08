@@ -90,9 +90,9 @@ public final class Constants {
     public static final double[] PIDValues = {0.1, 0.0, 0.0};
 
     // Rollers
-    public static final double IntakeSpeed = 0;
-    public static final double ScoreSpeed = 0;
-    public static final double HoldSpeed = 0;
+    public static final double IntakeSpeed = -0.5;
+    public static final double ScoreSpeed = 0.5;
+    public static final double HoldSpeed = -0.25;
   }
 
   /**
@@ -105,7 +105,7 @@ public final class Constants {
     public static final double STORE = 85;
 
     public static final double INTAKE = 0;
-    public static final double SCORE = 0;
+    public static final double SCORE = 70;
 
     public static final double[] dangerAngles = {15,-90};
     public static final double[] dangerHeight = {0,24};
@@ -194,10 +194,10 @@ public final class Constants {
     public static final double OFFSET = 0;
 
 
-    public static final double CoralIntake = 0;
-    public static final double L1Coral = 0;
-    public static final double L2Coral = 0;
-    public static final double L3Coral = 0;
+    public static final double CoralIntake = 20;
+    public static final double L1Coral = 10;
+    public static final double L2Coral = 20;
+    public static final double L3Coral = 30;
 
     public static final double AlgaeGround = 0;
     public static final double AlgaeIntake = 15;

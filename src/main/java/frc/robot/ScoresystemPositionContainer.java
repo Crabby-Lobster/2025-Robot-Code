@@ -67,12 +67,14 @@ public class ScoresystemPositionContainer {
 
     /**
      * Contains the saved positions for the coral arm
+     * @param Intake The Coral feeder station intake position
      * @param Store The stored position
      * @param L1 The Level 1 Coral
-     * @param l2 The level 2 Coral
-     * @param l3 The level 3 Coral
+     * @param L2 The level 2 Coral
+     * @param L3 The level 3 Coral
     */
     private class CoralPosition {
+        public ArmPositions Intake = new ArmPositions(CoralArmPositions.INTAKE, ElevatorPositions.CoralIntake);
         public ArmPositions Store = new ArmPositions(CoralArmPositions.STORE, ElevatorPositions.HOME);
         public ArmPositions L1 = new ArmPositions(CoralArmPositions.SCORE, ElevatorPositions.L1Coral);
         public ArmPositions L2 = new ArmPositions(CoralArmPositions.SCORE, ElevatorPositions.L2Coral);
@@ -111,6 +113,24 @@ public class ScoresystemPositionContainer {
             DesiredState.coralArmPos = coralPositions.Store.armPos;
             DesiredState.algeaArmPos = algaePositions.Score.armPos;
         }
+        // Coral L1
+        else if (controller.getRawButtonPressed(8)) {
+            DesiredState.elevatorPos = coralPositions.L1.elevatorHeight;
+            DesiredState.coralArmPos = coralPositions.L1.armPos;
+            DesiredState.algeaArmPos = algaePositions.Store.armPos;
+        }
+        // Coral L2
+        else if (controller.getRawButtonPressed(10)) {
+            DesiredState.elevatorPos = coralPositions.L2.elevatorHeight;
+            DesiredState.coralArmPos = coralPositions.L2.armPos;
+            DesiredState.algeaArmPos = algaePositions.Store.armPos;
+        }
+        // Coral L3
+        else if (controller.getRawButtonPressed(12)) {
+            DesiredState.elevatorPos = coralPositions.L3.elevatorHeight;
+            DesiredState.coralArmPos = coralPositions.L3.armPos;
+            DesiredState.algeaArmPos = algaePositions.Store.armPos;
+        }
 
 
         //Intakes Algae
@@ -124,6 +144,24 @@ public class ScoresystemPositionContainer {
             DesiredState.algaeMode = RollerState.kHold;
         } else {
             DesiredState.algaeMode = RollerState.kIdle;
+        }
+
+        //Intakes Coral
+        if (righJoy.getRawButton(1)) {
+            // sets arm to coral intake positon when intake button is pressed
+            DesiredState.elevatorPos = coralPositions.Intake.elevatorHeight;
+            DesiredState.coralArmPos = coralPositions.Intake.armPos;
+            DesiredState.algeaArmPos = algaePositions.Store.armPos;
+
+            DesiredState.coralMode = RollerState.kIntake;
+            coralHold = true;
+        } else if (righJoy.getRawButton(6)) {
+            DesiredState.coralMode = RollerState.kScore;
+            coralHold = false;
+        } else if (coralHold) {
+            DesiredState.coralMode = RollerState.kHold;
+        } else {
+            DesiredState.coralMode = RollerState.kIdle;
         }
 
         return DesiredState;

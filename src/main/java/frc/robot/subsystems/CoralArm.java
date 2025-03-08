@@ -115,7 +115,7 @@ public class CoralArm extends SubsystemBase {
   public void updateRollers(RollerState rollerState) {
     switch (rollerState) {
       case kIdle:
-        setRollerSpeed(HoldSpeed);
+        setRollerSpeed(0);
         break;
       case kIntake:
         setRollerSpeed(IntakeSpeed);
