@@ -18,6 +18,7 @@ public class ScoresystemPositionContainer {
     Joystick controller;
 
     boolean algaeHold = false;
+    boolean AlgaeHigh = true;
     boolean coralHold = false;
 
     ScoreSystemState DesiredState = new ScoreSystemState();
@@ -63,6 +64,7 @@ public class ScoresystemPositionContainer {
         public ArmPositions Store = new ArmPositions(AlgearArmPositions.STORE, ElevatorPositions.HOME);
         public ArmPositions Ground = new ArmPositions(AlgearArmPositions.GROUNDINTAKE, ElevatorPositions.AlgaeGround);
         public ArmPositions Intake = new ArmPositions(AlgearArmPositions.INTAKE, ElevatorPositions.AlgaeIntake);
+        public ArmPositions IntakeHigh = new ArmPositions(AlgearArmPositions.INTAKEHigh, ElevatorPositions.AlgaeIntakeHigh);
         public ArmPositions Score = new ArmPositions(AlgearArmPositions.SCORE, ElevatorPositions.AlgaeScore);
     }
 
@@ -112,9 +114,15 @@ public class ScoresystemPositionContainer {
         }
         // ALGAE INTAKE
         else if (controller.getRawButtonPressed(9)) {
-            DesiredState.elevatorPos = algaePositions.Intake.elevatorHeight;
+            AlgaeHigh = !AlgaeHigh;
+            if (AlgaeHigh) {
+                DesiredState.elevatorPos = algaePositions.IntakeHigh.elevatorHeight;
+                DesiredState.algeaArmPos = algaePositions.IntakeHigh.armPos;
+            } else {
+                DesiredState.elevatorPos = algaePositions.Intake.elevatorHeight;
+                DesiredState.algeaArmPos = algaePositions.Intake.armPos;
+            }
             DesiredState.coralArmPos = coralPositions.AlgaeIntakeOther.armPos;
-            DesiredState.algeaArmPos = algaePositions.Intake.armPos;
         }
         // ALGAE SCORE
         else if (controller.getRawButtonPressed(11)) {

@@ -137,5 +137,7 @@ public class Elevator extends SubsystemBase {
     // This method will be called once per scheduler run
 
     SmartDashboard.putNumber("ElevatorHeight", getHeight());
+
+    SmartDashboard.putBoolean("elevator home", getLimitSwitch());
   }
 }
