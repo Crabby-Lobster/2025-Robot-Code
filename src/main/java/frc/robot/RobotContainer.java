@@ -7,13 +7,19 @@ package frc.robot;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DefaultDrive;
+import frc.robot.commands.DefaultScoreSystem;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.AlgaeArm;
+import frc.robot.subsystems.CoralArm;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ScoreSystem;
 import choreo.auto.AutoFactory;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -27,19 +33,30 @@ public class RobotContainer {
 
   AutoFactory autofactory;
 
+  // controllers
   private final Joystick leftStick = new Joystick(ControllerConstants.LeftJoystick);
   private final Joystick rightStick = new Joystick(ControllerConstants.rightJoystick);
-  private final XboxController controller = new XboxController(ControllerConstants.controller);
+  private final Joystick controller = new Joystick(ControllerConstants.controller);
 
-  // The robot's subsystems and commands are defined here...
+  
+  // subsystems
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_driveTrain = new DriveTrain();
+  
+  private final CoralArm m_CoralArm = new CoralArm();
+  private final AlgaeArm m_algaeArm = new AlgaeArm();
+  private final Elevator m_elevator = new Elevator();
 
+  private final ScoreSystem m_ScoreSystem = new ScoreSystem(m_elevator, m_CoralArm, m_algaeArm);
+
+  // Default commands
   private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
+  private final DefaultScoreSystem m_DefaultScoreSystem = new DefaultScoreSystem(m_ScoreSystem, leftStick, rightStick, controller);
 
+  
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(ControllerConstants.controller);
+  private final CommandJoystick m_driverController =
+      new CommandJoystick(ControllerConstants.controller);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -54,7 +71,9 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
 
+    // sets default commands
     m_driveTrain.setDefaultCommand(m_DefaultDrive);
+    m_ScoreSystem.setDefaultCommand(m_DefaultScoreSystem);
   }
 
   /**
@@ -73,7 +92,7 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    m_driverController.button(1).onTrue(HomeRobot());
   }
 
   /**
@@ -84,5 +103,12 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return Autos.testTrajectory(autofactory);
+  }
+
+  /**
+   * Homes the robot subsystems
+   */
+  public SequentialCommandGroup HomeRobot() {
+    return m_ScoreSystem.HomeSystems(m_ScoreSystem);
   }
 }
