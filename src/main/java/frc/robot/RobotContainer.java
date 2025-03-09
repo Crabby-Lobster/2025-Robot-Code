@@ -8,6 +8,7 @@ import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DefaultScoreSystem;
+import frc.robot.commands.DriveFoward;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.AlgaeArm;
 import frc.robot.subsystems.CoralArm;
@@ -104,7 +105,7 @@ public class RobotContainer {
     // An example command will be run in autonomous
     return new SequentialCommandGroup(
       HomeRobot(),
-      Autos.TaxiTrajectory(autofactory)
+      new DriveFoward(m_driveTrain).withTimeout(3)
     );
   }
 
