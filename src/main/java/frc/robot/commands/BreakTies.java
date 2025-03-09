@@ -4,12 +4,9 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.AlgearArmPositions;
-import frc.robot.Constants.CoralArmPositions;
 import frc.robot.subsystems.AlgaeArm;
-import frc.robot.subsystems.CoralArm;
 import frc.robot.subsystems.ScoreSystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -27,7 +24,6 @@ public class BreakTies extends Command {
   @Override
   public void initialize() {
     algaeArm.setPosition(AlgearArmPositions.STORE - 15);
-    SmartDashboard.putBoolean("Break", true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -39,7 +35,6 @@ public class BreakTies extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    SmartDashboard.putBoolean("Break", false);
   }
 
   // Returns true when the command should end.

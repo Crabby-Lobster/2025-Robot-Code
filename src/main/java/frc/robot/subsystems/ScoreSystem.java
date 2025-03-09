@@ -11,7 +11,6 @@ import frc.robot.ScoreSystemState;
 import frc.robot.ScoreSystemState.RollerState;
 import frc.robot.commands.AlgaeHome;
 import frc.robot.commands.BreakTies;
-import frc.robot.commands.CoralHome;
 import frc.robot.commands.ElevatorHome;
 import frc.robot.Constants.AlgearArmPositions;
 import frc.robot.Constants.CoralArmPositions;

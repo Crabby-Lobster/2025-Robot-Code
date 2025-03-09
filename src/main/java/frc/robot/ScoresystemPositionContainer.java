@@ -9,7 +9,6 @@ import frc.robot.Constants.AlgearArmPositions;
 import frc.robot.Constants.CoralArmPositions;
 import frc.robot.Constants.ElevatorPositions;
 import frc.robot.ScoreSystemState.RollerState;
-import frc.robot.subsystems.Elevator;
 
 /** The container for Saved positions and the logic to switch between them */
 public class ScoresystemPositionContainer {

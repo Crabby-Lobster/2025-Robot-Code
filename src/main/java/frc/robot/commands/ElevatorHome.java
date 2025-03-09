@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.ElevatorPositions;
 import frc.robot.subsystems.Elevator;
@@ -28,7 +27,6 @@ public class ElevatorHome extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    SmartDashboard.putBoolean("ElevatorHoming", true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,7 +40,6 @@ public class ElevatorHome extends Command {
   public void end(boolean interrupted) {
     elevator.setSpeed(0, -0.1);
     elevator.resetPosition(ElevatorPositions.HOME);
-    SmartDashboard.putBoolean("ElevatorHoming", false);
   }
 
   // Returns true when the command should end.
