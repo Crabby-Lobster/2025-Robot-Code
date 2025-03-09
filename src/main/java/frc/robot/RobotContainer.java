@@ -102,8 +102,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    //return Autos.testTrajectory(autofactory);
-    return HomeRobot();
+    return new SequentialCommandGroup(
+      HomeRobot(),
+      Autos.TaxiTrajectory(autofactory)
+    );
   }
 
   /**
