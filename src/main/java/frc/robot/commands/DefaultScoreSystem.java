@@ -42,7 +42,7 @@ public class DefaultScoreSystem extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    algaeOFfset = controller.getY() * 0.1;
+    algaeOFfset = controller.getY() * 0.45;
 
     // state
     ScoreSystemState desiredState;
