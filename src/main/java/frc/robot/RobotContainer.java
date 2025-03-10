@@ -8,14 +8,12 @@ import frc.robot.Autos.AutoContainer;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DefaultScoreSystem;
-import frc.robot.commands.DriveFoward;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.AlgaeArm;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ScoreSystem;
-import choreo.auto.AutoFactory;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -31,8 +29,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
 
-  AutoFactory autofactory;
-
   // controllers
   private final Joystick leftStick = new Joystick(ControllerConstants.LeftJoystick);
   private final Joystick rightStick = new Joystick(ControllerConstants.rightJoystick);
@@ -47,7 +43,7 @@ public class RobotContainer {
   private final ScoreSystem m_ScoreSystem = new ScoreSystem(m_elevator, m_algaeArm);
 
   private final PositionContainer m_PositionContainer = new PositionContainer(leftStick, rightStick, controller, m_ScoreSystem);
-  private final AutoContainer m_AutoContainer = new AutoContainer(m_driveTrain, m_ScoreSystem, autofactory);
+  private final AutoContainer m_AutoContainer = new AutoContainer(m_driveTrain, m_ScoreSystem);
 
   // Default commands
   private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
@@ -60,13 +56,6 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    autofactory = new AutoFactory(
-      m_driveTrain::getPose,
-      m_driveTrain::resetOdometry,
-      m_driveTrain::followTrajectory,
-      true,
-      m_driveTrain
-    );
 
     // Configure the trigger bindings
     configureBindings();
@@ -103,7 +92,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return new SequentialCommandGroup(
-      HomeRobot(),
+      //HomeRobot(),
       m_AutoContainer.Taxi()
     );
   }

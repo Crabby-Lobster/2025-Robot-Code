@@ -31,7 +31,7 @@ import static java.lang.Math.*;
  */
 public class DriveTrain extends SubsystemBase {
 
-  LTVUnicycleController controller = new LTVUnicycleController(0.02);
+  LTVUnicycleController controller = new LTVUnicycleController(0.05);
 
   // creates the motors
   SparkMax FLMotor = new SparkMax(FLMotorID, MotorType.kBrushless);
@@ -234,11 +234,15 @@ public class DriveTrain extends SubsystemBase {
    * @param pose the pose
    */
   public void resetOdometry(Pose2d pose) {
-    driveOdometry.resetPosition(new Rotation2d(getHeading()),
-      getEncoderValues(EncoderRetriaval.GetLeftDistance),
-      getEncoderValues(EncoderRetriaval.GetRightDistance),
-      pose
-    );
+    resetEncoder(0);
+    driveOdometry.resetPose(pose);
+    //driveOdometry.resetPosition(new Rotation2d(getHeading()),
+    //  getEncoderValues(EncoderRetriaval.GetLeftDistance),
+    //  getEncoderValues(EncoderRetriaval.GetRightDistance),
+    //  pose
+    //);
+
+    resetEncoder(0);
   }
 
 

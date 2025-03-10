@@ -23,10 +23,17 @@ public class AutoContainer {
     //Helper Commands
 
 
-    public AutoContainer(DriveTrain driveTrain, ScoreSystem scoreSystem, AutoFactory autoFactory) {
+    public AutoContainer(DriveTrain driveTrain, ScoreSystem scoreSystem) {
         this.drivetrain = driveTrain;
         this.scoreSystem = scoreSystem;
-        this.autofactory = autoFactory;
+
+        autofactory = new AutoFactory(
+        driveTrain::getPose,
+        driveTrain::resetOdometry,
+        driveTrain::followTrajectory,
+        true,
+        driveTrain
+    );
     }
 
     public Command Taxi() {
