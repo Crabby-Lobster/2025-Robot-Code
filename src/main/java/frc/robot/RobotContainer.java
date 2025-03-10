@@ -47,6 +47,8 @@ public class RobotContainer {
 
   private final ScoreSystem m_ScoreSystem = new ScoreSystem(m_elevator, m_algaeArm);
 
+  private final PositionContainer m_PositionContainer = new PositionContainer(leftStick, rightStick, controller, m_ScoreSystem);
+
   // Default commands
   private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
   private final DefaultScoreSystem m_DefaultScoreSystem = new DefaultScoreSystem(m_ScoreSystem, leftStick, rightStick, controller);
