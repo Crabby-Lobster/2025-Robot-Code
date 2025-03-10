@@ -98,6 +98,9 @@ public class PositionContainer {
         //intake
         intake = leftJoy.getRawButton(1);
         output = leftJoy.getRawButton(6);
+
+        //Manual
+        algaeArmOffset = Controller.getY() * 10;
     }
 
     /**
