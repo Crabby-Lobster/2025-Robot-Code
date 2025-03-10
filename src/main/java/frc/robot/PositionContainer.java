@@ -5,9 +5,13 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.subsystems.ScoreSystem;
 
 /** Holds positions manual offsets for use during gameplay */
 public class PositionContainer {
+
+    //Scoresystem
+    ScoreSystem scoreSystem;
 
     //Controllers
     Joystick leftJoy;
@@ -37,18 +41,11 @@ public class PositionContainer {
     }
     
     /** Creates new positionContainer */
-    public PositionContainer(Joystick leftJoy, Joystick rightJoy, Joystick controller) {
+    public PositionContainer(Joystick leftJoy, Joystick rightJoy, Joystick controller, ScoreSystem scoreSystem) {
         this.leftJoy = leftJoy;
         this.rightJoy = rightJoy;
         this.Controller = controller;
-    }
-
-    /**
-     * supplies the current state of the scoresystem
-     * @param currenState the current state of the scoresystem
-     */
-    public void updateCurrentState(ScoreSystemState currenState) {
-        this.currentState = currenState;
+        this.scoreSystem = scoreSystem;
     }
 
     /**
@@ -89,6 +86,8 @@ public class PositionContainer {
      * Updates the internal logic for the path positions
      */
     public void updateLogic() {
+        currentState = scoreSystem.currentState;
+
         switch (activeSystemState) {
             case Ground:
                 updateGround();
@@ -121,7 +120,7 @@ public class PositionContainer {
     public ScoreSystemState GetState() {
         desiredState.elevatorPos = rawState.elevatorPos + elevatorOffset;
         desiredState.algeaArmPos = rawState.algeaArmPos + algaeArmOffset;
-        
+
         return desiredState;
     }
 
