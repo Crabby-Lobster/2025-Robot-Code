@@ -234,14 +234,7 @@ public class DriveTrain extends SubsystemBase {
    * @param pose the pose
    */
   public void resetOdometry(Pose2d pose) {
-    resetEncoder(0);
     driveOdometry.resetPose(pose);
-    //driveOdometry.resetPosition(new Rotation2d(getHeading()),
-    //  getEncoderValues(EncoderRetriaval.GetLeftDistance),
-    //  getEncoderValues(EncoderRetriaval.GetRightDistance),
-    //  pose
-    //);
-
     resetEncoder(0);
   }
 
