@@ -148,7 +148,7 @@ public final class Constants {
     }
 
     public static final double STAGE1TOP = 25;
-    public static final double STAGE2TOP = 16;
+    public static final double STAGE2TOP = 12;
     public static final double HOME = 0;
 
 

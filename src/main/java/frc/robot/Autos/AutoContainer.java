@@ -6,6 +6,7 @@ package frc.robot.Autos;
 
 import choreo.auto.AutoFactory;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ScoreSystem;
 
@@ -29,6 +30,9 @@ public class AutoContainer {
     }
 
     public Command Taxi() {
-        return autofactory.trajectoryCmd("Taxi");
+        return Commands.sequence(
+            autofactory.resetOdometry("Taxi"),
+            autofactory.trajectoryCmd("Taxi")
+        );
     }
 }
