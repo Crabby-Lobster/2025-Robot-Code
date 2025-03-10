@@ -59,23 +59,23 @@ public class PositionContainer {
         else if (Controller.getRawButtonPressed(1)) {
             activeSystemState = States.Ground;
         }
-        //Ground
+        //Proccesor
         else if (Controller.getRawButtonPressed(1)) {
             activeSystemState = States.Proccesor;
         }
-        //Ground
+        //GroundHigh
         else if (Controller.getRawButtonPressed(1)) {
             activeSystemState = States.GroundHigh;
         }
-        //Ground
+        //ReefLow
         else if (Controller.getRawButtonPressed(1)) {
             activeSystemState = States.ReefLow;
         }
-        //Ground
+        //ReefHigh
         else if (Controller.getRawButtonPressed(1)) {
             activeSystemState = States.ReefHigh;
         }
-        //Ground
+        //Barge
         else if (Controller.getRawButtonPressed(1)) {
             activeSystemState = States.Barge;
         }
