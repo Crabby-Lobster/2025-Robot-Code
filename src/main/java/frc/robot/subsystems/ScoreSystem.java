@@ -5,12 +5,13 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.ScoreSystemState;
 import frc.robot.ScoreSystemState.RollerState;
 import frc.robot.commands.AlgaeHome;
-import frc.robot.commands.CoralHome;
+import frc.robot.commands.BreakTies;
 import frc.robot.commands.ElevatorHome;
 import frc.robot.Constants.AlgearArmPositions;
 import frc.robot.Constants.CoralArmPositions;
@@ -40,7 +41,8 @@ public class ScoreSystem extends SubsystemBase {
    * sets the desired state for the score system
    * @param state the desired state
    */
-  public void setState(ScoreSystemState state) {
+  public void setState(ScoreSystemState state, double algaeOffset) {
+    state.algeaArmPos += algaeOffset;
     desiredState = state;
   }
 
@@ -118,7 +120,8 @@ public class ScoreSystem extends SubsystemBase {
 
   public SequentialCommandGroup HomeSystems(ScoreSystem scoresystem) {
     return new SequentialCommandGroup(
-      new CoralHome(scoresystem),
+      new BreakTies(scoresystem),
+      //new CoralHome(scoresystem),
       new AlgaeHome(scoresystem),
       new ElevatorHome(scoresystem)
     );
@@ -129,5 +132,10 @@ public class ScoreSystem extends SubsystemBase {
     currentState.setElevator(elevator.getHeight());
     currentState.setCoralArm(coralArm.getPivotPosition(), safeState.coralMode, coralArm.getCoralSwitch());
     currentState.setAlgaeArm(algaeArm.getPivotPosition(), safeState.algaeMode, algaeArm.getAlgeaSwitch());
+
+    SmartDashboard.putNumber("algae", currentState.algeaArmPos);
+    SmartDashboard.putNumber("Elevator", currentState.elevatorPos);
+    SmartDashboard.putNumber("Desired algae", desiredState.algeaArmPos);
+    SmartDashboard.putNumber("Desired Elavator", desiredState.elevatorPos);
   }
 }

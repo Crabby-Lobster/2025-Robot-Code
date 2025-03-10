@@ -15,10 +15,8 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.ScoreSystemState;
 import frc.robot.Constants.AlgearArmPositions;
@@ -132,10 +130,5 @@ public class AlgaeArm extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Algae Pivot", getPivotPosition());
-
-    SmartDashboard.putBoolean("Algae", getHomeSwitch());
-
-    SmartDashboard.putBoolean("Algae Piece", getAlgeaSwitch());
   }
 }

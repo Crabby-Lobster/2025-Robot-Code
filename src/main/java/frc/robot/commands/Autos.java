@@ -19,6 +19,11 @@ public final class Autos {
     return autofactory.trajectoryCmd("New Path");
   }
 
+  public static Command TaxiTrajectory(AutoFactory autofactory) {
+    autofactory.resetOdometry("Taxi");
+    return autofactory.trajectoryCmd("Taxi");
+  }
+
   private Autos() {
     throw new UnsupportedOperationException("This is a utility class!");
   }

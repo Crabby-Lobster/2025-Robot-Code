@@ -5,9 +5,9 @@
 package frc.robot;
 
 import frc.robot.Constants.ControllerConstants;
-import frc.robot.commands.Autos;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DefaultScoreSystem;
+import frc.robot.commands.DriveFoward;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.AlgaeArm;
 import frc.robot.subsystems.CoralArm;
@@ -92,7 +92,7 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.button(1).onTrue(HomeRobot());
+    //m_driverController.button(1).onTrue(HomeRobot());
   }
 
   /**
@@ -102,7 +102,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.testTrajectory(autofactory);
+    return new SequentialCommandGroup(
+      HomeRobot(),
+      new DriveFoward(m_driveTrain).withTimeout(3)
+    );
   }
 
   /**

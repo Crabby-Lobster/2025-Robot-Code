@@ -26,7 +26,7 @@ public class AlgaeHome extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    algaeArm.setPivotSpeed(0.1);
+    algaeArm.setPivotSpeed(0.25);
   }
 
   // Called once the command ends or is interrupted.
