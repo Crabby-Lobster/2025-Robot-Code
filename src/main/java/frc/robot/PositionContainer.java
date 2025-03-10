@@ -80,4 +80,63 @@ public class PositionContainer {
             activeSystemState = States.Barge;
         }
     }
+
+    /**
+     * Updates the internal logic for the path positions
+     */
+    public void updateLogic() {
+        switch (activeSystemState) {
+            case Ground:
+                updateGround();
+                break;
+            case Proccesor:
+                updateProccesor();
+                break;
+            case GroundHigh:
+                updateGroundHigh();
+                break;
+            case Store:
+                updateStore();
+                break;
+            case ReefLow:
+                updateReefLow();
+                break;
+            case ReefHigh:
+                updateReefHigh();
+                break;
+            case Barge:
+                updateBarge();
+                break;
+        }
+    }
+
+    /**
+     * returns the state after modifications and offsets
+     * @return the desired state of the arm
+     */
+    public ScoreSystemState GetState() {
+        return desiredState;
+    }
+
+
+    private void updateGround() {
+    }
+
+    private void updateProccesor() {
+    }
+
+    private void updateGroundHigh() {
+    }
+
+    private void updateStore() {
+    }
+
+    private void updateReefLow() {
+    }
+
+    private void updateReefHigh() {
+    }
+
+    private void updateBarge() {
+    }
 }
