@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.PositionContainer;
 import frc.robot.ScoreSystemState;
 import frc.robot.subsystems.ScoreSystem;
 
@@ -14,6 +15,8 @@ public class DefaultScoreSystem extends Command {
   
   ScoreSystem scoreSystem;
 
+  PositionContainer positionContainer;
+
   Joystick leftJoy;
   Joystick rightJoy;
   Joystick controller;
@@ -21,11 +24,12 @@ public class DefaultScoreSystem extends Command {
   double algaeOFfset = 0;
 
   /** Creates a new DefaultScoreSystem. */
-  public DefaultScoreSystem(ScoreSystem scoreSystem, Joystick leftJoy, Joystick rightJoy, Joystick controller) {
+  public DefaultScoreSystem(ScoreSystem scoreSystem, Joystick leftJoy, Joystick rightJoy, Joystick controller, PositionContainer positionContainer) {
     this.scoreSystem = scoreSystem;
     this.leftJoy = leftJoy;
     this.rightJoy = rightJoy;
     this.controller = controller;
+    this.positionContainer = positionContainer;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(scoreSystem);
   }
@@ -38,10 +42,10 @@ public class DefaultScoreSystem extends Command {
   @Override
   public void execute() {
 
-    // state
-    ScoreSystemState desiredState = new ScoreSystemState();
+    positionContainer.updateInputs();
+    positionContainer.updateLogic();
 
-    scoreSystem.setState(desiredState, algaeOFfset);
+    scoreSystem.setState(positionContainer.GetState());
 
     scoreSystem.update();
   }
