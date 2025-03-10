@@ -5,6 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.Constants.AlgearArmPositions;
+import frc.robot.Constants.ElevatorPositions;
 import frc.robot.subsystems.ScoreSystem;
 
 /** Holds positions manual offsets for use during gameplay */
@@ -57,27 +59,27 @@ public class PositionContainer {
             activeSystemState = States.Store;
         }
         //Ground
-        else if (Controller.getRawButtonPressed(1)) {
+        else if (Controller.getRawButtonPressed(2)) {
             activeSystemState = States.Ground;
         }
         //Proccesor
-        else if (Controller.getRawButtonPressed(1)) {
+        else if (Controller.getRawButtonPressed(3)) {
             activeSystemState = States.Proccesor;
         }
         //GroundHigh
-        else if (Controller.getRawButtonPressed(1)) {
+        else if (Controller.getRawButtonPressed(4)) {
             activeSystemState = States.GroundHigh;
         }
         //ReefLow
-        else if (Controller.getRawButtonPressed(1)) {
+        else if (Controller.getRawButtonPressed(5)) {
             activeSystemState = States.ReefLow;
         }
         //ReefHigh
-        else if (Controller.getRawButtonPressed(1)) {
+        else if (Controller.getRawButtonPressed(6)) {
             activeSystemState = States.ReefHigh;
         }
         //Barge
-        else if (Controller.getRawButtonPressed(1)) {
+        else if (Controller.getRawButtonPressed(7)) {
             activeSystemState = States.Barge;
         }
     }
@@ -125,17 +127,38 @@ public class PositionContainer {
     }
 
 
-    private void updateGround() {}
+    private void updateGround() {
+        rawState.algeaArmPos = AlgearArmPositions.Ground;
+        rawState.elevatorPos = ElevatorPositions.Ground;
+    }
 
-    private void updateProccesor() {}
+    private void updateProccesor() {
+        rawState.algeaArmPos = AlgearArmPositions.Proccesor;
+        rawState.elevatorPos = ElevatorPositions.Proccesor;
+    }
 
-    private void updateGroundHigh() {}
+    private void updateGroundHigh() {
+        rawState.algeaArmPos = AlgearArmPositions.GroundHigh;
+        rawState.elevatorPos = ElevatorPositions.GroundHigh;
+    }
 
-    private void updateStore() {}
+    private void updateStore() {
+        rawState.algeaArmPos = AlgearArmPositions.STORE;
+        rawState.elevatorPos = ElevatorPositions.STORE;
+    }
 
-    private void updateReefLow() {}
+    private void updateReefLow() {
+        rawState.algeaArmPos = AlgearArmPositions.ReefLow;
+        rawState.elevatorPos = ElevatorPositions.ReefLow;
+    }
 
-    private void updateReefHigh() {}
+    private void updateReefHigh() {
+        rawState.algeaArmPos = AlgearArmPositions.ReefHigh;
+        rawState.elevatorPos = ElevatorPositions.ReefHigh;
+    }
 
-    private void updateBarge() {}
+    private void updateBarge() {
+        rawState.algeaArmPos = AlgearArmPositions.Barge;
+        rawState.elevatorPos = ElevatorPositions.Barge;
+    }
 }
