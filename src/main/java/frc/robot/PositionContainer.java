@@ -38,4 +38,46 @@ public class PositionContainer {
         this.rightJoy = rightJoy;
         this.Controller = controller;
     }
+
+    /**
+     * supplies the current state of the scoresystem
+     * @param currenState the current state of the scoresystem
+     */
+    public void updateCurrentState(ScoreSystemState currenState) {
+        this.currentState = currenState;
+    }
+
+    /**
+     * updates the internal inputs for position changing
+     */
+    public void updateInputs() {
+        //Store
+        if (Controller.getRawButtonPressed(1)) {
+            activeSystemState = States.Store;
+        }
+        //Ground
+        else if (Controller.getRawButtonPressed(1)) {
+            activeSystemState = States.Ground;
+        }
+        //Ground
+        else if (Controller.getRawButtonPressed(1)) {
+            activeSystemState = States.Proccesor;
+        }
+        //Ground
+        else if (Controller.getRawButtonPressed(1)) {
+            activeSystemState = States.GroundHigh;
+        }
+        //Ground
+        else if (Controller.getRawButtonPressed(1)) {
+            activeSystemState = States.ReefLow;
+        }
+        //Ground
+        else if (Controller.getRawButtonPressed(1)) {
+            activeSystemState = States.ReefHigh;
+        }
+        //Ground
+        else if (Controller.getRawButtonPressed(1)) {
+            activeSystemState = States.Barge;
+        }
+    }
 }
