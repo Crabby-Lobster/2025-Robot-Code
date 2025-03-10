@@ -50,6 +50,9 @@ public class PositionContainer {
         this.scoreSystem = scoreSystem;
     }
 
+    public void setState(States state) {
+        activeSystemState = state;
+    }
     /**
      * updates the internal inputs for position changing
      */
