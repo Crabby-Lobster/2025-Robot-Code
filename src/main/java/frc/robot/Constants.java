@@ -100,10 +100,19 @@ public final class Constants {
   public static final class AlgearArmPositions {
     public static final double HOME = 70;
     public static final double MINANGLE = -35;
-    public static final double STORE = 60;
 
     public static final double[] dangerAngles = {-10, MINANGLE};
     public static final double[] dangerHeight = {0,10};
+
+
+    public static final double Barge = 70;
+    public static final double ReefHigh = 10;
+    public static final double ReefLow = -5;
+    public static final double STORE = 60;
+    public static final double GroundHigh = 0;
+    public static final double Proccesor = 5;
+    public static final double Ground = -10;
+    
   }
 
   /**
@@ -142,6 +151,14 @@ public final class Constants {
     public static final double STAGE2TOP = 16;
     public static final double HOME = 0;
 
+
+    public static final double Barge = MAXHEIGHT();
+    public static final double ReefHigh = MAXHEIGHT();
+    public static final double ReefLow = 25;
+    public static final double STORE = 0;
+    public static final double GroundHigh = 10;
+    public static final double Proccesor = 5;
+    public static final double Ground = 0;
     
   }
 }
