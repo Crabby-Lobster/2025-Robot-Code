@@ -27,7 +27,7 @@ public class PositionContainer {
     ScoreSystemState desiredState = new ScoreSystemState();
 
     // The state identifier
-    States activeSystemState = States.Store;
+    States activeSystemState = States.kStore;
 
     //Offsets
     double elevatorOffset = 0;
@@ -42,13 +42,13 @@ public class PositionContainer {
     private boolean hold = false;
 
     public enum States {
-        Store,
-        Ground,
-        Proccesor,
-        GroundHigh,
-        ReefLow,
-        ReefHigh,
-        Barge
+        kStore,
+        kGround,
+        kProccesor,
+        kGroundHigh,
+        kReefLow,
+        kReefHigh,
+        kBarge
     }
     
     /** Creates new positionContainer */
@@ -68,31 +68,31 @@ public class PositionContainer {
     public void updateInputs() {
         //Store
         if (Controller.getRawButtonPressed(1)) {
-            activeSystemState = States.Store;
+            activeSystemState = States.kStore;
         }
         //Ground
         else if (Controller.getRawButtonPressed(2)) {
-            activeSystemState = States.Ground;
+            activeSystemState = States.kGround;
         }
         //Proccesor
         else if (Controller.getRawButtonPressed(3)) {
-            activeSystemState = States.Proccesor;
+            activeSystemState = States.kProccesor;
         }
         //GroundHigh
         else if (Controller.getRawButtonPressed(4)) {
-            activeSystemState = States.GroundHigh;
+            activeSystemState = States.kGroundHigh;
         }
         //ReefLow
         else if (Controller.getRawButtonPressed(5)) {
-            activeSystemState = States.ReefLow;
+            activeSystemState = States.kReefLow;
         }
         //ReefHigh
         else if (Controller.getRawButtonPressed(6)) {
-            activeSystemState = States.ReefHigh;
+            activeSystemState = States.kReefHigh;
         }
         //Barge
         else if (Controller.getRawButtonPressed(7)) {
-            activeSystemState = States.Barge;
+            activeSystemState = States.kBarge;
         }
 
         //intake
@@ -111,25 +111,25 @@ public class PositionContainer {
         currentState = scoreSystem.currentState;
 
         switch (activeSystemState) {
-            case Ground:
+            case kGround:
                 updateGround();
                 break;
-            case Proccesor:
+            case kProccesor:
                 updateProccesor();
                 break;
-            case GroundHigh:
+            case kGroundHigh:
                 updateGroundHigh();
                 break;
-            case Store:
+            case kStore:
                 updateStore();
                 break;
-            case ReefLow:
+            case kReefLow:
                 updateReefLow();
                 break;
-            case ReefHigh:
+            case kReefHigh:
                 updateReefHigh();
                 break;
-            case Barge:
+            case kBarge:
                 updateBarge();
                 break;
         }

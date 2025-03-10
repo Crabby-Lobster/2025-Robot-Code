@@ -43,7 +43,7 @@ public class RobotContainer {
   private final ScoreSystem m_ScoreSystem = new ScoreSystem(m_elevator, m_algaeArm);
 
   private final PositionContainer m_PositionContainer = new PositionContainer(leftStick, rightStick, controller, m_ScoreSystem);
-  private final AutoContainer m_AutoContainer = new AutoContainer(m_driveTrain, m_ScoreSystem);
+  private final AutoContainer m_AutoContainer = new AutoContainer(m_driveTrain, m_ScoreSystem, m_PositionContainer);
 
   // Default commands
   private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
@@ -92,7 +92,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return new SequentialCommandGroup(
-      //HomeRobot(),
+      HomeRobot(),
       m_AutoContainer.Taxi().cmd()
     );
   }
