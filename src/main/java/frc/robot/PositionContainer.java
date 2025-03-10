@@ -22,6 +22,10 @@ public class PositionContainer {
     // The state identifier
     States activeSystemState = States.Store;
 
+    //Offsets
+    double elevatorOffset = 0;
+    double algaeArmOffset = 0;
+
     public enum States {
         Store,
         Ground,
@@ -115,28 +119,24 @@ public class PositionContainer {
      * @return the desired state of the arm
      */
     public ScoreSystemState GetState() {
+        desiredState.elevatorPos = rawState.elevatorPos + elevatorOffset;
+        desiredState.algeaArmPos = rawState.algeaArmPos + algaeArmOffset;
+        
         return desiredState;
     }
 
 
-    private void updateGround() {
-    }
+    private void updateGround() {}
 
-    private void updateProccesor() {
-    }
+    private void updateProccesor() {}
 
-    private void updateGroundHigh() {
-    }
+    private void updateGroundHigh() {}
 
-    private void updateStore() {
-    }
+    private void updateStore() {}
 
-    private void updateReefLow() {
-    }
+    private void updateReefLow() {}
 
-    private void updateReefHigh() {
-    }
+    private void updateReefHigh() {}
 
-    private void updateBarge() {
-    }
+    private void updateBarge() {}
 }
