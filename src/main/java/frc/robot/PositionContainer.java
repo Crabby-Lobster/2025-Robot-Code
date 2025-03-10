@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants.AlgearArmPositions;
 import frc.robot.Constants.ElevatorPositions;
+import frc.robot.ScoreSystemState.RollerState;
 import frc.robot.subsystems.ScoreSystem;
 
 /** Holds positions manual offsets for use during gameplay */
@@ -32,8 +33,13 @@ public class PositionContainer {
     double elevatorOffset = 0;
     double algaeArmOffset = 0;
 
-    // at position
+    // booleans
     public boolean moveComplete = false;
+
+    public boolean intake = false;
+    public boolean output = false;
+
+    private boolean hold = false;
 
     public enum States {
         Store,
@@ -88,6 +94,10 @@ public class PositionContainer {
         else if (Controller.getRawButtonPressed(7)) {
             activeSystemState = States.Barge;
         }
+
+        //intake
+        intake = leftJoy.getRawButton(1);
+        output = leftJoy.getRawButton(6);
     }
 
     /**
@@ -119,6 +129,19 @@ public class PositionContainer {
             case Barge:
                 updateBarge();
                 break;
+        }
+
+        //intake control
+        if (intake) {
+            desiredState.algaeMode = RollerState.kIntake;
+            hold = true;
+        } else if (output) {
+            desiredState.algaeMode = RollerState.kScore;
+            hold = false;
+        } else if (hold) {
+            desiredState.algaeMode = RollerState.kHold;
+        } else {
+            desiredState.algaeMode = RollerState.kIdle;
         }
     }
 
