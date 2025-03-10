@@ -32,6 +32,9 @@ public class PositionContainer {
     double elevatorOffset = 0;
     double algaeArmOffset = 0;
 
+    // at position
+    public boolean moveComplete = false;
+
     public enum States {
         Store,
         Ground,
@@ -91,6 +94,7 @@ public class PositionContainer {
      * Updates the internal logic for the path positions
      */
     public void updateLogic() {
+        moveComplete = false;
         currentState = scoreSystem.currentState;
 
         switch (activeSystemState) {
@@ -133,35 +137,42 @@ public class PositionContainer {
     private void updateGround() {
         rawState.algeaArmPos = AlgearArmPositions.Ground;
         rawState.elevatorPos = ElevatorPositions.Ground;
+        moveComplete = true;
     }
 
     private void updateProccesor() {
         rawState.algeaArmPos = AlgearArmPositions.Proccesor;
         rawState.elevatorPos = ElevatorPositions.Proccesor;
+        moveComplete = true;
     }
 
     private void updateGroundHigh() {
         rawState.algeaArmPos = AlgearArmPositions.GroundHigh;
         rawState.elevatorPos = ElevatorPositions.GroundHigh;
+        moveComplete = true;
     }
 
     private void updateStore() {
         rawState.algeaArmPos = AlgearArmPositions.STORE;
         rawState.elevatorPos = ElevatorPositions.STORE;
+        moveComplete = true;
     }
 
     private void updateReefLow() {
         rawState.algeaArmPos = AlgearArmPositions.ReefLow;
         rawState.elevatorPos = ElevatorPositions.ReefLow;
+        moveComplete = true;
     }
 
     private void updateReefHigh() {
         rawState.algeaArmPos = AlgearArmPositions.ReefHigh;
         rawState.elevatorPos = ElevatorPositions.ReefHigh;
+        moveComplete = true;
     }
 
     private void updateBarge() {
         rawState.algeaArmPos = AlgearArmPositions.Barge;
         rawState.elevatorPos = ElevatorPositions.Barge;
+        moveComplete = true;
     }
 }
