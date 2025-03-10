@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.ScoreSystemState;
@@ -131,5 +132,10 @@ public class ScoreSystem extends SubsystemBase {
     currentState.setElevator(elevator.getHeight());
     currentState.setCoralArm(coralArm.getPivotPosition(), safeState.coralMode, coralArm.getCoralSwitch());
     currentState.setAlgaeArm(algaeArm.getPivotPosition(), safeState.algaeMode, algaeArm.getAlgeaSwitch());
+
+    SmartDashboard.putNumber("algae", currentState.algeaArmPos);
+    SmartDashboard.putNumber("Elevator", currentState.elevatorPos);
+    SmartDashboard.putNumber("Desired algae", desiredState.algeaArmPos);
+    SmartDashboard.putNumber("Desired Elavator", desiredState.elevatorPos);
   }
 }
