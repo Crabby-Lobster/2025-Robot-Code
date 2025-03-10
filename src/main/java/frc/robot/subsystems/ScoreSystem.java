@@ -67,7 +67,7 @@ public class ScoreSystem extends SubsystemBase {
     double desiredPosition = desiredState.elevatorPos;
     
     // Clamps to elevator position
-    desiredPosition = MathUtil.clamp(desiredPosition - ElevatorPositions.OFFSET, ElevatorPositions.HOME, ElevatorPositions.MAXHEIGHT());
+    desiredPosition = MathUtil.clamp(desiredPosition, ElevatorPositions.HOME, ElevatorPositions.MAXHEIGHT());
     
     //keeps elevator clear of algae arm
     double algaeAngle = Math. min(desiredState.algeaArmPos, currentState.algeaArmPos);
