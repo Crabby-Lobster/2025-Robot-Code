@@ -7,7 +7,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.ScoreSystemState;
-import frc.robot.ScoresystemPositionContainer;
 import frc.robot.subsystems.ScoreSystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -19,8 +18,6 @@ public class DefaultScoreSystem extends Command {
   Joystick rightJoy;
   Joystick controller;
 
-  ScoresystemPositionContainer positionContainer;
-
   double algaeOFfset = 0;
 
   /** Creates a new DefaultScoreSystem. */
@@ -29,8 +26,6 @@ public class DefaultScoreSystem extends Command {
     this.leftJoy = leftJoy;
     this.rightJoy = rightJoy;
     this.controller = controller;
-
-    positionContainer = new ScoresystemPositionContainer(leftJoy, rightJoy, controller);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(scoreSystem);
   }
@@ -42,11 +37,9 @@ public class DefaultScoreSystem extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    algaeOFfset = controller.getY() * 0.45;
 
     // state
-    ScoreSystemState desiredState;
-    desiredState = positionContainer.getState(scoreSystem.currentState);
+    ScoreSystemState desiredState = new ScoreSystemState();
 
     scoreSystem.setState(desiredState, algaeOFfset);
 
