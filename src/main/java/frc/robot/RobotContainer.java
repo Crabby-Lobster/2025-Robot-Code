@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.Autos.AutoContainer;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DefaultScoreSystem;
@@ -41,13 +42,12 @@ public class RobotContainer {
   // subsystems
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_driveTrain = new DriveTrain();
-  
   private final AlgaeArm m_algaeArm = new AlgaeArm();
   private final Elevator m_elevator = new Elevator();
-
   private final ScoreSystem m_ScoreSystem = new ScoreSystem(m_elevator, m_algaeArm);
 
   private final PositionContainer m_PositionContainer = new PositionContainer(leftStick, rightStick, controller, m_ScoreSystem);
+  private final AutoContainer m_AutoContainer = new AutoContainer(m_driveTrain, m_ScoreSystem, autofactory);
 
   // Default commands
   private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
@@ -104,7 +104,7 @@ public class RobotContainer {
     // An example command will be run in autonomous
     return new SequentialCommandGroup(
       HomeRobot(),
-      new DriveFoward(m_driveTrain).withTimeout(3)
+      m_AutoContainer.Taxi()
     );
   }
 
