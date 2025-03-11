@@ -68,11 +68,10 @@ public class AutoContainer {
         autofactory.bind("MoveBarge", m_Barge);
             //Intake Commands
         autofactory.bind("StopIntake", m_Intake);
-        //autofactory.bind("IntakeLow", Commands.parallel(m_reefLow, m_Intake));
-        //autofactory.bind("IntakeHigh", Commands.parallel(m_ReefHigh, m_Intake));
-            //Output Commands
-        //autofactory.bind("StopOutput", m_OutputOff);
-        //autofactory.bind("Output", Commands.parallel(m_Barge, m_Output));
+        autofactory.bind("Intake", m_Intake);
+            // Output Commands
+        autofactory.bind("Shoot", m_Output);
+        autofactory.bind("ShootStop", m_IntakeOff);
 
     }
 
@@ -91,5 +90,21 @@ public class AutoContainer {
         MoveTraj.done().onTrue(m_reefLow);
 
         return TaxiRoutine;
+    }
+
+    public AutoRoutine Test() {
+        AutoRoutine TestRoutine = autofactory.newRoutine("TestRoutine");
+
+        AutoTrajectory Traject1 = TestRoutine.trajectory("Test 1");
+
+        TestRoutine.active().onTrue(Commands.sequence(
+            Traject1.resetOdometry(),
+            Traject1.cmd()
+        ));
+
+        Traject1.atTime(0).onTrue(m_reefLow);
+        Traject1.atTime(1).onTrue(m_Store);
+
+        return TestRoutine;
     }
 }

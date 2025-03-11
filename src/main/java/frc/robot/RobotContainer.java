@@ -93,7 +93,7 @@ public class RobotContainer {
     // An example command will be run in autonomous
     return new SequentialCommandGroup(
       HomeRobot(),
-      m_AutoContainer.Taxi().cmd()
+      m_AutoContainer.Test().cmd()
     );
   }
 
