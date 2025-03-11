@@ -30,7 +30,9 @@ public class AutoContainer {
     AutoBarge m_Barge;
 
     AutoIntake m_Intake;
+    AutoIntakeOff m_IntakeOff;
     AutoOutput m_Output;
+    AutoOutputOff m_OutputOff;
 
 
     public AutoContainer(DriveTrain driveTrain, ScoreSystem scoreSystem, PositionContainer positionContainer) {
@@ -54,7 +56,24 @@ public class AutoContainer {
         m_Barge = new AutoBarge(scoreSystem, positionContainer);
 
         m_Intake = new AutoIntake(positionContainer);
+        m_IntakeOff = new AutoIntakeOff(positionContainer);
         m_Output = new AutoOutput(positionContainer);
+        m_OutputOff = new AutoOutputOff(positionContainer);
+
+        //Binds commands
+            //Move commands
+        autofactory.bind("Store", m_Store);
+        autofactory.bind("MoveLow", m_reefLow);
+        autofactory.bind("MoveHigh", m_ReefHigh);
+        autofactory.bind("MoveBarge", m_Barge);
+            //Intake Commands
+        autofactory.bind("StopIntake", m_Intake);
+        autofactory.bind("IntakeLow", Commands.parallel(m_reefLow, m_Intake));
+        autofactory.bind("IntakeHigh", Commands.parallel(m_ReefHigh, m_Intake));
+            //Output Commands
+        autofactory.bind("StopOutput", m_OutputOff);
+        autofactory.bind("Output", Commands.parallel(m_Barge, m_Output));
+
     }
 
     public AutoRoutine Taxi() {

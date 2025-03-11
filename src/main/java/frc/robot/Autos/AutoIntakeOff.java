@@ -10,10 +10,10 @@ import frc.robot.PositionContainer;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoIntake extends InstantCommand {
+public class AutoIntakeOff extends InstantCommand {
   PositionContainer positionContainer;
 
-  public AutoIntake(PositionContainer positionContainer) {
+  public AutoIntakeOff(PositionContainer positionContainer) {
     this.positionContainer = positionContainer;
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -21,6 +21,6 @@ public class AutoIntake extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    positionContainer.intake = true;
+    positionContainer.intake = false;
   }
 }
