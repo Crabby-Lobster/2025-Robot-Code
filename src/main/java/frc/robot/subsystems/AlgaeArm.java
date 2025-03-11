@@ -113,7 +113,11 @@ public class AlgaeArm extends SubsystemBase {
         setRollerSpeed(0);
         break;
       case kIntake:
-        setRollerSpeed(IntakeSpeed);
+        if (getAlgeaSwitch()) {
+          setRollerSpeed(0);
+        } else {
+          setRollerSpeed(IntakeSpeed);
+        }
         break;
       case kScore:
         setRollerSpeed(ScoreSpeed);
