@@ -106,12 +106,11 @@ public final class Constants {
 
 
     public static final double Barge = 70;
-    public static final double ReefHigh = 10;
-    public static final double ReefLow = -5;
+    public static final double ReefHigh = -15;
+    public static final double ReefLow = -15;
     public static final double STORE = 60;
-    public static final double GroundHigh = 0;
-    public static final double Proccesor = 5;
-    public static final double Ground = -10;
+    public static final double GroundHigh = -15;
+    public static final double Ground = -15;
     
   }
 
@@ -148,15 +147,15 @@ public final class Constants {
     }
 
     public static final double STAGE1TOP = 25;
-    public static final double STAGE2TOP = 12;
+    public static final double STAGE2TOP = 16;
     public static final double HOME = 0;
 
 
     public static final double Barge = MAXHEIGHT();
-    public static final double ReefHigh = MAXHEIGHT();
+    public static final double ReefHigh = 38;
     public static final double ReefLow = 25;
     public static final double STORE = 0;
-    public static final double GroundHigh = 10;
+    public static final double GroundHigh = 8;
     public static final double Proccesor = 5;
     public static final double Ground = 0;
     

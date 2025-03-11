@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants.AlgearArmPositions;
 import frc.robot.Constants.ElevatorPositions;
 import frc.robot.ScoreSystemState.RollerState;
+import frc.robot.subsystems.AlgaeArm;
 import frc.robot.subsystems.ScoreSystem;
 
 /** Holds positions manual offsets for use during gameplay */
@@ -44,7 +45,6 @@ public class PositionContainer {
     public enum States {
         kStore,
         kGround,
-        kProccesor,
         kGroundHigh,
         kReefLow,
         kReefHigh,
@@ -67,27 +67,23 @@ public class PositionContainer {
      */
     public void updateInputs() {
         //Store
-        if (Controller.getRawButtonPressed(1)) {
+        if (Controller.getRawButtonPressed(2)) {
             activeSystemState = States.kStore;
         }
         //Ground
-        else if (Controller.getRawButtonPressed(2)) {
+        else if (Controller.getRawButtonPressed(11)) {
             activeSystemState = States.kGround;
         }
-        //Proccesor
-        else if (Controller.getRawButtonPressed(3)) {
-            activeSystemState = States.kProccesor;
-        }
         //GroundHigh
-        else if (Controller.getRawButtonPressed(4)) {
+        else if (Controller.getRawButtonPressed(1)) {
             activeSystemState = States.kGroundHigh;
         }
         //ReefLow
-        else if (Controller.getRawButtonPressed(5)) {
+        else if (Controller.getRawButtonPressed(9)) {
             activeSystemState = States.kReefLow;
         }
         //ReefHigh
-        else if (Controller.getRawButtonPressed(6)) {
+        else if (Controller.getRawButtonPressed(10)) {
             activeSystemState = States.kReefHigh;
         }
         //Barge
@@ -113,9 +109,6 @@ public class PositionContainer {
         switch (activeSystemState) {
             case kGround:
                 updateGround();
-                break;
-            case kProccesor:
-                updateProccesor();
                 break;
             case kGroundHigh:
                 updateGroundHigh();
@@ -161,14 +154,13 @@ public class PositionContainer {
 
 
     private void updateGround() {
-        rawState.algeaArmPos = AlgearArmPositions.Ground;
-        rawState.elevatorPos = ElevatorPositions.Ground;
-        moveComplete = true;
-    }
-
-    private void updateProccesor() {
-        rawState.algeaArmPos = AlgearArmPositions.Proccesor;
-        rawState.elevatorPos = ElevatorPositions.Proccesor;
+        if (currentState.algeaArmFull) {
+            rawState.algeaArmPos = AlgearArmPositions.Ground + 5;
+            rawState.elevatorPos = ElevatorPositions.Ground;   
+        } else {
+            rawState.algeaArmPos = AlgearArmPositions.Ground;
+            rawState.elevatorPos = ElevatorPositions.Ground;
+        }
         moveComplete = true;
     }
 
@@ -179,21 +171,37 @@ public class PositionContainer {
     }
 
     private void updateStore() {
-        rawState.algeaArmPos = AlgearArmPositions.STORE;
-        rawState.elevatorPos = ElevatorPositions.STORE;
+        if (currentState.algeaArmFull) {
+            rawState.algeaArmPos = AlgearArmPositions.STORE - 5;
+            rawState.elevatorPos = ElevatorPositions.STORE;
+        } else {
+            rawState.algeaArmPos = AlgearArmPositions.STORE;
+            rawState.elevatorPos = ElevatorPositions.STORE;
+        }
+
         moveComplete = true;
     }
 
     private void updateReefLow() {
-        rawState.algeaArmPos = AlgearArmPositions.ReefLow;
-        rawState.elevatorPos = ElevatorPositions.ReefLow;
-        moveComplete = true;
+        if (currentState.algeaArmFull) {
+            rawState.algeaArmPos = AlgearArmPositions.ReefLow + 10;
+            rawState.elevatorPos = ElevatorPositions.ReefLow;
+            moveComplete = true;
+        } else {
+            rawState.algeaArmPos = AlgearArmPositions.ReefLow;
+            rawState.elevatorPos = ElevatorPositions.ReefLow;
+        }
     }
 
     private void updateReefHigh() {
-        rawState.algeaArmPos = AlgearArmPositions.ReefHigh;
-        rawState.elevatorPos = ElevatorPositions.ReefHigh;
-        moveComplete = true;
+        if (currentState.algeaArmFull) {
+            rawState.algeaArmPos = AlgearArmPositions.ReefHigh + 10;
+            rawState.elevatorPos = ElevatorPositions.ReefHigh;
+            moveComplete = true;
+        } else {
+            rawState.algeaArmPos = AlgearArmPositions.ReefHigh;
+            rawState.elevatorPos = ElevatorPositions.ReefHigh;
+        }
     }
 
     private void updateBarge() {

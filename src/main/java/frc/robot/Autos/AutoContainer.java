@@ -68,11 +68,11 @@ public class AutoContainer {
         autofactory.bind("MoveBarge", m_Barge);
             //Intake Commands
         autofactory.bind("StopIntake", m_Intake);
-        autofactory.bind("IntakeLow", Commands.parallel(m_reefLow, m_Intake));
-        autofactory.bind("IntakeHigh", Commands.parallel(m_ReefHigh, m_Intake));
+        //autofactory.bind("IntakeLow", Commands.parallel(m_reefLow, m_Intake));
+        //autofactory.bind("IntakeHigh", Commands.parallel(m_ReefHigh, m_Intake));
             //Output Commands
-        autofactory.bind("StopOutput", m_OutputOff);
-        autofactory.bind("Output", Commands.parallel(m_Barge, m_Output));
+        //autofactory.bind("StopOutput", m_OutputOff);
+        //autofactory.bind("Output", Commands.parallel(m_Barge, m_Output));
 
     }
 
