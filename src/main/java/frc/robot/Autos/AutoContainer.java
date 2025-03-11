@@ -7,7 +7,6 @@ package frc.robot.Autos;
 import choreo.auto.AutoFactory;
 import choreo.auto.AutoRoutine;
 import choreo.auto.AutoTrajectory;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.PositionContainer;
 import frc.robot.subsystems.DriveTrain;
@@ -25,7 +24,13 @@ public class AutoContainer {
     AutoFactory autofactory;
 
     //Helper Commands
+    AutoStore m_Store;
     AutoReefLow m_reefLow;
+    AutoReefHigh m_ReefHigh;
+    AutoBarge m_Barge;
+
+    AutoIntake m_Intake;
+    AutoOutput m_Output;
 
 
     public AutoContainer(DriveTrain driveTrain, ScoreSystem scoreSystem, PositionContainer positionContainer) {
@@ -43,7 +48,13 @@ public class AutoContainer {
         );
 
         // sets up helper commands
+        m_Store = new AutoStore(scoreSystem, positionContainer);
         m_reefLow = new AutoReefLow(scoreSystem, positionContainer);
+        m_ReefHigh = new AutoReefHigh(scoreSystem, positionContainer);
+        m_Barge = new AutoBarge(scoreSystem, positionContainer);
+
+        m_Intake = new AutoIntake(positionContainer);
+        m_Output = new AutoOutput(positionContainer);
     }
 
     public AutoRoutine Taxi() {
