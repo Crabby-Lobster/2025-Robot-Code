@@ -41,9 +41,10 @@ public class DefaultDrive extends Command {
   public void execute() {
 
     // this calls the function from the drivetrain to set the speed of the motors
-    double left_speed = -LeftJoystick.getY() * DriveSpeed;
-    double right_speed = -rightJoystick.getY() * DriveSpeed;
-    drivetrain.TankDrive(left_speed, right_speed, true);
+    double drivespeed = (rightJoystick.getRawButton(1) ? DriveSpeed * 0.5: DriveSpeed);
+    double left_speed = -LeftJoystick.getY() * drivespeed;
+    double right_speed = -rightJoystick.getY() * drivespeed;
+    drivetrain.TankDrive(left_speed, right_speed, !rightJoystick.getRawButton(1));
   }
 
   // Called once the command ends or is interrupted.
