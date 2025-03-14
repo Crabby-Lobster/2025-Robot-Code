@@ -29,8 +29,8 @@ public class AlgaeArm extends SubsystemBase {
   /** Creates a new AlgaeArm. */
   SparkMax algeaPivot = new SparkMax(pivotID, MotorType.kBrushless);
 
-  VictorSPX lRoller = new VictorSPX(rollerLID);
-  VictorSPX rRoller = new VictorSPX(rollerRID);
+  SparkMax lRoller = new SparkMax(rollerLID, MotorType.kBrushless);
+  SparkMax rRoller = new SparkMax(rollerRID, MotorType.kBrushless);
 
   DigitalInput homeSwitch = new DigitalInput(HomeSwitchID);
   DigitalInput algeaSwitch = new DigitalInput(AlgeaSwitchID);
@@ -51,8 +51,20 @@ public class AlgaeArm extends SubsystemBase {
     pivotEnc = algeaPivot.getEncoder();
     pivotPID = algeaPivot.getClosedLoopController();
 
-    lRoller.setInverted(rollerInvert);
-    rRoller.setInverted(!rollerInvert);
+    SparkMaxConfig lRollerConfig = new SparkMaxConfig();
+    SparkMaxConfig rRollerConfig = new SparkMaxConfig();
+
+    lRollerConfig.inverted(rollerInvert);
+    rRollerConfig.follow(lRoller, true);
+
+    lRollerConfig.idleMode(IdleMode.kBrake);
+    rRollerConfig.idleMode(IdleMode.kBrake);
+
+    lRoller.configure(lRollerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    rRoller.configure(rRollerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+    lRollerConfig.smartCurrentLimit(80);
+    rRollerConfig.smartCurrentLimit(80);
 
     resetPivot(AlgearArmPositions.STORE);
   }
@@ -62,8 +74,7 @@ public class AlgaeArm extends SubsystemBase {
   }
 
   public void setRollerSpeed(double speed) {
-    lRoller.set(VictorSPXControlMode.PercentOutput, speed);
-    rRoller.set(VictorSPXControlMode.PercentOutput, speed);
+    lRoller.set(speed);
   }
 
   public void setPosition(double angle) {

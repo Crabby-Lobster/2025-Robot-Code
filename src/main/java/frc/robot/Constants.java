@@ -74,12 +74,13 @@ public final class Constants {
   public static final class AlgaeArmConstants {
     // Motors
     public static final int pivotID = 9;
-    public static final int rollerLID = 10;
-    public static final int rollerRID = 11;
+    public static final int rollerLID = 20;
+    public static final int rollerRID = 21;
     public static final double pivotPosConversion = (1 / 275.0) * 360;
+    public static final double rollerSpeedConversion = 1;
 
     public static final boolean pivotInvert = true;
-    public static final boolean rollerInvert = false;
+    public static final boolean rollerInvert = true;
 
     // Limit switches
     public static final int HomeSwitchID = 8;
