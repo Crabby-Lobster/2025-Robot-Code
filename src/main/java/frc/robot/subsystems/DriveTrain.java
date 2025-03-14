@@ -129,6 +129,9 @@ public class DriveTrain extends SubsystemBase {
     tankDrive.tankDrive(leftSpeed, rightSpeed);
   }
 
+  public void ArcadeDrive(double drive, double steer) {
+    tankDrive.arcadeDrive(drive, steer);
+  }
   /**
    * follows the trajectory for choreo
    * @param sample the sample of the trajectory to follow
@@ -159,7 +162,7 @@ public class DriveTrain extends SubsystemBase {
     FRMotor.set(rightPID.calculate(getEncoderValues(EncoderRetriaval.GetRightSpeed), rightSpeed));
   }
 
-  enum EncoderRetriaval {
+  public enum EncoderRetriaval {
     GetSpeed,
     GetDistance,
     GetLeftSpeed,
