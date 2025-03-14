@@ -9,6 +9,7 @@ import frc.robot.Autos.AutoIntakeOff;
 import frc.robot.Autos.AutoOutputOff;
 import frc.robot.Autos.AutoReset;
 import frc.robot.Autos.AutoStore;
+import frc.robot.Autos.AutoUpdateScoreSystem;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DefaultScoreSystem;
@@ -20,6 +21,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ScoreSystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -98,7 +100,13 @@ public class RobotContainer {
     return new SequentialCommandGroup(
       HomeRobot(),
       new AutoReset(m_PositionContainer),
-      m_AutoContainer.Test()
+
+      // updates the scoresystem while the auto is running
+      //this keeps the scoresystem at the set position
+      Commands.deadline(
+        m_AutoContainer.Test(),
+        new AutoUpdateScoreSystem(m_PositionContainer, m_ScoreSystem)
+      )
     );
   }
 
