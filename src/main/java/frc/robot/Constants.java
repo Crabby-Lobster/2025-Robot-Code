@@ -90,9 +90,9 @@ public final class Constants {
     public static final double[] PIDValues = {0.1,0,0};
 
     // Rollers
-    public static final double IntakeSpeed = -0.5;
+    public static final double IntakeSpeed = -0.10;
     public static final double ScoreSpeed = 1;
-    public static final double HoldSpeed = -0.25;
+    public static final double HoldSpeed = -0.05;
   }
 
   /**

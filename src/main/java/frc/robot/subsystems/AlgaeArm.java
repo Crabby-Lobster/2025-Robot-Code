@@ -63,8 +63,8 @@ public class AlgaeArm extends SubsystemBase {
     lRoller.configure(lRollerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     rRoller.configure(rRollerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
-    lRollerConfig.smartCurrentLimit(80);
-    rRollerConfig.smartCurrentLimit(80);
+    lRollerConfig.smartCurrentLimit(100);
+    rRollerConfig.smartCurrentLimit(100);
 
     resetPivot(AlgearArmPositions.STORE);
   }
