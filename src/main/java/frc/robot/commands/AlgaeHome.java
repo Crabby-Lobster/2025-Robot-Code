@@ -7,14 +7,17 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.AlgearArmPositions;
 import frc.robot.subsystems.AlgaeArm;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.ScoreSystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AlgaeHome extends Command {
   AlgaeArm algaeArm;
+  Elevator elevator;
   /** Creates a new AlgaeHome. */
   public AlgaeHome(ScoreSystem scoreSystem) {
     algaeArm = scoreSystem.algaeArm;
+    elevator = scoreSystem.elevator;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(scoreSystem);
   }
@@ -27,13 +30,16 @@ public class AlgaeHome extends Command {
   @Override
   public void execute() {
     algaeArm.setPivotSpeed(0.25);
+    elevator.setSpeed(-0.1, -0.1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     algaeArm.setPivotSpeed(0);
+    elevator.setSpeed(0, 0);
     algaeArm.resetPivot(AlgearArmPositions.HOME);
+    elevator.resetPosition(0);
   }
 
   // Returns true when the command should end.
