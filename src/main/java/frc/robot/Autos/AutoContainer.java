@@ -6,8 +6,6 @@ package frc.robot.Autos;
 
 import choreo.auto.AutoFactory;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.PositionContainer;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ScoreSystem;
@@ -54,10 +52,10 @@ public class AutoContainer {
         );
 
         // sets up helper commands
-        m_Store = new AutoStore(scoreSystem, positionContainer);
-        m_reefLow = new AutoReefLow(scoreSystem, positionContainer);
-        m_ReefHigh = new AutoReefHigh(scoreSystem, positionContainer);
-        m_Barge = new AutoBarge(scoreSystem, positionContainer);
+        m_Store = new AutoStore(positionContainer);
+        m_reefLow = new AutoReefLow(positionContainer);
+        m_ReefHigh = new AutoReefHigh(positionContainer);
+        m_Barge = new AutoBarge(positionContainer);
 
         m_Intake = new AutoIntake(positionContainer);
         m_IntakeOff = new AutoIntakeOff(positionContainer);

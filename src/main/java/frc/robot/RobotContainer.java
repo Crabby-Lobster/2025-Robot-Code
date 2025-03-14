@@ -5,6 +5,9 @@
 package frc.robot;
 
 import frc.robot.Autos.AutoContainer;
+import frc.robot.Autos.AutoIntakeOff;
+import frc.robot.Autos.AutoOutputOff;
+import frc.robot.Autos.AutoReset;
 import frc.robot.Autos.AutoStore;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.DefaultDrive;
@@ -94,7 +97,7 @@ public class RobotContainer {
     // An example command will be run in autonomous
     return new SequentialCommandGroup(
       HomeRobot(),
-      new AutoStore(m_ScoreSystem, m_PositionContainer).withTimeout(0),
+      new AutoReset(m_PositionContainer),
       m_AutoContainer.Test()
     );
   }
