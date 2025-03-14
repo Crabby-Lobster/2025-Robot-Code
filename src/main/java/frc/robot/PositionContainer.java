@@ -208,4 +208,9 @@ public class PositionContainer {
         rawState.elevatorPos = ElevatorPositions.Barge;
         moveComplete = true;
     }
+
+
+    public boolean hasBall() {
+        return scoreSystem.algaeArm.getAlgeaSwitch();
+    }
 }
