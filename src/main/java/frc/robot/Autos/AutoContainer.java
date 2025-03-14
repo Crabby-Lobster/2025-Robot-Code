@@ -66,6 +66,18 @@ public class AutoContainer {
     }
 
     public Command Test() {
-        return new Drive(drivetrain, 60);
+        return sequence(
+            //drives foward 12 inches
+            new Drive(drivetrain, 12),
+
+            //turns on intake, turns 180 degrees, and drives foward 12 inches
+            m_Intake,
+            new Turn(drivetrain, 180).withTimeout(2),
+            new Drive(drivetrain, 12),
+
+            //turns 180 and shuts the intake off
+            new Turn(drivetrain, 180).withTimeout(2),
+            m_IntakeOff
+        );
     }
 }

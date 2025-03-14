@@ -4,6 +4,7 @@
 
 package frc.robot.Autos;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveTrain;
@@ -27,14 +28,14 @@ public class Turn extends Command {
   @Override
   public void initialize() {
     steeController.setTolerance(5);
-    steeController.setSetpoint(driveTrain.getHeading() + angle);
+    steeController.setSetpoint(driveTrain.getHeading() - angle);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     double steer = steeController.calculate(driveTrain.getHeading());
-    driveTrain.ArcadeDrive(0, steer);
+    driveTrain.ArcadeDrive(0, MathUtil.clamp(steer, -0.5, 0.5));
   }
 
   // Called once the command ends or is interrupted.
