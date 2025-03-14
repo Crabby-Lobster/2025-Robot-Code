@@ -255,7 +255,7 @@ public class DriveTrain extends SubsystemBase {
       getEncoderValues(EncoderRetriaval.GetRightDistance)
     );
 
-    SmartDashboard.putNumber("Distance", getEncoderValues(EncoderRetriaval.GetDistance));
+    SmartDashboard.putNumber("Distance", getEncoderValues(EncoderRetriaval.GetDistance) * 39.37);
     SmartDashboard.putNumber("Angle", getHeading());
   }
 }

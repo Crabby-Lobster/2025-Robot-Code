@@ -4,7 +4,9 @@
 
 package frc.robot.Autos;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.DriveTrain.EncoderRetriaval;
@@ -15,7 +17,7 @@ public class Drive extends Command {
   double distance;
   double direction;
 
-  PIDController drivController = new PIDController(10, 0, 0);
+  PIDController drivController = new PIDController(3, 0.5, 0);
   PIDController steercontroller = new PIDController(0.1, 0, 0);
   /** Creates a new Drive. */
   public Drive(DriveTrain driveTrain, double distance) {
@@ -42,7 +44,7 @@ public class Drive extends Command {
     double driveval = drivController.calculate(driveTrain.getEncoderValues(EncoderRetriaval.GetDistance));
     double steerVal = steercontroller.calculate(driveTrain.getHeading());
 
-    driveTrain.ArcadeDrive(driveval, steerVal);
+    driveTrain.ArcadeDrive(MathUtil.clamp(driveval, -0.5, 0.5), steerVal);
   }
 
   // Called once the command ends or is interrupted.

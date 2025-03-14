@@ -66,6 +66,6 @@ public class AutoContainer {
     }
 
     public Command Test() {
-        return new Drive(drivetrain, 12);
+        return new Drive(drivetrain, 60);
     }
 }
