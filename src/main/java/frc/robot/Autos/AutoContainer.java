@@ -5,12 +5,16 @@
 package frc.robot.Autos;
 
 import choreo.auto.AutoFactory;
-import choreo.auto.AutoRoutine;
-import choreo.auto.AutoTrajectory;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.PositionContainer;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ScoreSystem;
+
+import static edu.wpi.first.wpilibj2.command.Commands.sequence;
+import static edu.wpi.first.wpilibj2.command.Commands.parallel;
+import static edu.wpi.first.wpilibj2.command.Commands.deadline;
 
 /** Container for holding auto programs */
 public class AutoContainer {
@@ -60,51 +64,10 @@ public class AutoContainer {
         m_Output = new AutoOutput(positionContainer);
         m_OutputOff = new AutoOutputOff(positionContainer);
 
-        //Binds commands
-            //Move commands
-        autofactory.bind("Store", m_Store);
-        autofactory.bind("MoveLow", m_reefLow);
-        autofactory.bind("MoveHigh", m_ReefHigh);
-        autofactory.bind("MoveBarge", m_Barge);
-            //Intake Commands
-        autofactory.bind("StopIntake", m_Intake);
-        autofactory.bind("Intake", m_Intake);
-            // Output Commands
-        autofactory.bind("Shoot", m_Output);
-        autofactory.bind("ShootStop", m_IntakeOff);
 
     }
 
-    public AutoRoutine Taxi() {
-        AutoRoutine TaxiRoutine = autofactory.newRoutine("Taxi");
-        AutoTrajectory MoveTraj = TaxiRoutine.trajectory("Taxi");
-
-        //Starts the trajectory
-        TaxiRoutine.active().onTrue(Commands.sequence(
-            Commands.print("Started Taxi"),
-            MoveTraj.resetOdometry(),
-            MoveTraj.cmd()
-        ));
-
-        // moves to reef loow at the end of that trajectory
-        MoveTraj.done().onTrue(m_reefLow);
-
-        return TaxiRoutine;
-    }
-
-    public AutoRoutine Test() {
-        AutoRoutine TestRoutine = autofactory.newRoutine("TestRoutine");
-
-        AutoTrajectory Traject1 = TestRoutine.trajectory("Test 1");
-
-        TestRoutine.active().onTrue(Commands.sequence(
-            Traject1.resetOdometry(),
-            Traject1.cmd()
-        ));
-
-        Traject1.atTime(0).onTrue(m_reefLow);
-        Traject1.atTime(1).onTrue(m_Store);
-
-        return TestRoutine;
+    public Command Test() {
+        return new Drive(drivetrain, 12);
     }
 }

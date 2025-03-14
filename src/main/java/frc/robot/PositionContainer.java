@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants.AlgearArmPositions;
 import frc.robot.Constants.ElevatorPositions;
 import frc.robot.ScoreSystemState.RollerState;
-import frc.robot.subsystems.AlgaeArm;
 import frc.robot.subsystems.ScoreSystem;
 
 /** Holds positions manual offsets for use during gameplay */

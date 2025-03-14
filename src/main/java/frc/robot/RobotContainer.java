@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.Autos.AutoContainer;
+import frc.robot.Autos.AutoStore;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DefaultScoreSystem;
@@ -93,7 +94,8 @@ public class RobotContainer {
     // An example command will be run in autonomous
     return new SequentialCommandGroup(
       HomeRobot(),
-      m_AutoContainer.Test().cmd()
+      new AutoStore(m_ScoreSystem, m_PositionContainer).withTimeout(0),
+      m_AutoContainer.Test()
     );
   }
 
