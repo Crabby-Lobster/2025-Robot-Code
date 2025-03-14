@@ -15,7 +15,7 @@ public class Drive extends Command {
   double distance;
   double direction;
 
-  PIDController drivController = new PIDController(1, 0, 0);
+  PIDController drivController = new PIDController(10, 0, 0);
   PIDController steercontroller = new PIDController(0.1, 0, 0);
   /** Creates a new Drive. */
   public Drive(DriveTrain driveTrain, double distance) {

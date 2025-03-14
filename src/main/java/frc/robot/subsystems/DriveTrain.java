@@ -21,6 +21,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.DrivetrainConstants.*;
@@ -132,7 +133,7 @@ public class DriveTrain extends SubsystemBase {
   public void ArcadeDrive(double drive, double steer) {
     tankDrive.arcadeDrive(drive, steer);
   }
-  
+
   /**
    * follows the trajectory for choreo
    * @param sample the sample of the trajectory to follow
@@ -253,5 +254,8 @@ public class DriveTrain extends SubsystemBase {
       getEncoderValues(EncoderRetriaval.GetLeftDistance),
       getEncoderValues(EncoderRetriaval.GetRightDistance)
     );
+
+    SmartDashboard.putNumber("Distance", getEncoderValues(EncoderRetriaval.GetDistance));
+    SmartDashboard.putNumber("Angle", getHeading());
   }
 }
