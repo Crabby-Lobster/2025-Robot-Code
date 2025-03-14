@@ -15,12 +15,12 @@ public class Drive extends Command {
   double distance;
   double direction;
 
-  PIDController drivController = new PIDController(0.1, 0, 0);
+  PIDController drivController = new PIDController(1, 0, 0);
   PIDController steercontroller = new PIDController(0.1, 0, 0);
   /** Creates a new Drive. */
   public Drive(DriveTrain driveTrain, double distance) {
     this.driveTrain = driveTrain;
-    this.distance = distance;
+    this.distance = distance / 39.37;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveTrain);
   }
@@ -30,7 +30,7 @@ public class Drive extends Command {
   public void initialize() {
     driveTrain.resetEncoder(0);
 
-    drivController.setTolerance(1);
+    drivController.setTolerance(1 / 39.37);
 
     drivController.setSetpoint(distance);
     steercontroller.setSetpoint(driveTrain.getHeading());
