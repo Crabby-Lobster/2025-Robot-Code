@@ -36,6 +36,9 @@ public class AutoContainer {
     AutoOutput m_Output;
     AutoOutputOff m_OutputOff;
 
+    WaitUntilBall m_WaitUntilBall;
+    Wait m_Wait;
+
 
     public AutoContainer(DriveTrain driveTrain, ScoreSystem scoreSystem, PositionContainer positionContainer) {
         this.drivetrain = driveTrain;
@@ -62,6 +65,9 @@ public class AutoContainer {
         m_Output = new AutoOutput(positionContainer);
         m_OutputOff = new AutoOutputOff(positionContainer);
 
+        m_WaitUntilBall = new WaitUntilBall(positionContainer);
+        m_Wait = new Wait();
+
 
     }
 
@@ -72,6 +78,9 @@ public class AutoContainer {
 
             //turns on intake, turns 180 degrees, and drives foward 12 inches
             m_Intake,
+
+            m_WaitUntilBall,
+
             new Turn(drivetrain, 180).withTimeout(2),
             new Drive(drivetrain, 12),
 
