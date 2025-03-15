@@ -107,10 +107,10 @@ public final class Constants {
 
 
     public static final double Barge = 65;
-    public static final double ReefHigh = -15;
-    public static final double ReefLow = -15;
+    public static final double ReefHigh = 0;
+    public static final double ReefLow = -12;
     public static final double STORE = 65;
-    public static final double GroundHigh = -7.5;
+    public static final double GroundHigh = -10;
     public static final double Ground = -10;
     
   }
@@ -154,7 +154,7 @@ public final class Constants {
 
     public static final double Barge = MAXHEIGHT();
     public static final double ReefHigh = 38;
-    public static final double ReefLow = 25;
+    public static final double ReefLow = 26;
     public static final double STORE = 0;
     public static final double GroundHigh = 10;
     public static final double Ground = 0;
