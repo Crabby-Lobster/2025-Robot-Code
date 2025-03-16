@@ -11,10 +11,12 @@ import frc.robot.Autos.AutoReset;
 import frc.robot.Autos.AutoStore;
 import frc.robot.Autos.AutoUpdateScoreSystem;
 import frc.robot.Constants.ControllerConstants;
+import frc.robot.commands.DefaultClimber;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DefaultScoreSystem;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.AlgaeArm;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -46,6 +48,7 @@ public class RobotContainer {
   private final DriveTrain m_driveTrain = new DriveTrain();
   private final AlgaeArm m_algaeArm = new AlgaeArm();
   private final Elevator m_elevator = new Elevator();
+  private final Climber m_climber = new Climber();
   private final ScoreSystem m_ScoreSystem = new ScoreSystem(m_elevator, m_algaeArm);
 
   private final PositionContainer m_PositionContainer = new PositionContainer(leftStick, rightStick, controller, m_ScoreSystem);
@@ -54,7 +57,7 @@ public class RobotContainer {
   // Default commands
   private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
   private final DefaultScoreSystem m_DefaultScoreSystem = new DefaultScoreSystem(m_ScoreSystem, leftStick, rightStick, controller, m_PositionContainer);
-
+  private final DefaultClimber m_DefaultClimber = new DefaultClimber(m_climber, controller);
   
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandJoystick m_driverController =
@@ -69,6 +72,7 @@ public class RobotContainer {
     // sets default commands
     m_driveTrain.setDefaultCommand(m_DefaultDrive);
     m_ScoreSystem.setDefaultCommand(m_DefaultScoreSystem);
+    m_climber.setDefaultCommand(m_DefaultClimber);
   }
 
   /**
