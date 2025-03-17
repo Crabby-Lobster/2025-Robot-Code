@@ -222,7 +222,7 @@ public class DriveTrain extends SubsystemBase {
    * gets the heading of the robot
    */
   public double getHeading() {
-    return gyro.getAngle(gyro.getYawAxis()) * PI / 180.0;
+    return gyro.getAngle(gyro.getYawAxis());
     
   }
 

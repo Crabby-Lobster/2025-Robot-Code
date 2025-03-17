@@ -27,7 +27,7 @@ public class Turn extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    steeController.setTolerance(5);
+    steeController.setTolerance(1);
     steeController.setSetpoint(driveTrain.getHeading() - angle);
   }
 

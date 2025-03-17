@@ -76,16 +76,18 @@ public class AutoContainer {
             //drives foward 12 inches
             new Drive(drivetrain, 12),
 
-            //turns on intake, turns 180 degrees, and drives foward 12 inches
+            //turns on intake
             m_Intake,
 
+            // waits until ball is in wheels
             m_WaitUntilBall,
 
-            new Turn(drivetrain, 180).withTimeout(2),
+            // turns around and drives 12 inches
+            new Turn(drivetrain, 180),
             new Drive(drivetrain, 12),
 
             //turns 180 and shuts the intake off
-            new Turn(drivetrain, 180).withTimeout(2),
+            new Turn(drivetrain, 180),
             m_IntakeOff
         );
     }
