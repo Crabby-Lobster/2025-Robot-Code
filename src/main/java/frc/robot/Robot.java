@@ -4,6 +4,15 @@
 
 package frc.robot;
 
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
+
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -18,6 +27,8 @@ public class Robot extends TimedRobot {
 
   private final RobotContainer m_robotContainer;
 
+  Thread m_VisionThread;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -27,6 +38,44 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    m_VisionThread =
+        new Thread(
+            () -> {
+              // Get the UsbCamera from CameraServer
+              UsbCamera cameraSide = CameraServer.startAutomaticCapture("side Cam", 0);
+
+              // Set the resolution
+              cameraSide.setResolution(128, 128);
+
+              // Get a CvSink. This will capture Mats from the camera
+              CvSink cvSink = CameraServer.getVideo("side Cam");
+              // Setup a CvSource. This will send images back to the Dashboard
+              CvSource outputStream = CameraServer.putVideo("Line Camera", 128, 128);
+
+              // Mats are very memory expensive. Lets reuse this Mat.
+              Mat mat = new Mat();
+
+              // This cannot be 'true'. The program will never exit if it is. This
+              // lets the robot stop this thread when restarting robot code or
+              // deploying.
+              while (!Thread.interrupted()) {
+                // Tell the CvSink to grab a frame from the camera and put it
+                // in the source mat.  If there is an error notify the output.
+                if (cvSink.grabFrame(mat) == 0) {
+                  // Send the output the error.
+                  outputStream.notifyError(cvSink.getError());
+                  // skip the rest of the current iteration
+                  continue;
+                }
+                // Put a rectangle on the image
+                Imgproc.line(mat, new Point(100,0), new Point(100,128), new Scalar(256, 256, 256), 1);
+                // Give the output stream a new image to display
+                outputStream.putFrame(mat);
+              }
+            });
+    m_VisionThread.setDaemon(true);
+    m_VisionThread.start();
   }
 
   /**
