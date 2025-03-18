@@ -57,7 +57,7 @@ public class RobotContainer {
   // Default commands
   private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
   private final DefaultScoreSystem m_DefaultScoreSystem = new DefaultScoreSystem(m_ScoreSystem, leftStick, rightStick, controller, m_PositionContainer);
-  private final DefaultClimber m_DefaultClimber = new DefaultClimber(m_climber, controller);
+  private final DefaultClimber m_DefaultClimber = new DefaultClimber(m_climber, rightStick);
   
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandJoystick m_driverController =

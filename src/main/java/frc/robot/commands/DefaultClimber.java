@@ -11,11 +11,11 @@ import frc.robot.subsystems.Climber;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class DefaultClimber extends Command {
   Climber climber;
-  Joystick controller;
+  Joystick rightJoy;
   /** Creates a new DefaultClimber. */
-  public DefaultClimber(Climber climber, Joystick controller) {
+  public DefaultClimber(Climber climber, Joystick rightJoy) {
     this.climber = climber;
-    this.controller = controller;
+    this.rightJoy = rightJoy;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(climber);
   }
@@ -27,7 +27,18 @@ public class DefaultClimber extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.setSpeed(controller.getTwist());
+    double speed;
+
+    if (rightJoy.getRawButton(4)) {
+      speed = 1;
+    } else if (rightJoy.getRawButton(6)) {
+      speed = -1;
+    } else {
+      speed = 0;
+    }
+
+    climber.setSpeed(speed);
+
   }
 
   // Called once the command ends or is interrupted.
