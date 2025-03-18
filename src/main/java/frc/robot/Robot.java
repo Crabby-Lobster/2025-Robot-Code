@@ -43,18 +43,23 @@ public class Robot extends TimedRobot {
         new Thread(
             () -> {
               // Get the UsbCamera from CameraServer
-              UsbCamera cameraSide = CameraServer.startAutomaticCapture("side Cam", 0);
+              UsbCamera cameraSide = CameraServer.startAutomaticCapture("side Cam", 1);
+              UsbCamera frontCam = CameraServer.startAutomaticCapture("front cam", 0);
 
               // Set the resolution
               cameraSide.setResolution(128, 128);
+              frontCam.setResolution(128, 128);
 
               // Get a CvSink. This will capture Mats from the camera
-              CvSink cvSink = CameraServer.getVideo("side Cam");
+              CvSink linecvSink = CameraServer.getVideo("side Cam");
+              CvSink ballcvSink = CameraServer.getVideo("front cam");
               // Setup a CvSource. This will send images back to the Dashboard
-              CvSource outputStream = CameraServer.putVideo("Line Camera", 128, 128);
+              CvSource lineoutputStream = CameraServer.putVideo("Line Camera", 128, 128);
+              CvSource balloutputStream = CameraServer.putVideo("Ball Cam", 128, 128);
 
               // Mats are very memory expensive. Lets reuse this Mat.
-              Mat mat = new Mat();
+              Mat linemat = new Mat();
+              Mat ballmat = new Mat();
 
               // This cannot be 'true'. The program will never exit if it is. This
               // lets the robot stop this thread when restarting robot code or
@@ -62,16 +67,21 @@ public class Robot extends TimedRobot {
               while (!Thread.interrupted()) {
                 // Tell the CvSink to grab a frame from the camera and put it
                 // in the source mat.  If there is an error notify the output.
-                if (cvSink.grabFrame(mat) == 0) {
+                if (linecvSink.grabFrame(linemat) == 0 || ballcvSink.grabFrame(ballmat) == 0) {
                   // Send the output the error.
-                  outputStream.notifyError(cvSink.getError());
+                  lineoutputStream.notifyError(linecvSink.getError());
+                  balloutputStream.notifyError(ballcvSink.getError());
+
                   // skip the rest of the current iteration
                   continue;
                 }
-                // Put a rectangle on the image
-                Imgproc.line(mat, new Point(100,0), new Point(100,128), new Scalar(256, 256, 256), 1);
+                // line for barge line
+                Imgproc.line(linemat, new Point(100,0), new Point(100,128), new Scalar(256, 256, 256), 1);
+
+                Imgproc.line(ballmat, new Point(100,0), new Point(100,128), new Scalar(256,256,256), 1);
                 // Give the output stream a new image to display
-                outputStream.putFrame(mat);
+                lineoutputStream.putFrame(linemat);
+                balloutputStream.putFrame(ballmat);
               }
             });
     m_VisionThread.setDaemon(true);
