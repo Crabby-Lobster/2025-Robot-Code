@@ -106,7 +106,7 @@ public final class Constants {
     public static final double[] dangerHeight = {0,10};
 
 
-    public static final double Barge = 65;
+    public static final double Barge = 70;
     public static final double ReefHigh = 0;
     public static final double ReefLow = -12;
     public static final double STORE = 65;
