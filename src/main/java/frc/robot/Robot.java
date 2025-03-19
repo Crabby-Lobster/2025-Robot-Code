@@ -76,9 +76,10 @@ public class Robot extends TimedRobot {
                   continue;
                 }
                 // line for barge line
-                Imgproc.line(linemat, new Point(100,0), new Point(100,128), new Scalar(256, 256, 256), 1);
+                Imgproc.line(linemat, new Point(0,107), new Point(170,0), new Scalar(256, 256, 256), 2);
 
-                Imgproc.line(ballmat, new Point(100,0), new Point(100,128), new Scalar(256,256,256), 1);
+                //line for ball
+                Imgproc.line(ballmat, new Point(70,0), new Point(70,128), new Scalar(256,256,256), 2);
                 // Give the output stream a new image to display
                 lineoutputStream.putFrame(linemat);
                 balloutputStream.putFrame(ballmat);
