@@ -79,7 +79,7 @@ public class Robot extends TimedRobot {
                 Imgproc.line(linemat, new Point(0,107), new Point(170,0), new Scalar(256, 256, 256), 2);
 
                 //line for ball
-                Imgproc.line(ballmat, new Point(70,0), new Point(70,128), new Scalar(256,256,256), 2);
+                Imgproc.line(ballmat, new Point(65,0), new Point(65,128), new Scalar(256,256,256), 2);
                 // Give the output stream a new image to display
                 lineoutputStream.putFrame(linemat);
                 balloutputStream.putFrame(ballmat);
