@@ -99,7 +99,7 @@ public class AutoContainer {
             new Turn(drivetrain, 32).withTimeout(5),
 
             //Drives toward reef
-            new Drive(drivetrain, 80),
+            new Drive(drivetrain, 750),
 
             //Lines up with ball
             new Turn(drivetrain, -32).withTimeout(5),
@@ -108,8 +108,8 @@ public class AutoContainer {
             parallel(m_reefLow, m_Intake),
 
             // picks up ball and reverses
-            new Drive(drivetrain, 12),
-            new Drive(drivetrain, -12),
+            new Drive(drivetrain, 8),
+            new Drive(drivetrain, -8),
 
             //lowers arm
             parallel(m_Store, m_IntakeOff),
