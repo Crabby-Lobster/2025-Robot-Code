@@ -5,10 +5,7 @@
 package frc.robot;
 
 import frc.robot.Autos.AutoContainer;
-import frc.robot.Autos.AutoIntakeOff;
-import frc.robot.Autos.AutoOutputOff;
 import frc.robot.Autos.AutoReset;
-import frc.robot.Autos.AutoStore;
 import frc.robot.Autos.AutoUpdateScoreSystem;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.DefaultClimber;
