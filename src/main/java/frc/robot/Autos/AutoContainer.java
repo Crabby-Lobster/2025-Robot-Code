@@ -91,4 +91,41 @@ public class AutoContainer {
             m_IntakeOff
         );
     }
+
+    public Command AlgaeScoreAuto() {
+        return sequence(
+            
+            //Turns Toward reef
+            new Turn(drivetrain, 32).withTimeout(5),
+
+            //Drives toward reef
+            new Drive(drivetrain, 80),
+
+            //Lines up with ball
+            new Turn(drivetrain, -32).withTimeout(5),
+
+            //raises arm and collects
+            parallel(m_reefLow, m_Intake),
+
+            // picks up ball and reverses
+            new Drive(drivetrain, 12),
+            new Drive(drivetrain, -12),
+
+            //lowers arm
+            parallel(m_Store, m_IntakeOff),
+
+            //turns toward barge
+            new Turn(drivetrain, 151).withTimeout(5),
+
+            //drives toward barge
+            new Drive(drivetrain, 60),
+
+            //lines up for barge and raises elevator
+            parallel(new Turn(drivetrain, 30).withTimeout(5), m_Barge),
+
+            //shoots
+            deadline(m_Wait.withTimeout(3), m_Output),
+            m_OutputOff
+        );
+    }
 }
