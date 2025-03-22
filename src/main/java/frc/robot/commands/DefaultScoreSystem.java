@@ -6,8 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.ScoreSystemState;
-import frc.robot.ScoresystemPositionContainer;
+import frc.robot.PositionContainer;
 import frc.robot.subsystems.ScoreSystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -15,22 +14,21 @@ public class DefaultScoreSystem extends Command {
   
   ScoreSystem scoreSystem;
 
+  PositionContainer positionContainer;
+
   Joystick leftJoy;
   Joystick rightJoy;
   Joystick controller;
 
-  ScoresystemPositionContainer positionContainer;
-
   double algaeOFfset = 0;
 
   /** Creates a new DefaultScoreSystem. */
-  public DefaultScoreSystem(ScoreSystem scoreSystem, Joystick leftJoy, Joystick rightJoy, Joystick controller) {
+  public DefaultScoreSystem(ScoreSystem scoreSystem, Joystick leftJoy, Joystick rightJoy, Joystick controller, PositionContainer positionContainer) {
     this.scoreSystem = scoreSystem;
     this.leftJoy = leftJoy;
     this.rightJoy = rightJoy;
     this.controller = controller;
-
-    positionContainer = new ScoresystemPositionContainer(leftJoy, rightJoy, controller);
+    this.positionContainer = positionContainer;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(scoreSystem);
   }
@@ -42,13 +40,11 @@ public class DefaultScoreSystem extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    algaeOFfset = controller.getY() * 0.45;
 
-    // state
-    ScoreSystemState desiredState;
-    desiredState = positionContainer.getState(scoreSystem.currentState);
+    positionContainer.updateInputs();
+    positionContainer.updateLogic();
 
-    scoreSystem.setState(desiredState, algaeOFfset);
+    scoreSystem.setState(positionContainer.GetState());
 
     scoreSystem.update();
   }

@@ -21,6 +21,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.DrivetrainConstants.*;
@@ -31,7 +32,7 @@ import static java.lang.Math.*;
  */
 public class DriveTrain extends SubsystemBase {
 
-  LTVUnicycleController controller = new LTVUnicycleController(0.02);
+  LTVUnicycleController controller = new LTVUnicycleController(0.05);
 
   // creates the motors
   SparkMax FLMotor = new SparkMax(FLMotorID, MotorType.kBrushless);
@@ -129,6 +130,10 @@ public class DriveTrain extends SubsystemBase {
     tankDrive.tankDrive(leftSpeed, rightSpeed);
   }
 
+  public void ArcadeDrive(double drive, double steer) {
+    tankDrive.arcadeDrive(drive, steer);
+  }
+
   /**
    * follows the trajectory for choreo
    * @param sample the sample of the trajectory to follow
@@ -159,7 +164,7 @@ public class DriveTrain extends SubsystemBase {
     FRMotor.set(rightPID.calculate(getEncoderValues(EncoderRetriaval.GetRightSpeed), rightSpeed));
   }
 
-  enum EncoderRetriaval {
+  public enum EncoderRetriaval {
     GetSpeed,
     GetDistance,
     GetLeftSpeed,
@@ -217,7 +222,7 @@ public class DriveTrain extends SubsystemBase {
    * gets the heading of the robot
    */
   public double getHeading() {
-    return gyro.getAngle(gyro.getYawAxis()) * PI / 180.0;
+    return gyro.getAngle(gyro.getYawAxis());
     
   }
 
@@ -234,11 +239,8 @@ public class DriveTrain extends SubsystemBase {
    * @param pose the pose
    */
   public void resetOdometry(Pose2d pose) {
-    driveOdometry.resetPosition(new Rotation2d(getHeading()),
-      getEncoderValues(EncoderRetriaval.GetLeftDistance),
-      getEncoderValues(EncoderRetriaval.GetRightDistance),
-      pose
-    );
+    driveOdometry.resetPose(pose);
+    resetEncoder(0);
   }
 
 
@@ -252,5 +254,8 @@ public class DriveTrain extends SubsystemBase {
       getEncoderValues(EncoderRetriaval.GetLeftDistance),
       getEncoderValues(EncoderRetriaval.GetRightDistance)
     );
+
+    SmartDashboard.putNumber("Distance", getEncoderValues(EncoderRetriaval.GetDistance) * 39.37);
+    SmartDashboard.putNumber("Angle", getHeading());
   }
 }
