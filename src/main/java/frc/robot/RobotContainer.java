@@ -105,7 +105,7 @@ public class RobotContainer {
       // updates the scoresystem while the auto is running
       //this keeps the scoresystem at the set position
       Commands.deadline(
-        m_AutoContainer.Test(),
+        m_AutoContainer.AlgaeScoreAuto(),
         new AutoUpdateScoreSystem(m_PositionContainer, m_ScoreSystem)
       )
     );
