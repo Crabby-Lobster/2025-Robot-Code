@@ -4,20 +4,23 @@
 
 package frc.robot;
 
+import frc.robot.Autos.AutoContainer;
+import frc.robot.Autos.AutoReset;
+import frc.robot.Autos.AutoUpdateScoreSystem;
 import frc.robot.Constants.ControllerConstants;
-import frc.robot.commands.Autos;
+import frc.robot.commands.DefaultClimber;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DefaultScoreSystem;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.AlgaeArm;
-import frc.robot.subsystems.CoralArm;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ScoreSystem;
-import choreo.auto.AutoFactory;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -31,8 +34,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
 
-  AutoFactory autofactory;
-
   // controllers
   private final Joystick leftStick = new Joystick(ControllerConstants.LeftJoystick);
   private final Joystick rightStick = new Joystick(ControllerConstants.rightJoystick);
@@ -42,17 +43,18 @@ public class RobotContainer {
   // subsystems
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_driveTrain = new DriveTrain();
-  
-  private final CoralArm m_CoralArm = new CoralArm();
   private final AlgaeArm m_algaeArm = new AlgaeArm();
   private final Elevator m_elevator = new Elevator();
+  private final Climber m_climber = new Climber();
+  private final ScoreSystem m_ScoreSystem = new ScoreSystem(m_elevator, m_algaeArm);
 
-  private final ScoreSystem m_ScoreSystem = new ScoreSystem(m_elevator, m_CoralArm, m_algaeArm);
+  private final PositionContainer m_PositionContainer = new PositionContainer(leftStick, rightStick, controller, m_ScoreSystem);
+  private final AutoContainer m_AutoContainer = new AutoContainer(m_driveTrain, m_ScoreSystem, m_PositionContainer);
 
   // Default commands
   private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
-  private final DefaultScoreSystem m_DefaultScoreSystem = new DefaultScoreSystem(m_ScoreSystem, leftStick, rightStick, controller);
-
+  private final DefaultScoreSystem m_DefaultScoreSystem = new DefaultScoreSystem(m_ScoreSystem, leftStick, rightStick, controller, m_PositionContainer);
+  private final DefaultClimber m_DefaultClimber = new DefaultClimber(m_climber, rightStick);
   
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandJoystick m_driverController =
@@ -60,13 +62,6 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    autofactory = new AutoFactory(
-      m_driveTrain::getPose,
-      m_driveTrain::resetOdometry,
-      m_driveTrain::followTrajectory,
-      true,
-      m_driveTrain
-    );
 
     // Configure the trigger bindings
     configureBindings();
@@ -74,6 +69,7 @@ public class RobotContainer {
     // sets default commands
     m_driveTrain.setDefaultCommand(m_DefaultDrive);
     m_ScoreSystem.setDefaultCommand(m_DefaultScoreSystem);
+    m_climber.setDefaultCommand(m_DefaultClimber);
   }
 
   /**
@@ -92,7 +88,7 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.button(1).onTrue(HomeRobot());
+    //m_driverController.button(1).onTrue(HomeRobot());
   }
 
   /**
@@ -102,7 +98,17 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.testTrajectory(autofactory);
+    return new SequentialCommandGroup(
+      HomeRobot(),
+      new AutoReset(m_PositionContainer),
+
+      // updates the scoresystem while the auto is running
+      //this keeps the scoresystem at the set position
+      Commands.deadline(
+        m_AutoContainer.AlgaeScoreAuto(),
+        new AutoUpdateScoreSystem(m_PositionContainer, m_ScoreSystem)
+      )
+    );
   }
 
   /**

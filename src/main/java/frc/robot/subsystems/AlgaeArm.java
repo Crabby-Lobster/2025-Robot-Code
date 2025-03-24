@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
@@ -15,10 +13,8 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.ScoreSystemState;
 import frc.robot.Constants.AlgearArmPositions;
@@ -31,8 +27,8 @@ public class AlgaeArm extends SubsystemBase {
   /** Creates a new AlgaeArm. */
   SparkMax algeaPivot = new SparkMax(pivotID, MotorType.kBrushless);
 
-  VictorSPX lRoller = new VictorSPX(rollerLID);
-  VictorSPX rRoller = new VictorSPX(rollerRID);
+  SparkMax lRoller = new SparkMax(rollerLID, MotorType.kBrushless);
+  SparkMax rRoller = new SparkMax(rollerRID, MotorType.kBrushless);
 
   DigitalInput homeSwitch = new DigitalInput(HomeSwitchID);
   DigitalInput algeaSwitch = new DigitalInput(AlgeaSwitchID);
@@ -53,8 +49,20 @@ public class AlgaeArm extends SubsystemBase {
     pivotEnc = algeaPivot.getEncoder();
     pivotPID = algeaPivot.getClosedLoopController();
 
-    lRoller.setInverted(rollerInvert);
-    rRoller.setInverted(!rollerInvert);
+    SparkMaxConfig lRollerConfig = new SparkMaxConfig();
+    SparkMaxConfig rRollerConfig = new SparkMaxConfig();
+
+    lRollerConfig.inverted(rollerInvert);
+    rRollerConfig.follow(lRoller, true);
+
+    lRollerConfig.idleMode(IdleMode.kBrake);
+    rRollerConfig.idleMode(IdleMode.kBrake);
+
+    lRoller.configure(lRollerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    rRoller.configure(rRollerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+    lRollerConfig.smartCurrentLimit(100);
+    rRollerConfig.smartCurrentLimit(100);
 
     resetPivot(AlgearArmPositions.STORE);
   }
@@ -64,8 +72,7 @@ public class AlgaeArm extends SubsystemBase {
   }
 
   public void setRollerSpeed(double speed) {
-    lRoller.set(VictorSPXControlMode.PercentOutput, speed);
-    rRoller.set(VictorSPXControlMode.PercentOutput, speed);
+    lRoller.set(speed);
   }
 
   public void setPosition(double angle) {
@@ -115,7 +122,11 @@ public class AlgaeArm extends SubsystemBase {
         setRollerSpeed(0);
         break;
       case kIntake:
-        setRollerSpeed(IntakeSpeed);
+        if (getAlgeaSwitch()) {
+          setRollerSpeed(0);
+        } else {
+          setRollerSpeed(IntakeSpeed);
+        }
         break;
       case kScore:
         setRollerSpeed(ScoreSpeed);
@@ -132,10 +143,5 @@ public class AlgaeArm extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Algae Pivot", getPivotPosition());
-
-    SmartDashboard.putBoolean("Algae", getHomeSwitch());
-
-    SmartDashboard.putBoolean("Algae Piece", getAlgeaSwitch());
   }
 }

@@ -5,7 +5,6 @@
 package frc.robot;
 
 import frc.robot.Constants.AlgearArmPositions;
-import frc.robot.Constants.CoralArmPositions;
 import frc.robot.Constants.ElevatorPositions;
 
 /** A State for the scoresystem */
@@ -20,11 +19,6 @@ public class ScoreSystemState {
 
     // elevator
     public double elevatorPos = ElevatorPositions.HOME;
-
-    // coral arm
-    public double coralArmPos = CoralArmPositions.STORE;
-    public RollerState coralMode = RollerState.kIdle;
-    public boolean coralArmFull = false;
 
     // algea arm
     public double algeaArmPos = AlgearArmPositions.STORE;
@@ -42,28 +36,6 @@ public class ScoreSystemState {
     public void setElevator(double height) {
         elevatorPos = height;
     }
-
-
-    /**
-     * sets the values for the coral arm
-     * @param angle the angle of the arm
-     * @param mode the roller mode of the arm
-     */
-    public void setCoralArm(double angle, RollerState mode) {
-        setCoralArm(angle, mode, false);
-    }
-
-    /**
-     * sets the values for the coral arm
-     * @param angle the angle of the arm
-     * @param mode the roller mode of the arm
-     * @param full if the arm is holding a piece
-     */
-    public void setCoralArm(double angle, RollerState mode, boolean full) {
-        coralArmPos = angle;
-        coralMode = mode;
-    }
-
 
     /**
      * sets the values for the algae arm

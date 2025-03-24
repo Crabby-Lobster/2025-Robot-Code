@@ -5,22 +5,21 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.ScoreSystemState;
 import frc.robot.ScoreSystemState.RollerState;
 import frc.robot.commands.AlgaeHome;
-import frc.robot.commands.CoralHome;
+import frc.robot.commands.BreakTies;
 import frc.robot.commands.ElevatorHome;
 import frc.robot.Constants.AlgearArmPositions;
-import frc.robot.Constants.CoralArmPositions;
 import frc.robot.Constants.ElevatorPositions;
 
 public class ScoreSystem extends SubsystemBase {
 
   // parts
   public Elevator elevator;
-  public CoralArm coralArm;
   public AlgaeArm algaeArm;
 
   //States
@@ -29,9 +28,8 @@ public class ScoreSystem extends SubsystemBase {
   public ScoreSystemState currentState = new ScoreSystemState();
 
   /** Creates a new ScoreSystem. */
-  public ScoreSystem(Elevator elevator, CoralArm coralArm, AlgaeArm algaeArm) {
+  public ScoreSystem(Elevator elevator, AlgaeArm algaeArm) {
     this.elevator = elevator;
-    this.coralArm = coralArm;
     this.algaeArm = algaeArm;
   }
 
@@ -51,21 +49,14 @@ public class ScoreSystem extends SubsystemBase {
   public void update() {
     // check safties
     checkElevatorSaftey();
-    checkCoralSaftey();
     checkAlgaeSaftey();
 
     // updates subsystems
     elevator.setPosition(safeState.elevatorPos);
-    coralArm.setPosition(safeState.coralArmPos);
     algaeArm.setPosition(safeState.algeaArmPos);
 
-    coralArm.updateRollers(safeState.coralMode);
     algaeArm.updateRollers(safeState.algaeMode);
 
-    // updates current state
-    currentState.setElevator(elevator.getHeight());
-    currentState.setCoralArm(0, safeState.algaeMode, false);
-    currentState.setAlgaeArm(0, safeState.algaeMode, false);
   }
 
 
@@ -76,33 +67,18 @@ public class ScoreSystem extends SubsystemBase {
     double desiredPosition = desiredState.elevatorPos;
     
     // Clamps to elevator position
-    desiredPosition = MathUtil.clamp(desiredPosition - ElevatorPositions.OFFSET, ElevatorPositions.HOME, ElevatorPositions.MAXHEIGHT());
+    desiredPosition = MathUtil.clamp(desiredPosition, ElevatorPositions.HOME, ElevatorPositions.MAXHEIGHT());
     
     //keeps elevator clear of algae arm
     double algaeAngle = Math. min(desiredState.algeaArmPos, currentState.algeaArmPos);
     double[] algaeClearence = algaeArm.getSafeHeight(algaeAngle);
 
-    // keeps elevator clear of coral arm
-    double coralAngle = Math.min(desiredState.coralArmPos, currentState.coralArmPos);
-    double[] coralClearence = coralArm.getSafeHeight(coralAngle);
-
     desiredPosition = MathUtil.clamp(desiredPosition, algaeClearence[0], algaeClearence[1]);
-    desiredPosition = MathUtil.clamp(desiredPosition, coralClearence[0], coralClearence[1]);
+
 
     safeState.setElevator(desiredPosition);
   }
 
-  /**
-   * checks to make sure the coral arm wont cause any collisions
-   */
-  private void checkCoralSaftey() {
-    double desiredPosition = desiredState.coralArmPos;
-    RollerState desiredMode = desiredState.coralMode;
-
-    desiredPosition = MathUtil.clamp(desiredPosition, CoralArmPositions.MINANGLE, CoralArmPositions.HOME);
-    
-    safeState.setCoralArm(desiredPosition, desiredMode);
-  }
 
   /**
    * checks to make sure the algae arm wont cause any collisions
@@ -118,7 +94,7 @@ public class ScoreSystem extends SubsystemBase {
 
   public SequentialCommandGroup HomeSystems(ScoreSystem scoresystem) {
     return new SequentialCommandGroup(
-      new CoralHome(scoresystem),
+      new BreakTies(scoresystem),
       new AlgaeHome(scoresystem),
       new ElevatorHome(scoresystem)
     );
@@ -127,7 +103,11 @@ public class ScoreSystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     currentState.setElevator(elevator.getHeight());
-    currentState.setCoralArm(coralArm.getPivotPosition(), safeState.coralMode, coralArm.getCoralSwitch());
     currentState.setAlgaeArm(algaeArm.getPivotPosition(), safeState.algaeMode, algaeArm.getAlgeaSwitch());
+
+    SmartDashboard.putNumber("algae", currentState.algeaArmPos);
+    SmartDashboard.putNumber("Elevator", currentState.elevatorPos);
+    SmartDashboard.putNumber("Desired algae", desiredState.algeaArmPos);
+    SmartDashboard.putNumber("Desired Elavator", desiredState.elevatorPos);
   }
 }

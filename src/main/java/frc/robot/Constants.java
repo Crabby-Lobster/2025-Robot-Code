@@ -60,56 +60,13 @@ public final class Constants {
     public static final int freeCurrentLimit = 40;
 
     // the throttle multiplier for manual driving
-    public static final double DriveSpeed = 0.5;
+    public static final double DriveSpeed = 1;
 
     // diff drive constants
     public static final double kTrackwidthMeter = 0.60325;
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeter);
   }
   
-  /**
-   * values for coral arm subsytem
-   */
-  public static final class CoralArmConstants {
-    
-    // Motors
-    public static final int pivotID = 8;
-    public static final int rollerLID = 12;
-    public static final int rollerRID = 13;
-
-    public static final boolean pivotInvert = false;
-    public static final boolean rollerInvert = false;
-
-    public static final double pivotPosConversion = (1 / 275.0) * 360;;
-
-    // Limit switches
-    public static final int HomeSwitchID = 7;
-    public static final int coralSwitchID = 6;
-
-    // PID
-    public static final double[] PIDValues = {0.1, 0.0, 0.0};
-
-    // Rollers
-    public static final double IntakeSpeed = -0.5;
-    public static final double ScoreSpeed = 0.5;
-    public static final double HoldSpeed = -0.25;
-  }
-
-  /**
-   * saved coral arm positions
-   */
-  public static final class CoralArmPositions {
-    public static final double HOME = 90;
-    public static final double MINANGLE = -90;
-    
-    public static final double STORE = 85;
-
-    public static final double INTAKE = 0;
-    public static final double SCORE = 70;
-
-    public static final double[] dangerAngles = {15,-90};
-    public static final double[] dangerHeight = {0,24};
-  }
 
   /**
    *  saved values for algea arm
@@ -117,12 +74,13 @@ public final class Constants {
   public static final class AlgaeArmConstants {
     // Motors
     public static final int pivotID = 9;
-    public static final int rollerLID = 10;
-    public static final int rollerRID = 11;
+    public static final int rollerLID = 20;
+    public static final int rollerRID = 21;
     public static final double pivotPosConversion = (1 / 275.0) * 360;
+    public static final double rollerSpeedConversion = 1;
 
     public static final boolean pivotInvert = true;
-    public static final boolean rollerInvert = false;
+    public static final boolean rollerInvert = true;
 
     // Limit switches
     public static final int HomeSwitchID = 8;
@@ -132,26 +90,28 @@ public final class Constants {
     public static final double[] PIDValues = {0.1,0,0};
 
     // Rollers
-    public static final double IntakeSpeed = -0.5;
+    public static final double IntakeSpeed = -0.25;
     public static final double ScoreSpeed = 1;
-    public static final double HoldSpeed = -0.25;
+    public static final double HoldSpeed = -0.1;
   }
 
   /**
    * saved algea arm position
    */
   public static final class AlgearArmPositions {
-    public static final double HOME = 65;
+    public static final double HOME = 75;
     public static final double MINANGLE = -35;
 
-    public static final double STORE = 60;
+    public static final double[] dangerAngles = {-20, MINANGLE};
+    public static final double[] dangerHeight = {0,0};
 
-    public static final double GROUNDINTAKE = -15; 
-    public static final double INTAKE = 25;
-    public static final double SCORE = 45;
-
-    public static final double[] dangerAngles = {0,-35};
-    public static final double[] dangerHeight = {0,10};
+    public static final double Barge = 70;
+    public static final double ReefHigh = 0;
+    public static final double ReefLow = -12;
+    public static final double STORE = 65;
+    public static final double GroundHigh = -10;
+    public static final double Ground = -12;
+    
   }
 
   /**
@@ -186,24 +146,17 @@ public final class Constants {
       return STAGE1TOP + STAGE2TOP;
     }
 
-    public static final double STAGE1TOP = 20;
-    public static final double STAGE2TOP = 14;
-
+    public static final double STAGE1TOP = 25;
+    public static final double STAGE2TOP = 16;
     public static final double HOME = 0;
 
-    public static final double OFFSET = 0;
 
-
-    public static final double CoralIntake = 20;
-    public static final double L1Coral = 10;
-    public static final double L2Coral = 20;
-    public static final double L3Coral = 30;
-
-    public static final double AlgaeGround = 0;
-    public static final double AlgaeIntake = 15;
-    public static final double AlgaeScore = MAXHEIGHT();
-
-
-    public static final double minElevatorSafeHeight = 0;
+    public static final double Barge = MAXHEIGHT();
+    public static final double ReefHigh = 38;
+    public static final double ReefLow = 26;
+    public static final double STORE = 0;
+    public static final double GroundHigh = 10;
+    public static final double Ground = 0;
+    
   }
 }
