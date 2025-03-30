@@ -60,7 +60,7 @@ public final class Constants {
     public static final int freeCurrentLimit = 40;
 
     // the throttle multiplier for manual driving
-    public static final double DriveSpeed = 0.5;
+    public static final double DriveSpeed = 0.4;
 
     // diff drive constants
     public static final double kTrackwidthMeter = 0.60325;
