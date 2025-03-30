@@ -19,6 +19,7 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ScoreSystem;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -35,9 +36,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
 
   // controllers
-  private final Joystick leftStick = new Joystick(ControllerConstants.LeftJoystick);
-  private final Joystick rightStick = new Joystick(ControllerConstants.rightJoystick);
-  private final Joystick controller = new Joystick(ControllerConstants.controller);
+  private final XboxController driver = new XboxController(0);
+  private final Joystick operator = new Joystick(1);
 
   
   // subsystems
@@ -48,13 +48,13 @@ public class RobotContainer {
   private final Climber m_climber = new Climber();
   private final ScoreSystem m_ScoreSystem = new ScoreSystem(m_elevator, m_algaeArm);
 
-  private final PositionContainer m_PositionContainer = new PositionContainer(leftStick, rightStick, controller, m_ScoreSystem);
+  private final PositionContainer m_PositionContainer = new PositionContainer(driver, operator, m_ScoreSystem);
   private final AutoContainer m_AutoContainer = new AutoContainer(m_driveTrain, m_ScoreSystem, m_PositionContainer);
 
   // Default commands
-  private final DefaultDrive m_DefaultDrive = new DefaultDrive(leftStick, rightStick, m_driveTrain, controller);
-  private final DefaultScoreSystem m_DefaultScoreSystem = new DefaultScoreSystem(m_ScoreSystem, leftStick, rightStick, controller, m_PositionContainer);
-  private final DefaultClimber m_DefaultClimber = new DefaultClimber(m_climber, rightStick);
+  private final DefaultDrive m_DefaultDrive = new DefaultDrive(driver, m_driveTrain, operator);
+  private final DefaultScoreSystem m_DefaultScoreSystem = new DefaultScoreSystem(m_ScoreSystem, driver, operator, m_PositionContainer);
+  private final DefaultClimber m_DefaultClimber = new DefaultClimber(m_climber, driver);
   
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandJoystick m_driverController =

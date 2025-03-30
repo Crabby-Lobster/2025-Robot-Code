@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveTrain;
 import static frc.robot.Constants.DrivetrainConstants.*;
@@ -15,18 +16,16 @@ import static frc.robot.Constants.DrivetrainConstants.*;
 public class DefaultDrive extends Command {
   
   //The joysticks used to control the drivetrain
-  Joystick LeftJoystick;
-  Joystick rightJoystick;
-  Joystick controller;
+  XboxController driver;
+  Joystick operator;
   DriveTrain drivetrain;
 
   /** Creates a new DefaultDrive. */
-  public DefaultDrive(Joystick leftJoystick, Joystick rightJoystick, DriveTrain driveTrain, Joystick controller) {
+  public DefaultDrive(XboxController driver, DriveTrain driveTrain, Joystick operator) {
     // assigns the inputs from the constructor to the variables to be used in this class
-    this.LeftJoystick = leftJoystick;
-    this.rightJoystick = rightJoystick;
+    this.driver = driver;
     this.drivetrain = driveTrain;
-    this.controller = controller;
+    this.operator = operator;
     // Use addRequirements() here to declare subsystem dependencies.
     // this tell the drivetrain that it is required for this command to run
     addRequirements(driveTrain);
@@ -41,10 +40,9 @@ public class DefaultDrive extends Command {
   public void execute() {
 
     // this calls the function from the drivetrain to set the speed of the motors
-    double drivespeed = (rightJoystick.getRawButton(1) ? DriveSpeed * 0.5: DriveSpeed);
-    double left_speed = -LeftJoystick.getY() * drivespeed;
-    double right_speed = -rightJoystick.getY() * drivespeed;
-    drivetrain.TankDrive(left_speed, right_speed, !rightJoystick.getRawButton(1));
+    double foward = driver.getLeftY() * DriveSpeed;
+    double turn = driver.getRightX() * DriveSpeed;
+    drivetrain.ArcadeDrive(foward, turn);
   }
 
   // Called once the command ends or is interrupted.

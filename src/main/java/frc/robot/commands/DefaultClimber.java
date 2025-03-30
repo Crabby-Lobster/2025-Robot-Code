@@ -4,18 +4,18 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Climber;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class DefaultClimber extends Command {
   Climber climber;
-  Joystick rightJoy;
+  XboxController driver;
   /** Creates a new DefaultClimber. */
-  public DefaultClimber(Climber climber, Joystick rightJoy) {
+  public DefaultClimber(Climber climber, XboxController driver) {
     this.climber = climber;
-    this.rightJoy = rightJoy;
+    this.driver = driver;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(climber);
   }
@@ -27,15 +27,7 @@ public class DefaultClimber extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed;
-
-    if (rightJoy.getRawButton(4)) {
-      speed = 1;
-    } else if (rightJoy.getRawButton(6)) {
-      speed = -1;
-    } else {
-      speed = 0;
-    }
+    double speed = 0;
 
     climber.setSpeed(speed);
 

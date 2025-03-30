@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.AlgearArmPositions;
 import frc.robot.Constants.ElevatorPositions;
 import frc.robot.ScoreSystemState.RollerState;
@@ -17,9 +18,8 @@ public class PositionContainer {
     ScoreSystem scoreSystem;
 
     //Controllers
-    Joystick leftJoy;
-    Joystick rightJoy;
-    Joystick Controller;
+    XboxController driver;
+    Joystick operator;
 
     // Scoresystem states
     ScoreSystemState currentState = new ScoreSystemState();
@@ -51,10 +51,9 @@ public class PositionContainer {
     }
     
     /** Creates new positionContainer */
-    public PositionContainer(Joystick leftJoy, Joystick rightJoy, Joystick controller, ScoreSystem scoreSystem) {
-        this.leftJoy = leftJoy;
-        this.rightJoy = rightJoy;
-        this.Controller = controller;
+    public PositionContainer(XboxController driver, Joystick operator, ScoreSystem scoreSystem) {
+        this.driver = driver;
+        this.operator = operator;
         this.scoreSystem = scoreSystem;
     }
 
@@ -66,36 +65,36 @@ public class PositionContainer {
      */
     public void updateInputs() {
         //Store
-        if (Controller.getRawButtonPressed(2)) {
+        if (operator.getRawButtonPressed(2)) {
             activeSystemState = States.kStore;
         }
         //Ground
-        else if (Controller.getRawButtonPressed(11)) {
+        else if (operator.getRawButtonPressed(11)) {
             activeSystemState = States.kGround;
         }
         //GroundHigh
-        else if (Controller.getRawButtonPressed(1)) {
+        else if (operator.getRawButtonPressed(1)) {
             activeSystemState = States.kGroundHigh;
         }
         //ReefLow
-        else if (Controller.getRawButtonPressed(9)) {
+        else if (operator.getRawButtonPressed(9)) {
             activeSystemState = States.kReefLow;
         }
         //ReefHigh
-        else if (Controller.getRawButtonPressed(10)) {
+        else if (operator.getRawButtonPressed(10)) {
             activeSystemState = States.kReefHigh;
         }
         //Barge
-        else if (Controller.getRawButtonPressed(7)) {
+        else if (operator.getRawButtonPressed(7)) {
             activeSystemState = States.kBarge;
         }
 
         //intake
-        intake = leftJoy.getRawButton(1);
-        output = leftJoy.getRawButton(6);
+        intake = operator.getRawButton(3);
+        output = operator.getRawButton(4);
 
         //Manual
-        algaeArmOffset = Controller.getY() * 20;
+        algaeArmOffset = operator.getY() * 20;
     }
 
     /**
